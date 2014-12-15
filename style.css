@@ -1,0 +1,35 @@
+body
+{
+}
+table, td, th
+{
+border-color:silver;
+}
+.lauzyti {
+    width: 480px;
+    word-wrap: break-word;
+}
+.lauzyti2 {
+    word-wrap: break-word;
+}
+a:link {
+text-decoration: none;
+}    /* unvisited link */
+a:visited {
+text-decoration: none;
+} /* visited link */
+a:hover {
+text-decoration: none;
+background-color:#FF704D;
+}   /* mouse over link */
+a:active {
+text-decoration: none;
+background-color:#FF704D;
+}  /* selected link */ 
+.statusmsg{
+	text-align: center;
+    font-size: 18px;  
+    padding: 3px;  
+    background: #EDEDED;  
+    border: 1px solid #DFDFDF;  
+}
