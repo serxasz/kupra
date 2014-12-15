@@ -42,17 +42,18 @@ if (loggedIn($where) && isAdministrator($username)) {
 	while($quantity = mysql_fetch_row($quantities_result)) {
    		$panaudota_kartu = 0;
 
-   		$queryUsed = "SELECT quantities_id FROM products";
+   		$queryUsed = "SELECT quantities_id FROM products WHERE quantities_id='$quantity[0]'";
    		$used_result = mysql_query($queryUsed);
 
    		while($used = mysql_fetch_row($used_result)) { 
-   			if ($used[0] == $quantity[0]) {
-   				$panaudota_kartu += 1;
-   			}
+   			$panaudota_kartu += 1;
+   		}
 
    			if ($panaudota_kartu == 0) {
    				$controls = "<a href=\"edit_clasificator.php?edit=$quantity[0]\">Redaguoti</a>
    							 <a href=\"edit_clasificator.php?delete=$quantity[0]\">Ištrinti</a>";
+   			} else {
+   				$controls = "";
    			}
 
    			if (!($quantity[0] == $editingID)) {
@@ -72,7 +73,6 @@ if (loggedIn($where) && isAdministrator($username)) {
 					 	</tr>
 					 </form>";
 			}
-       	}
    	}
 
    	echo "</table>";

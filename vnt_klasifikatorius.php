@@ -37,8 +37,9 @@ if (loggedIn($where)) {
 		echo "<br /><br /><a href=\"vnt_klasifikatorius.php\">Įvesti kitą</a>";
 	} else {
 			echo '<form action="vnt_klasifikatorius.php" method="post">
-					Pavadinimas: <input type="text" name="quantity"><input type="submit" value="Papildyti">
-					</form>';
+					Pavadinimas: <input type="text" name="quantity">
+					<input type="submit" value="Papildyti">
+				  </form>';
 	}
 
 	echo "<h2>Matavimo vienetai</h2>";

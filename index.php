@@ -27,6 +27,7 @@ if (loggedIn($where)) {
 
     echo "<h1>Meniu</h1>";
     echo "<a href=\"vnt_klasifikatorius.php\">Matavimo vienetai</a><br />";
+    echo "<a href=\"produktu_klasifikatorius.php\">Produktų sąrašas</a><br />";
 } else {
 	include('include_content/not_registered.php');
 }
