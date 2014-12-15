@@ -16,6 +16,7 @@ if (loggedIn($where)) {
 	$sOutput="";
 		if (empty($_GET['action'])) {	
 			$sOutput = "<h2>Admin panel</h2>
+            <a href=\"admin.php?action=member_list\">Narių sąrašas</a><br>
 			<a href=\"admin.php?action=delete_user\">" . $phrase[1] . "</a><br>
 			<a href=\"admin.php?action=group_email\">" .$phrase[2]. "</a><br>
 			<a href=\"admin.php?action=earnings\">" .$phrase[3]. "</a><br><br>
@@ -111,6 +112,35 @@ if (loggedIn($where)) {
 			<tr>
 				<td align="center"><input type="submit" name="submit" value="' . $phrase[2] . '"><br><a href="admin.php">' . $phrase[17] . '</a></td>
 			</tr></table></form>';
+		}
+        if (strtolower($_GET['action']) == 'member_list') {
+			if (isset($_GET["page"])) {
+                if ((is_numeric($_GET["page"])) && (0<=$_GET["page"]) && ($_GET["page"]<=1000)) {
+                    $page  = $_GET["page"];
+                }else { $page=1; }	
+            }else { $page=1; }; 
+            $start_from = ($page-1) * 20;
+            $sql = "SELECT username FROM users ORDER BY username ASC LIMIT $start_from, 20"; 
+            $query = mysql_query($sql) or die("Query Failed: " . mysql_error());
+            $sOutput = '<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+					<tr> 
+						<td colspan="2" align="center">Narių sąrašas</td>
+					</tr>';
+            while ($row = mysql_fetch_assoc($query)) {
+                $sOutput .= "<tr><td align='center'><a href='m.php?user=$row[username]'>$row[username]</a></td></tr>";  
+            }
+	$sql = "SELECT COUNT(id) FROM users"; 
+	$rs_result = mysql_query($sql); 
+	$row = mysql_fetch_row($rs_result); 
+	$total_records = $row[0];
+	$total_pages = ceil($total_records / 20);
+	$sOutput .= '<tr><td align="center">';
+	for ($i=1; $i<=$total_pages; $i++) { 
+		$sOutput .="<a href='admin.php?action=member_list&page=$i'>$i</a> "; 
+	};
+	$sOutput .="<br><a href='index.php'> " . $phrase[56] . " </a>";
+	$sOutput .= '</td></tr>';
+	$sOutput .= '</table>';
 		}
 	echo $sOutput;
 	}else { echo"<script>top.location = '../index.php';</script>"; }

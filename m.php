@@ -22,7 +22,7 @@ if (loggedIn($where)) {
                 
                 $file = glob("uploads/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
                 foreach ($file as $i) {
-                    if ($i == "uploads/" . $_GET["user"] . ".jpg") {
+                    if ($i == "uploads/" . $_GET["user"] . ".jpg" or $i == "uploads/" . $_GET["user"] . ".jpeg" or $i == "uploads/" . $_GET["user"] . ".png" or $i == "uploads/" . $_GET["user"] . ".gif") {
                         $sOutput .= '<br/><img src="'.$i.'" alt="avatar" height="150" width="150"></td></tr>';
                     }
                 }
@@ -105,7 +105,16 @@ if (loggedIn($where)) {
 									<td width='60%' align='center'>" . $row['description'] . "</td>
 								</tr></table>";
                     }
-				}				
+				}
+                    $sql = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
+                    $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+                    $row = mysql_fetch_array($query);
+                    if ($row[type]=="Admin") {
+                        $sOutput .= "<table width='340' border='1' align='center' cellpadding='5' cellspacing='0'>
+                        <tr><td align='center'>Keisti tipą</tr></td>
+                        </table>
+                        ";
+                    }
 			}else { $sOutput = $phrase[55]; }
 		}else { $sOutput = $phrase[55]; }	
 	}else { echo"<script>top.location = 'm.php?user=" . $_SESSION['username'] . "';</script>"; } 
