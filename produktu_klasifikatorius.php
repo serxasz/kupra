@@ -83,8 +83,8 @@ if (loggedIn($where)) {
 
        	echo "<tr>
        			<td>...</td>
+       			<td>$product[3]</td>
        			<td>$product[4]</td>
-       			<td>$product[5]</td>
        			<td>$quantity[0]</td>
        		  </tr>";
    	}
