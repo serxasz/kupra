@@ -46,7 +46,7 @@ if (loggedIn($where)) {
 				echo "<option value=\"$quantity[0]\">$quantity[2]</option>";
 			}
 	  					
-			echo '</td></tr></select><br />';
+			echo '</select></td></tr>';
 
 			echo '<tr>
 					<td>Kiekis:</td>
