@@ -5,6 +5,7 @@ include('include_content/language.php');
 include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
+	// test coomit
 	
 }else {
 	include('include_content/not_registered.php');
