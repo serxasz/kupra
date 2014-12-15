@@ -27,8 +27,7 @@ if (loggedIn($where)) {
 
     echo "<h1>Meniu</h1>";
     echo "<a href=\"vnt_klasifikatorius.php\">Matavimo vienetai</a><br />";
-
-}else {
+} else {
 	include('include_content/not_registered.php');
 }
 include('include_content/html_bottom.php'); 

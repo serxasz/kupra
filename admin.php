@@ -22,8 +22,9 @@ if (loggedIn($where)) {
             <a href=\"admin.php?action=member_list\">Narių sąrašas</a><br>
 			<a href=\"admin.php?action=delete_user\">" . $phrase[1] . "</a><br>
 			<a href=\"admin.php?action=group_email\">" .$phrase[2]. "</a><br>
-			<a href=\"admin.php?action=earnings\">" .$phrase[3]. "</a><br><br>
-			<a href=\"../index.php\">" .$phrase[4]. "</a>"; 
+			<a href=\"admin.php?action=earnings\">" .$phrase[3]. "</a><br>
+			<a href=\"edit_clasificator.php\">Matavimo vienetai</a><br><br>
+			<a href=\"../index.php\">" .$phrase[4]. "</a>";
 		}
 		if (strtolower($_GET['action']) == 'delete_user1') {
 			if (!empty($_POST['user'])) {
