@@ -1,7 +1,7 @@
 <?php
 /*******************/
 
-function createAccount($pUsername, $pPassword, $email, $email_verification) { 
+function createAccount($pUsername, $pPassword, $email, $email_verification, $type, $name, $surname, $description, $private) { 
 	include($_SESSION['lang']);
 	if (!empty($pUsername) && !empty($pPassword)) { 
 		$uLen = strlen($pUsername); 
@@ -28,10 +28,10 @@ function createAccount($pUsername, $pPassword, $email, $email_verification) {
 		}else {
 			if ($email_verification == 1) { $verification = 0; }
 			elseif ($email_verification == 0) { $verification = 1; }
-			$sql = "INSERT INTO users (`username`, `password`, `email`, `active`) VALUES ('$eUsername', '". sha1($pPassword) . "', '$email', '$verification');"; 
+			$sql = "INSERT INTO users (`username`, `password`, `email`, `active`, `type`, `private`, `name`, `surname`, `description`) VALUES ('$eUsername', '". sha1($pPassword) . "', '$email', '$verification', '$type', '$private', '$name', '$surname', '$description');"; 
 			$query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error()); 
 			if ($query) { 
-				return true; 
+				return true;
 			}   
 		} 
 	} 

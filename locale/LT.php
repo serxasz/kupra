@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 $phrase[1] = "Ištrinti vartotoją";
 $phrase[2] = "Siųsti email visiems vartotojams";
 $phrase[3] = "Uždirbta";
@@ -171,4 +171,5 @@ $phrase[111] = "TAIP";
 $phrase[112] = "NE";
 $phrase[113] = "Tema:";
 $phrase[114] = "Saugomas tik paskutinis ".$max_pm." jau ištrintų žinučių!";
+$phrase[115] = "Vartotojo tipas:";
 ?>

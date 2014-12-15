@@ -1,4 +1,4 @@
-<?php 
+﻿<?php 
 $phrase[1] = "Delete user";
 $phrase[2] = "Send group email";
 $phrase[3] = "Earnings";
@@ -171,4 +171,5 @@ $phrase[111] = "YES";
 $phrase[112] = "NO";
 $phrase[113] = "Subject:";
 $phrase[114] = "Only last ".$max_pm." of already deleted messages are saved!";
+$phrase[115] = "User type:";
 ?>
