@@ -29,8 +29,11 @@ if (loggedIn($where)) {
                 if ($row['private'] == "1") {
                     $privatu = "Taip";
                 } else { $privatu = "Ne"; }
-                
-				if ($row['username'] == $_SESSION['username']) {
+                $target = $row['username'];
+                $sql_admin = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
+                    $query_admin = mysql_query($sql_admin) or trigger_error("Query Failed: " . mysql_error());
+                    $row_admin = mysql_fetch_array($query_admin); 
+				if ($row['username'] == $_SESSION['username'] or $row_admin[type]=="Administratorius") {
 					$sOutput .= "<tr> 
 									<td width='40%'><strong>" . $phrase[51] . "</strong></td>
 									<td width='60%' align='center'>" . $row['id'] . "</td>
@@ -63,13 +66,16 @@ if (loggedIn($where)) {
 									<td width='40%'><strong>Apibūdinimas:</strong></td>
 									<td width='60%' align='center'>" . $row['description'] . "</td>
 								</tr>
-								<tr> 
+								<tr></table>";
+                                if ($row['username'] == $_SESSION['username']) {
+                                    $sOutput .= "<table width='340' border='1' align='center' cellpadding='5' cellspacing='0'>
 									<td colspan='2' align='center'>
 									<a href='change_pass.php?action=pass'>" . $phrase[53] . "</a><br>
 									<a href='change_pass.php?action=email'>" . $phrase[54] . "</a><br>
                                     <a href='change_pass.php?action=other'>Keisti duomenis</a><br>
 									</td>
 								</tr></table>";
+                                }
 				}else {
 					$sOutput .= "<tr> 
 									<td width='40%'><strong>" . $phrase[51] . "</strong></td>
@@ -109,9 +115,11 @@ if (loggedIn($where)) {
                     $sql = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
                     $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
                     $row = mysql_fetch_array($query);
-                    if ($row[type]=="Admin") {
+                    if ($row[type]=="Administratorius") {
                         $sOutput .= "<table width='340' border='1' align='center' cellpadding='5' cellspacing='0'>
-                        <tr><td align='center'>Keisti tipą</tr></td>
+                        
+                        <tr><td align='center'>Administratoriaus meniu:<br/>
+                        <a href='admin.php?action=change_type&target=".$target."'>Keisti tipą</a></tr></td>
                         </table>
                         ";
                     }

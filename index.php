@@ -17,8 +17,17 @@ if (loggedIn($where)) {
 	" . $phrase[46] . "  <a href=\"users_online.php\">" . countOnlineUsers() . "</a><br>
 	<a href=\"pm.php\">".$strong1."" . $phrase[89] . " [".$row[0]."/".$max_pm."]".$strong2."</a><br>
 	<a href=\"m.php\">" . $phrase[47] . "</a><br>";
-	if ($admin == $_SESSION['username']) { echo"<a href=\"admin.php\">" . $phrase[17] . "</a><br/>"; }
+    
+     $sql = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
+                    $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+                    $row = mysql_fetch_array($query);
+	if ($row[type]=="Administratorius") { echo"<a href=\"admin.php\">" . $phrase[17] . "</a><br/>"; }
+    
     echo $phrase[48]; 
+
+    echo "<h1>Meniu</h1>";
+    echo "<a href=\"vnt_klasifikatorius.php\">Matavimo vienetai</a><br />";
+
 }else {
 	include('include_content/not_registered.php');
 }

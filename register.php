@@ -32,7 +32,7 @@ if (isset($_GET['action'])) {
                         $uploadOk = 1;
                         $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
                         $file_full_path = $target_dir . $_POST['username'] . "." . $imageFileType; 
-                        if(isset($_POST["submit"])) {
+                        if(isset($_POST["fileToUpload"]) ) {
                             $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
                             if($check == false) {
                                 $uploadOk = 0;
@@ -56,7 +56,9 @@ if (isset($_GET['action'])) {
                             $_SESSION['error'] = "Leidziami tik jpg, png ir gif failai"; 
                             unset($_GET['action']);
                         }
-                        if ($uploadOk == 1) {
+                        if ($uploadOk == 1 or !isset($_POST["fileToUpload"])) {
+                            $_GET['action'] = "register";
+                            $_SESSION['error'] = ""; 
                             $sql = "SELECT username FROM users WHERE username = '" . $_POST['username'] . "' LIMIT 1";
                             $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
                             if (mysql_num_rows($query) !== 1) {

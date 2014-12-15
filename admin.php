@@ -12,7 +12,10 @@ if (loggedIn($where)) {
     theme : 'white'
 	};</script>
 	<?php
-	if ($admin == $_SESSION['username']) {
+    $sql = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
+                    $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+                    $row = mysql_fetch_array($query);
+	if ($row[type]=="Administratorius") {
 	$sOutput="";
 		if (empty($_GET['action'])) {	
 			$sOutput = "<h2>Admin panel</h2>
@@ -141,6 +144,32 @@ if (loggedIn($where)) {
 	$sOutput .="<br><a href='index.php'> " . $phrase[56] . " </a>";
 	$sOutput .= '</td></tr>';
 	$sOutput .= '</table>';
+		}
+        if  (strtolower($_GET['action']) == 'change_type2') {
+					$result = mysql_query("UPDATE users SET type='" .mysql_real_escape_string($_POST['type']) . "'
+					WHERE username='" . $_POST['target'] . "'") or die(mysql_error());
+										$sOutput = '
+										<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+											<tr>
+												<td><div align="center">Pakeista sėkmingai! <br/> <a href="index.php">Titulinis</a></div></td>
+											</tr>
+										</table>';				
+		}
+        if  (strtolower($_GET['action']) == 'change_type') {
+			$sOutput .= '<form name="change" method="post" action="admin.php?action=change_type2">
+			<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+			<tr> 
+				<td align="center">
+                <select name="type">
+                <option value="Paprastas" selected="selected">   Paprastas   </option>
+                <option value="Kulinaras"> Kulinaras </option>
+                <option value="Administratorius"> Administratorius </option>
+                </select>
+                <input type="hidden" name="target" value="'.$_GET['target'].'">
+                </td>
+			</tr>
+				<td align="center"><input type="submit" name="submit" value=" ' . $phrase[42] . ' "></td>
+			</tr></table></form>';
 		}
 	echo $sOutput;
 	}else { echo"<script>top.location = '../index.php';</script>"; }
