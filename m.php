@@ -30,6 +30,9 @@ if (loggedIn($where)) {
                     $privatu = "Taip";
                 } else { $privatu = "Ne"; }
                 $target = $row['username'];
+                if ($row['confirmed'] == 0 and $row['type'] == "Kulinaras") {
+                $to_confirm = 1;
+                } else { $to_confirm = 0; }
                 $sql_admin = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
                     $query_admin = mysql_query($sql_admin) or trigger_error("Query Failed: " . mysql_error());
                     $row_admin = mysql_fetch_array($query_admin); 
@@ -118,9 +121,11 @@ if (loggedIn($where)) {
                     if ($row[type]=="Administratorius") {
                         $sOutput .= "<table width='340' border='1' align='center' cellpadding='5' cellspacing='0'>
                         <tr><td align='center'>Administratoriaus meniu:<br/>
-                        <a href='admin.php?action=change_type&target=".$target."'>Keisti tipą</a><br/>
-                        <a href='admin.php?action=change_confirmed&target=".$target."'>Patvirtinti kulinarą</a><br/>
-                        </tr></td>
+                        <a href='admin.php?action=change_type&target=".$target."'>Keisti tipą</a><br/>";
+                        if ($to_confirm == 1) {
+                        $sOutput .= "<a href='admin.php?action=change_confirmed&target=".$target."'>Patvirtinti kulinarą</a><br/>";
+                        }
+                        $sOutput .= "</tr></td>
                         </table>
                         ";
                     }
