@@ -123,21 +123,24 @@ if (loggedIn($where)) {
                 }else { $page=1; }	
             }else { $page=1; }; 
             $start_from = ($page-1) * 20;
-            $sql = "SELECT username FROM users ORDER BY username ASC LIMIT $start_from, 20"; 
+            $sql = "SELECT username, type, confirmed FROM users ORDER BY username ASC LIMIT $start_from, 20"; 
             $query = mysql_query($sql) or die("Query Failed: " . mysql_error());
             $sOutput = '<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
 					<tr> 
 						<td colspan="2" align="center">Narių sąrašas</td>
 					</tr>';
             while ($row = mysql_fetch_assoc($query)) {
-                $sOutput .= "<tr><td align='center'><a href='m.php?user=$row[username]'>$row[username]</a></td></tr>";  
+                $sOutput .= "<tr><td align='center' width='200'><a href='m.php?user=$row[username]'>$row[username]</a></td><td border= '0' align='center'>";
+                if ($row[type] == "Kulinaras" and $row[confirmed] == 0) {
+                    $sOutput .= " <font size='2'>Laukia patvirtinimo</font>";
+                } else { $sOutput .= "</td></tr>"; }
             }
 	$sql = "SELECT COUNT(id) FROM users"; 
 	$rs_result = mysql_query($sql); 
 	$row = mysql_fetch_row($rs_result); 
 	$total_records = $row[0];
 	$total_pages = ceil($total_records / 20);
-	$sOutput .= '<tr><td align="center">';
+	$sOutput .= '<tr><td colspan="2" align="center">';
 	for ($i=1; $i<=$total_pages; $i++) { 
 		$sOutput .="<a href='admin.php?action=member_list&page=$i'>$i</a> "; 
 	};
@@ -170,6 +173,16 @@ if (loggedIn($where)) {
 			</tr>
 				<td align="center"><input type="submit" name="submit" value=" ' . $phrase[42] . ' "></td>
 			</tr></table></form>';
+		}
+         if  (strtolower($_GET['action']) == 'change_confirmed') {
+					$result = mysql_query("UPDATE users SET confirmed='1'
+					WHERE username='" . $_GET['target'] . "'") or die(mysql_error());
+										$sOutput = '
+										<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+											<tr>
+												<td><div align="center">Patvirtinta sėkmingai! <br/> <a href="index.php">Titulinis</a></div></td>
+											</tr>
+										</table>';				
 		}
 	echo $sOutput;
 	}else { echo"<script>top.location = '../index.php';</script>"; }

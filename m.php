@@ -117,9 +117,10 @@ if (loggedIn($where)) {
                     $row = mysql_fetch_array($query);
                     if ($row[type]=="Administratorius") {
                         $sOutput .= "<table width='340' border='1' align='center' cellpadding='5' cellspacing='0'>
-                        
                         <tr><td align='center'>Administratoriaus meniu:<br/>
-                        <a href='admin.php?action=change_type&target=".$target."'>Keisti tipą</a></tr></td>
+                        <a href='admin.php?action=change_type&target=".$target."'>Keisti tipą</a><br/>
+                        <a href='admin.php?action=change_confirmed&target=".$target."'>Patvirtinti kulinarą</a><br/>
+                        </tr></td>
                         </table>
                         ";
                     }
