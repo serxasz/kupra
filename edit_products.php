@@ -61,7 +61,7 @@ if (loggedIn($where) && isAdministrator($username)) {
 		if (!($product[0] == $editingID)) {
 			echo "<tr>
 			 	<td>$product[1]</td>
-		    	<td>$product[4]</td>
+		    	<td>$product[3]</td>
 		    	<td>$quantity[0]</td>
 		    	<td>$panaudota_kartu</td>
 		    	<td>$controls</td>
@@ -70,7 +70,7 @@ if (loggedIn($where) && isAdministrator($username)) {
    			echo "<form action=\"edit_products.php\" method=\"post\">
    				 	<tr>
 					 	<td>$product[1]</td>
-				    	<td><input type=\"text\" name=\"name\" value=\"$product[4]\"></td>
+				    	<td><input type=\"text\" name=\"name\" value=\"$product[3]\"></td>
 						<td>
 							<select name=vienetai>
 		  					<option value=\"$product[2]\">$quantity[0]</option>";
