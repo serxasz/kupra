@@ -1,5 +1,16 @@
 <?php
 /*******************/
+function isAdministrator($username) {
+    $sql = "SELECT type FROM users WHERE username = '$username'";
+	$rs_result = mysql_query($sql); 
+	$row = mysql_fetch_row($rs_result);
+
+	if ($row[0] == 'Administratorius') {
+		return true;
+	} else {
+		return false;
+	}
+}
 
 function createAccount($pUsername, $pPassword, $email, $email_verification, $type, $name, $surname, $description, $private) { 
 	include($_SESSION['lang']);
