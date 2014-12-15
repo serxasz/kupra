@@ -86,6 +86,30 @@ require_once('includes/recaptchalib.php');
 				}else { $_SESSION['error'] = $phrase[37]; $_GET['action'] = 'email'; }
 			}else { $_SESSION['error'] = "email was not supplied."; $_GET['action'] = 'email'; }
 		}
+        if  (strtolower($_GET['action']) == 'change_other') {
+			if ($_POST["recaptcha_response_field"]) { 
+				$resp = recaptcha_check_answer ($privatekey,
+							$_SERVER["REMOTE_ADDR"],
+							$_POST["recaptcha_challenge_field"],
+							$_POST["recaptcha_response_field"]);
+				if (!$resp->is_valid) {
+					$_SESSION['error'] = $phrase[9]; $_GET['action'] = 'other';
+				}else {
+					$result = mysql_query("UPDATE users SET name='" .mysql_real_escape_string($_POST['name']) . "',
+                                                            surname='" . mysql_real_escape_string($_POST['surname']) . "',
+                                                            description='" . mysql_real_escape_string($_POST['description']) . "',
+                                                            private='" . mysql_real_escape_string($_POST['private']) . "'
+					WHERE username='" . $_SESSION['username'] . "'") or die(mysql_error());
+										$sOutput = '
+										<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+											<tr>
+												<td><div align="center">Pakeista sėkmingai! <br/> <a href="index.php">Titulinis</a></div></td>
+											</tr>
+										</table>';
+                              }						
+							}else { 
+								$_SESSION['error'] = $phrase[12]; $_GET['action'] = 'other'; }
+		}
 		if (!empty($_SESSION['error'])) { 
 			$sError = '<span id="error">' . $_SESSION['error'] . '</span><br>';
 			$sOutput .= '
@@ -124,6 +148,31 @@ require_once('includes/recaptchalib.php');
 			<tr> 
 				<td><strong>' . $phrase[43] . '</strong></td>
 				<td align="center"><input type="text" name="email" value=""></td>
+			</tr>
+			<tr> 
+				<td colspan="2" align="center">' . recaptcha_get_html($publickey) . '</td>
+			</tr>
+			<tr>
+				<td colspan="2" align="center"><input type="submit" name="submit" value=" ' . $phrase[42] . ' "></td>
+			</tr></table></form>';
+		}
+        if  (strtolower($_GET['action']) == 'other') {
+			$sOutput .= '<form name="change" method="post" action="change_pass.php?action=change_other">
+			<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+			<tr> 
+				<td><strong>Vardas:</strong></td>
+				<td align="center"><input type="text" name="name" value=""></td>
+			</tr>
+			<tr> 
+				<td><strong>Pavarde:</strong></td>
+				<td align="center"><input type="text" name="surname" value=""></td>
+			</tr>
+			<tr> 
+				<td><strong>Apibūdinimas:</strong></td>
+				<td align="center"><input type="text" name="description" value=""></td>
+			</tr>
+            <tr> 
+				<td colspan="2" align="center"><input type="checkbox" name="private" value="1"> Paskyra privati<br></td>
 			</tr>
 			<tr> 
 				<td colspan="2" align="center">' . recaptcha_get_html($publickey) . '</td>
