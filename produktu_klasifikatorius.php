@@ -5,7 +5,7 @@ include('include_content/language.php');
 include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
-	echo "<h1>work in progress...</h1>";
+
 	$username = $_SESSION['username'];
 
 	echo "<h2>Naujas produktas</h2>";
@@ -14,14 +14,16 @@ if (loggedIn($where)) {
 		$name = $_POST["name"];
 		$description = $_POST["description"];
 		$quantities = $_POST["vienetai"];
+		$kiekis = $_POST["kiekis"];
 
 		print_r($_POST);
-		$sql = "INSERT INTO products (username, quantities_id, name, description, picture_path) VALUES ('$username','$quantities','$name','$description','$username')";
+		$sql = "INSERT INTO products (username, quantities_id, quantity, name, description, picture_path) VALUES ('$username', '$quantities', '$kiekis', '$name','$description','$username')";
 
 		if (mysql_query($sql)) {
 			echo "Sėkmingai papildyta.";
 		} else {
-			echo "FAIL :(";
+			echo mysql_error();
+			echo "FAIL";
 		}
 	} else {
 			echo '<table style=width:20%; text-align: center;>';
@@ -47,6 +49,10 @@ if (loggedIn($where)) {
 			echo '</td></tr></select><br />';
 
 			echo '<tr>
+					<td>Kiekis:</td>
+					<td><input type="number" name="kiekis"></td>
+				  </tr>
+				  <tr>
 					<td>Aprašymas:</td>
 					<td><input type="text" name="description"></td>
 				  </tr>
@@ -63,6 +69,34 @@ if (loggedIn($where)) {
 	}
 
 	echo "<h2>Produktų sąrašas</h2>";
+
+	$queryProducts = "SELECT * FROM products";
+	$products_result = mysql_query($queryProducts);
+
+	echo "<table style=\"width:20%; text-align: center;\">
+		  	<tr>
+		  		<th>Nuotrauka</th>
+		    	<th>Produktas</th>
+		    	<th>Aprašymas</th>
+		    	<th>Vienetai</th>
+		    	<th>Kiekis</th>
+	  	  	</tr>";
+
+	while($product = mysql_fetch_row($products_result)) {
+		$sql = "SELECT name FROM quantities WHERE id='$product[2]'";
+		$result = mysql_query($sql);
+		$quantity = mysql_fetch_row($result);
+
+       	echo "<tr>
+       			<td>...</td>
+       			<td>$product[4]</td>
+       			<td>$product[5]</td>
+       			<td>$quantity[0]</td>
+       			<td>$product[3]</td>
+       		  </tr>";
+   	}
+
+	echo "</table>";
 
    	echo "<br /><br /><a href=\"index.php\">Atgal</a>";
 
