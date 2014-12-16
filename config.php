@@ -3,9 +3,9 @@
 /*******************/
 
 $mysql_hostname = "localhost"; 
-$mysql_user = "kupra_db";
-$mysql_password = "123456";
-$mysql_database = "kupra_db";
+$mysql_user = "";
+$mysql_password = "";
+$mysql_database = "";
 mysql_connect($mysql_hostname, $mysql_user, $mysql_password) or trigger_error("Unable to connect to the database: " . mysql_error()); 
 mysql_select_db($mysql_database) or trigger_error("Unable to switch to the database: " . mysql_error()); 
 
