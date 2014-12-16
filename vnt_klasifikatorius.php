@@ -49,7 +49,7 @@ if (loggedIn($where)) {
 
 	echo "<table style=\"width:20%; text-align: center;\">
 		  	<tr>
-		    	<th>Klasifikatorius</th> 
+		    	<th>Vienetas</th> 
 	  	  	</tr>";
 
 	while($quantity = mysql_fetch_row($quantities_result)) {

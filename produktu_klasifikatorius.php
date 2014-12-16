@@ -70,6 +70,7 @@ if (loggedIn($where)) {
 
 	echo "<table style=\"width:20%; text-align: center;\">
 		  	<tr>
+		  		<th>ID</th>
 		  		<th>Nuotrauka</th>
 		    	<th>Produktas</th>
 		    	<th>Aprašymas</th>
@@ -82,6 +83,7 @@ if (loggedIn($where)) {
 		$quantity = mysql_fetch_row($result);
 
        	echo "<tr>
+       			<td>$product[0]</td>
        			<td>...</td>
        			<td>$product[3]</td>
        			<td>$product[4]</td>
