@@ -16,51 +16,53 @@ if (loggedIn($where)) {
 		$quantities = $_POST["vienetai"];
 
 		print_r($_POST);
-		$sql = "INSERT INTO products (username, quantities_id, name, description, picture_path) VALUES ('$username', '$quantities', '$name','$description','$username')";
-
+		$sql = "INSERT INTO products (username, 
+									  quantities_id, 
+									  name, 
+									  description, 
+									  picture_path) VALUES ('$username',
+															 '$quantities', 
+															 '$name',
+															 '$description',
+															 '$username')";
 		if (mysql_query($sql)) {
 			echo "Sėkmingai papildyta.";
-		} else {
-			echo mysql_error();
-			echo "FAIL";
 		}
 	} else {
-			echo '<table style=width:20%; text-align: center;>';
-
 			echo '<form action="produktu_klasifikatorius.php" method="post">
-					<tr>
-						<td>Pavadinimas:</td>
-						<td><input type="text" name="name"><td>
-					</tr>';
-
-			echo '<tr>
-					<td>Vienetai:</td>
-					<td><select name=vienetai>
+					<table style=width:20%; text-align: center;>
+						<tr>
+							<td>Pavadinimas:</td>
+							<td><input type="text" name="name"><td>
+						</tr>
+						<tr>
+							<td>Vienetai:</td>
+							<td><select name=vienetai>
 	  					<option value="">Pasirinkti...</option>';
 
-	  		$queryQuantities = "SELECT * FROM quantities";
-			$quantities_result = mysql_query($queryQuantities);
+				  		$queryQuantities = "SELECT * FROM quantities";
+						$quantities_result = mysql_query($queryQuantities);
 
-			while($quantity = mysql_fetch_row($quantities_result)) { 
-				echo "<option value=\"$quantity[0]\">$quantity[2]</option>";
-			}
-	  					
-			echo '</select></td></tr>';
+						while($quantity = mysql_fetch_row($quantities_result)) { 
+							echo "<option value=\"$quantity[0]\">$quantity[2]</option>";
+						}
+				  					
+						echo '</select></td></tr>';
 
-			echo '<tr>
-					<td>Aprašymas:</td>
-					<td><input type="text" name="description"></td>
-				  </tr>
-				  <tr>
-					<td>Nuotrauka:</td>
-					<td>...</td>
-				  </tr>
-				  <tr>
-				  	<td></td>
-				  	<td><input type="submit" value="Sukurti"></td>
-				  </tr>
-				  </form>';
-			echo '</table>';
+			echo 		'<tr>
+							<td>Aprašymas:</td>
+							<td><input type="text" name="description"></td>
+						</tr>
+						<tr>
+							<td>Nuotrauka:</td>
+							<td>...</td>
+						</tr>
+						<tr>
+						  	<td></td>
+						  	<td><input type="submit" value="Sukurti"></td>
+						</tr>
+					</table>
+				</form>';
 	}
 
 	echo "<h2>Produktų sąrašas</h2>";
