@@ -23,7 +23,7 @@ if (loggedIn($where)) {
 							<td><input type="text" name="description"></td>
 						</tr>
 						<tr>
-							<td>Privatus?/td>
+							<td>Nuotrauka:</td>
 							<td>...</td>
 					  	</tr>
 					  	<tr>
@@ -35,7 +35,8 @@ if (loggedIn($where)) {
 	} else {
 		$name = $_POST["name"];
 		$description = $_POST["description"];
-		
+
+		print_r($_POST);
 		$sql = "INSERT INTO recipes (username, name, description) VALUES ('$username','$name', '$description')";
 
 		if (mysql_query($sql)) {

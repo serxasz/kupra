@@ -64,8 +64,7 @@ if (isset($_GET['action'])) {
                             if (mysql_num_rows($query) !== 1) {
                                 move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $file_full_path);
                             }
-                            if (createAccount($_POST['username'], $_POST['password'], $_POST['email'], $email_verification, $_POST['type'], $_POST['name'], $_POST['surname'], $_POST['description'], $_POST['private']) and 
-                            strlen($_POST['name']) < 30 and strlen($_POST['surname']) < 60 and strlen($_POST['description']) < 255) {
+                            if (createAccount($_POST['username'], $_POST['password'], $_POST['email'], $email_verification, $_POST['type'], $_POST['name'], $_POST['surname'], $_POST['description'], $_POST['private'])) {
                             
 							if ($email_verification == 1) {
 								$subject = $phrase[62];  
