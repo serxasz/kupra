@@ -24,7 +24,7 @@ if (loggedIn($where)) {
 															 '$quantities', 
 															 '$name',
 															 '$description',
-															 '$username')";
+															 '')";
 		if (mysql_query($sql)) {
 			echo "Sėkmingai papildyta.";
 		}
