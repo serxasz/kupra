@@ -150,10 +150,10 @@ if (loggedIn($where)) {
             $sOutput .= '</tr><tr><td colspan="'.$NUM_ROWS.'" align="center">Lentyna '.$shelf.'</td></tr><tr>';
         }
         $count++;
-        $sql1 = "SELECT quantities_id,name,description,picture_path FROM products WHERE id = ".$row['product_id']." LIMIT 1"; 
+        $sql1 = "SELECT quantities_id,name,description,picture_path FROM products WHERE id = '".$row['product_id']."' LIMIT 1"; 
         $query1 = mysql_query($sql1) or die("Query Failed2: " . mysql_error());
         $product = mysql_fetch_array($query1);
-        $sql2 = "SELECT name FROM quantities WHERE id = ".$product['quantities_id']." LIMIT 1"; 
+        $sql2 = "SELECT name FROM quantities WHERE id = '".$product['quantities_id']."' LIMIT 1"; 
         $query2 = mysql_query($sql2) or die("Query Failed2: " . mysql_error());
         $quantity = mysql_fetch_array($query2);
         if (empty($product['picture_path'])) { 
