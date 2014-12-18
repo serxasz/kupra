@@ -1,8 +1,9 @@
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <head>
-	<form action="search.php" method="post">
-     Recepto paieska: <input type="text" name="term" />
+	<form action="globali_paieska.php" method="post">
+	<input style="width: 500px" type="text" name="term"
+	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
     <input type="submit" name="submit" value="Ieskoti" /><br/>
     </form>
 	<br>
