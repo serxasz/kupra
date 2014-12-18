@@ -6,8 +6,6 @@ include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
 
-	include('include_content/add_rcp.php');
-
 	echo "<h2>Visų receptų sąrašas</h2>";
 
 	// Pagination 

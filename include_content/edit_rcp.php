@@ -46,7 +46,6 @@
 					</table>
 				</form>";		
 	} else {
-		echo "PROCESINAM";
 		$name = $_POST["name"];
 		$description = $_POST["description"];
 		$portions = $_POST["portions"];
@@ -70,7 +69,7 @@
 			echo "Gamybos trukmė - \"$duration\" nėra leistinas kiekis. Naudokitės skaičiais [0-9].";
 		} else {
 			$sql = "UPDATE recipes SET username='$username', name='$name', description='$description', portions='$portions', duration='$duration' WHERE id='$editID'";
-			echo "-->>>>> $editID";
+
 			if (mysql_query($sql)) {
 				echo "Sėkmingai pakeista.";
 			} else {
