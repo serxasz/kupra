@@ -149,7 +149,7 @@ if (loggedIn($where)) {
 
 		/* Setup vars for query. */
 			$targetpage = "produktu_klasifikatorius.php"; 	//your file name  (the name of this file)
-			$limit = 5; 									//how many items to show per page
+			$limit = 10; 									//how many items to show per page
 			$page = $_GET['page'];
 
 			if ($page) 
