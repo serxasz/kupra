@@ -181,7 +181,7 @@ if (loggedIn($where)) {
         $image = "";
         foreach ($file as $i) {
             if ($i == "uploads/products/" . $product[3] . ".jpg" or $i == "uploads/products/" . $product[3] . ".jpeg" or $i == "uploads/products/" . $product[3] . ".png" or $i == "uploads/products/" . $product[3] . ".gif") {
-                        $image = '<img src="'.$i.'" alt="photo" height="150" width="150">';
+                        $image = '<img src="'.$i.'" alt="photo" height="75" width="75">';
                     }
                 }
 

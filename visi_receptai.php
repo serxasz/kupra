@@ -6,6 +6,8 @@ include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
 
+	$username = $_SESSION['username'];
+
 	if ( (!empty($_GET["page"]) or (empty($_GET)) ) ) {
 		echo "<h2>Visų receptų sąrašas</h2>";
 
@@ -71,8 +73,14 @@ if (loggedIn($where)) {
     	$recipes_result = mysql_query($queryRecipe);
 		$recipe = mysql_fetch_row($recipes_result);
 
+		if ($recipe[1] == $username) {
+			$edit = "<a href=\"mano_receptai.php?edit=true&id=$recipe[0]\">  (Redaguoti receptą)</a>";
+		} else {
+			$edit = "";
+		}
+
     	echo "<h2>Recepeto peržiūra</h2>";
-    	echo "<h1>$recipe[2]</h1>";
+    	echo "<h1>$recipe[2]</h1>$edit";
     	echo "<h4>Autorius: $recipe[1]</h4>";
     	echo "<h3>Aprašymas</h3>";
     	echo "$recipe[5]";
@@ -86,6 +94,7 @@ if (loggedIn($where)) {
     	$products = mysql_query($queryProducts);
 		echo "<table style=\"width:20%; text-align: center;\">
 			  	<tr>
+			  		<th></th>
 			  		<th>Produktas</th>
 			    	<th>Vienetas</th>
 			    	<th>Kiekis</th>
@@ -99,8 +108,17 @@ if (loggedIn($where)) {
 			$queryQuantityInfo = "SELECT name FROM quantities WHERE id='$productInfo[2]'";
 			$result_quantityInfo = mysql_query($queryQuantityInfo);
 			$quantityInfo = mysql_fetch_row($result_quantityInfo);		
+	        
+	        $file = glob("uploads/products/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+	        $image = "";
+	        foreach ($file as $i) {
+	            if ($i == "uploads/products/" . $productInfo[3] . ".jpg" or $i == "uploads/products/" . $productInfo[3] . ".jpeg" or $i == "uploads/products/" . $productInfo[3] . ".png" or $i == "uploads/products/" . $productInfo[3] . ".gif") {
+	                        $image = '<img src="'.$i.'" alt="photo" height="75" width="75">';
+	                    }
+	                }
 
 		    echo 	"<tr>
+		    			<td>$image</td>
 		       			<td>$productInfo[3]</td>
 		       			<td>$quantityInfo[0]</td>
 		       			<td>$product[3]</td>
