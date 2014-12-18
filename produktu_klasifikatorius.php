@@ -68,8 +68,8 @@ if (loggedIn($where)) {
 		}
 
 		echo 	"<br />
-	  	 <br />
-	  	 <a href=\"produktu_klasifikatorius.php\">Įvesti kitą</a>";
+			  	 <br />
+			  	 <a href=\"produktu_klasifikatorius.php\">Įvesti kitą</a>";
 	} else {
 			echo '<form action="produktu_klasifikatorius.php" method="post">
 					<table style=width:20%; text-align: center;>
