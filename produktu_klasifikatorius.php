@@ -15,19 +15,61 @@ if (loggedIn($where)) {
 		$description = $_POST["description"];
 		$quantities = $_POST["vienetai"];
 
-		print_r($_POST);
-		$sql = "INSERT INTO products (username, 
-									  quantities_id, 
-									  name, 
-									  description, 
-									  picture_path) VALUES ('$username',
-															 '$quantities', 
-															 '$name',
-															 '$description',
-															 '')";
-		if (mysql_query($sql)) {
-			echo "Sėkmingai papildyta.";
+		// Validation
+			// Wrong format
+			$minNameLength = 2;
+			$maxNameLength = 20;
+
+			$minDescLength = 2;
+			$maxDescLength = 255;
+
+			// Duplicate
+			$duplicate = false;
+
+			$queryForName = "SELECT name FROM products WHERE name='$name'";
+			$name_result = mysql_query($queryForName);
+
+			if (mysql_num_rows($name_result) == 0) {
+				$duplicate = false;
+			} else {
+				$duplicate = true;
+			}
+
+			// No quantities selection
+			$noSelection = false;
+
+			if ($quantities == "") {
+				$noSelection = true;
+			}
+
+
+		if ( (strlen($name) < $minNameLength) or (strlen($name) > $maxNameLength) ) {
+			echo "Leidžiamas produkto pavadinimo dydis yra nuo $minNameLength simbolių iki $maxNameLength";
+		} else if ( (strlen($description) < $minDescLength) or (strlen($description) > $maxDescLength) ) {
+			echo "Leidžiamas produkto aprašymo dydis yra nuo $minDescLength simbolių iki $maxDescLength";
+		} else if ($duplicate) { 
+			echo "Produktas su vardu \"$name\" jau egzistuoja.";
+		} else if ($noSelection) {
+			echo "Matavimo vienetas privalo būti pasirinktas.";
+		} else {
+
+			$sql = "INSERT INTO products (username, 
+										  quantities_id, 
+										  name, 
+										  description, 
+										  picture_path) VALUES ('$username',
+																 '$quantities', 
+																 '$name',
+																 '$description',
+																 '')";
+			if (mysql_query($sql)) {
+				echo "Sėkmingai papildyta receptu \"$name\".";
+			}
 		}
+
+		echo 	"<br />
+	  	 <br />
+	  	 <a href=\"produktu_klasifikatorius.php\">Įvesti kitą</a>";
 	} else {
 			echo '<form action="produktu_klasifikatorius.php" method="post">
 					<table style=width:20%; text-align: center;>
