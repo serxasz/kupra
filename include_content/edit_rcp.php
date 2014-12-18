@@ -1,27 +1,35 @@
 <?php
 	$username = $_SESSION['username'];
 
-	echo "<h2>Naujo recepto kūrimas (Etapas 1 iš 2)</h2>";
+	echo "<h2>Recepto redagavimas (Etapas 1 iš 2)</h2>";
+
+	$editID = $_GET["id"];
+
+	$queryRecipes = "SELECT * FROM recipes WHERE username='$username' AND id='$editID'";
+		
+	$recipes_result = mysql_query($queryRecipes);
+	
+	$recipe = mysql_fetch_row($recipes_result);
 
 	if (empty($_POST)) {
-		echo '	<form action="receptai.php" method="post">
+		echo "	<form action=\"mano_receptai.php?edit=true&id=$editID\" method=\"post\">
 					<table style=width:20%; text-align: center;>
 						<tr>
 							<td>Pavadinimas:</td>
-							<td><input type="text" name="name"><td>
+							<td><input type=\"text\" name=\"name\" value=\"$recipe[2]\"><td>
 						</tr>
 						<tr>
 						<tr>
 							<td>Aprašymas:</td>
-							<td><input type="text" name="description"></td>
+							<td><input type=\"text\" name=\"description\" value=\"$recipe[5]\"'></td>
 						</tr>
 						<tr>
 							<td>Gamybos trukmė:</td>
-							<td><input type="text" name="duration"></td>
+							<td><input type=\"text\" name=\"duration\" value=\"$recipe[3]\"></td>
 						</tr>
 						<tr>
 							<td>Porcijos:</td>
-							<td><input type="text" name="portions"></td>
+							<td><input type=\"text\" name=\"portions\" value=\"$recipe[4]\"></td>
 						</tr>
 						<tr>
 							<td>Nuotrauka</td>
@@ -29,15 +37,16 @@
 						</tr>
 						<tr>
 							<td>Privatus receptas:</td>
-							<td><input type="checkbox" name="private" value="yes" /></td>
+							<td><input type=\"checkbox\" name=\"private\" value=\"yes\" /></td>
 					  	</tr>
 					  	<tr>
 						  	<td></td>
-						  	<td><input type="submit" value="Toliau."></td>
+						  	<td><input type=\"submit\" value=\"Toliau.\"></td>
 					  	</tr>	
 					</table>
-				</form>';		
+				</form>";		
 	} else {
+		echo "PROCESINAM";
 		$name = $_POST["name"];
 		$description = $_POST["description"];
 		$portions = $_POST["portions"];
@@ -51,39 +60,26 @@
 			$minDescLength = 2;
 			$maxDescLength = 255;
 
-			// Duplicate
-			$duplicate = false;
-
-			$queryForName = "SELECT name FROM recipes WHERE (name='$name' AND username='$username')";
-			$name_result = mysql_query($queryForName);
-
-			if (mysql_num_rows($name_result) == 0) {
-				$duplicate = false;
-			} else {
-				$duplicate = true;
-			}
-
-
 		if ( (strlen($name) < $minNameLength) or (strlen($name) > $maxNameLength) ) {
 			echo "Leidžiamas recepto pavadinimo dydis yra nuo $minNameLength simbolių iki $maxNameLength";
 		} else if ( (strlen($description) < $minDescLength) or (strlen($description) > $maxDescLength) ) {
 			echo "Leidžiamas recepto aprašymo dydis yra nuo $minDescLength simbolių iki $maxDescLength";
-		} else if ($duplicate) { 
-			echo "Jūs jau esate sukūręs receptą su vardu \"$name\".";
 		} else if (!is_numeric($portions)) {
 			echo "Porcijų kiekis - \"$portions\" nėra leistinas kiekis. Naudokitės skaičiais [0-9].";
 		} else if (!is_numeric($duration)) {
 			echo "Gamybos trukmė - \"$duration\" nėra leistinas kiekis. Naudokitės skaičiais [0-9].";
 		} else {
-			$sql = "INSERT INTO recipes (username, name, description, portions, duration) VALUES ('$username','$name', '$description', '$portions', '$duration')";
-
+			$sql = "UPDATE recipes SET username='$username', name='$name', description='$description', portions='$portions', duration='$duration' WHERE id='$editID'";
+			echo "-->>>>> $editID";
 			if (mysql_query($sql)) {
-				echo "Sėkmingai papildyta.";
+				echo "Sėkmingai pakeista.";
+			} else {
+				die(mysql_error());
 			}
 		}
 
 	echo 	"<br />
 		  	 <br />
-		  	 <a href=\"receptai.php\">Įvesti kitą</a>";
+		  	 <a href=\"mano_receptai.php\">Pakeisti kitą</a>";
 	}
    	?>

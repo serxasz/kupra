@@ -6,7 +6,13 @@ include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
 
-	include('include_content/add_rcp.php');
+	$username = $_SESSION['username'];
+
+	if (!empty($_GET)) {
+		include('include_content/edit_rcp.php');
+	}
+
+	echo "<h3><a href=\"prideti_recepta.php\">Pridėti naują receptą</a></h3>";
 
 	echo "<h2>Mano receptų sąrašas</h2>";
 	
@@ -39,6 +45,7 @@ if (loggedIn($where)) {
 		    	<th>Aprašymas</th>
 		    	<th>Porcijos</th>
 		    	<th>Gamybos trukmė</th>
+		    	<th></th>
 	  	  	</tr>";
 
 	while ($recipe = mysql_fetch_row($recipes_result)) {
@@ -49,6 +56,7 @@ if (loggedIn($where)) {
 	       			<td>$recipe[5]</td>
 	       			<td>$recipe[3]</td>
 	       			<td>$recipe[4]</td>
+	       			<td><a href=\"mano_receptai.php?edit=true&id=$recipe[0]\">Redaguoti</a></td>
 	       		  </tr>";
    	}
 
