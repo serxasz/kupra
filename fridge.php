@@ -137,7 +137,8 @@ if (loggedIn($where)) {
 		unset($_SESSION['error']);
 	} 
     $sOutput .= '<table width="'.$TABLE_WIDTH.'" border="1" align="center" cellpadding="5" cellspacing="1">';
-    $sOutput .= "<tr><td align='center' colspan='4'><a href='fridge.php?action=add'><font color='green'>Pridėti</font></a></td></tr><tr>";    
+    $sOutput .= "<tr><td align='center' colspan='2'><a href='fridge.php?action=add'><font color='green'>Pridėti</font></a></td>"; 
+    $sOutput .= "<td align='center' colspan='2'><a href='search_by_products.php'><font color='green'>Ką galiu pagaminti?</font></a></td></tr><tr>";     
 	$sql = "SELECT id,username,product_id,quantity,shelf FROM fridge WHERE username = '".$_SESSION['username']."' ORDER BY shelf ASC";
     $query = mysql_query($sql) or die("Query Failed: " . mysql_error());
     $file = glob("uploads/products/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
