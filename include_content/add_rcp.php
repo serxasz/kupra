@@ -4,7 +4,7 @@
 	echo "<h2>Naujo recepto kūrimas (Etapas 1 iš 2)</h2>";
 
 	if (empty($_POST)) {
-		echo '	<form action="receptai.php" method="post">
+		echo '	<form action="prideti_recepta.php" method="post">
 					<table style=width:20%; text-align: center;>
 						<tr>
 							<td>Pavadinimas:</td>
