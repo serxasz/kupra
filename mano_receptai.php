@@ -74,7 +74,7 @@ if (loggedIn($where)) {
 	*/
 	include('include_content/pagination.php');	
 
-   	echo "<br /><br /><a href=\"index.php\">Atgal</a>";
+   	echo "<br /><br /><a href=\"receptai.php\">Atgal</a>";
 
 } else {
 	include('include_content/not_registered.php');
