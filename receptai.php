@@ -10,6 +10,8 @@ if (loggedIn($where)) {
     echo "<a href=\"prideti_recepta.php\">Pridėti receptą</a><br />";
     echo "<a href=\"visi_receptai.php\">Visų receptų sąrašas</a><br />";
     echo "<a href=\"mano_receptai.php\">Mano receptų sąrašas</a><br />";
+	echo "<br /><br /><a href=\"index.php\">Atgal</a><br />";
+
 
 } else {
 	include('include_content/not_registered.php');
