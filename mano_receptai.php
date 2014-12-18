@@ -42,7 +42,6 @@ if (loggedIn($where)) {
 		  		<th>ID</th>
 		    	<th>Autorius</th>
 		    	<th>Pavadinimas</th>
-		    	<th>Aprašymas</th>
 		    	<th>Porcijos</th>
 		    	<th>Gamybos trukmė</th>
 		    	<th></th>
@@ -52,8 +51,7 @@ if (loggedIn($where)) {
 	    echo 	"<tr>
 	       			<td>$recipe[0]</td>
 	       			<td>$recipe[1]</td>
-	       			<td>$recipe[2]</td>
-	       			<td>$recipe[5]</td>
+	       			<td><a href=\"visi_receptai.php?view=$recipe[0]\">$recipe[2]</a></td>
 	       			<td>$recipe[3]</td>
 	       			<td>$recipe[4]</td>
 	       			<td><a href=\"mano_receptai.php?edit=true&id=$recipe[0]\">Redaguoti</a></td>

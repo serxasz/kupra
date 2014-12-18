@@ -42,6 +42,12 @@
 		$description = $_POST["description"];
 		$portions = $_POST["portions"];
 		$duration = $_POST["duration"];
+		$private = $_POST["private"];
+		echo $private;
+		if ($private == "yes") {
+			$private = 1;
+		}
+		echo $private;
 
 		// Validation
 			// Wrong format
@@ -75,7 +81,7 @@
 		} else if (!is_numeric($duration)) {
 			echo "Gamybos trukmė - \"$duration\" nėra leistinas kiekis. Naudokitės skaičiais [0-9].";
 		} else {
-			$sql = "INSERT INTO recipes (username, name, description, portions, duration) VALUES ('$username','$name', '$description', '$portions', '$duration')";
+			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$portions', '$duration', '$private')";
 
 			if (mysql_query($sql)) {
 				echo "Sėkmingai papildyta.";

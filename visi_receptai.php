@@ -6,7 +6,7 @@ include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
 
-	if (empty($_GET)) {
+	if ( (!empty($_GET["page"]) or (empty($_GET)) ) ) {
 		echo "<h2>Visų receptų sąrašas</h2>";
 
 		// Pagination 
@@ -103,7 +103,7 @@ if (loggedIn($where)) {
 		    echo 	"<tr>
 		       			<td>$productInfo[3]</td>
 		       			<td>$quantityInfo[0]</td>
-		       			<td>$recipe[3]</td>
+		       			<td>$product[3]</td>
 		       		</tr>";
 	   	}
     }
