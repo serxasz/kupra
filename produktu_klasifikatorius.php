@@ -52,26 +52,57 @@ if (loggedIn($where)) {
 		} else if ($noSelection) {
 			echo "Matavimo vienetas privalo būti pasirinktas.";
 		} else {
-
-			$sql = "INSERT INTO products (username, 
-										  quantities_id, 
-										  name, 
-										  description, 
-										  picture_path) VALUES ('$username',
+        
+            $target_dir = "uploads/products/";
+            $target_file = $target_dir . basename($_FILES["fileToUpload"]["name"]);
+            $uploadOk = 1;
+            $imageFileType = pathinfo($target_file,PATHINFO_EXTENSION);
+            $file_full_path = $target_dir . $_POST['name'] . "." . $imageFileType; 
+                if(isset($_POST["fileToUpload"]) ) {
+                            $check = getimagesize($_FILES["fileToUpload"]["tmp_name"]);
+                            if($check == false) {
+                                $uploadOk = 0;
+                                echo"Pasirinktas failas nėra paveikslėlis"; 
+                                unset($_GET['action']);
+                            }
+                        }
+                if (file_exists($target_file)) {
+                    $uploadOk = 0;
+                    echo"Toks failas jau egzistuoja"; 
+                    unset($_GET['action']);
+                }
+                if ($_FILES["fileToUpload"]["size"] > 500000) {
+                    $uploadOk = 0;
+                    echo"Failas uzima per daug vietos"; 
+                    unset($_GET['action']);
+                }
+                if($imageFileType != "jpg" && $imageFileType != "png" && $imageFileType != "jpeg"
+                && $imageFileType != "gif" ) {
+                    $uploadOk = 0;
+                    echo"Leidziami tik jpg, png ir gif failai"; 
+                    unset($_GET['action']);
+                }
+            
+                if ($uploadOk == 1 or !isset($_POST["fileToUpload"])) {
+                    move_uploaded_file($_FILES["fileToUpload"]["tmp_name"], $file_full_path);
+                    $sql = "INSERT INTO products (username, 
+                                                  quantities_id, 
+                                                  name, 
+                                                  description) VALUES ('$username',
 																 '$quantities', 
 																 '$name',
-																 '$description',
-																 '')";
-			if (mysql_query($sql)) {
-				echo "Sėkmingai papildyta receptu \"$name\".";
-			}
+																 '$description')";
+                    if (mysql_query($sql)) {
+                        echo "Sėkmingai papildyta receptu \"$name\".";
+                    }
+                }
 		}
 
 		echo 	"<br />
 			  	 <br />
 			  	 <a href=\"produktu_klasifikatorius.php\">Įvesti kitą</a>";
 	} else {
-			echo '<form action="produktu_klasifikatorius.php" method="post">
+			echo '<form action="produktu_klasifikatorius.php" method="post" enctype="multipart/form-data">
 					<table style=width:20%; text-align: center;>
 						<tr>
 							<td>Pavadinimas:</td>
@@ -97,7 +128,7 @@ if (loggedIn($where)) {
 						</tr>
 						<tr>
 							<td>Nuotrauka:</td>
-							<td>...</td>
+							<td><input type="file" name="fileToUpload" id="fileToUpload"></td>
 						</tr>
 						<tr>
 						  	<td></td>
@@ -134,23 +165,32 @@ if (loggedIn($where)) {
 	echo "<table style=\"width:20%; text-align: center;\">
 		  	<tr>
 		  		<th>ID</th>
-		  		<th>Nuotrauka</th>
 		    	<th>Produktas</th>
 		    	<th>Aprašymas</th>
 		    	<th>Vienetai</th>
+                <th>Nuotrauka</th>
 	  	  	</tr>";
+            
+    $file = glob("uploads/products/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
 
 	while($product = mysql_fetch_row($products_result)) {
 		$sql = "SELECT name FROM quantities WHERE id='$product[2]'";
 		$result = mysql_query($sql);
 		$quantity = mysql_fetch_row($result);
+        
+        $image = "";
+        foreach ($file as $i) {
+            if ($i == "uploads/products/" . $product[3] . ".jpg" or $i == "uploads/products/" . $product[3] . ".jpeg" or $i == "uploads/products/" . $product[3] . ".png" or $i == "uploads/products/" . $product[3] . ".gif") {
+                        $image = '<img src="'.$i.'" alt="photo" height="150" width="150">';
+                    }
+                }
 
        	echo "<tr>
        			<td>$product[0]</td>
-       			<td>...</td>
        			<td>$product[3]</td>
        			<td>$product[4]</td>
        			<td>$quantity[0]</td>
+                <td>$image</td>
        		  </tr>";
    	}
 

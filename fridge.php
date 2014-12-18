@@ -140,6 +140,7 @@ if (loggedIn($where)) {
     $sOutput .= "<tr><td align='center' colspan='4'><a href='fridge.php?action=add'><font color='green'>Pridėti</font></a></td></tr><tr>";    
 	$sql = "SELECT id,username,product_id,quantity,shelf FROM fridge WHERE username = '".$_SESSION['username']."' ORDER BY shelf ASC";
     $query = mysql_query($sql) or die("Query Failed: " . mysql_error());
+    $file = glob("uploads/products/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
 	while ($row = mysql_fetch_array($query)) {
         if ($shelf == 0) { 
         $shelf = 1;
@@ -156,13 +157,14 @@ if (loggedIn($where)) {
         $sql2 = "SELECT name FROM quantities WHERE id = '".$product['quantities_id']."' LIMIT 1"; 
         $query2 = mysql_query($sql2) or die("Query Failed2: " . mysql_error());
         $quantity = mysql_fetch_array($query2);
-        if (empty($product['picture_path'])) { 
-            $path = "images/no-photo.jpg";
-        } else {
-            $path = $product['picture_path'];
-        }
+        $image = '<img src="images/no-photo.jpg" align="left" alt="photo" height="'.($TABLE_WIDTH/8).'" width="'.($TABLE_WIDTH/8).'">';
+        foreach ($file as $i) {
+            if ($i == "uploads/products/" . $product['name'] . ".jpg" or $i == "uploads/products/" . $product['name'] . ".jpeg" or $i == "uploads/products/" . $product['name'] . ".png" or $i == "uploads/products/" . $product['name'] . ".gif") {
+                        $image = '<img src="'.$i.'" align="left" alt="photo" height="'.($TABLE_WIDTH/8).'" width="'.($TABLE_WIDTH/8).'">';
+                    }
+                }
 		$sOutput .= "<td width='".$TABLE_WIDTH/$NUM_ROWS."' title='Aprašymas: ".$product['description']."' align='left'>
-        <img src='".$path."' align='left' alt='".$product['name']."' height='".($TABLE_WIDTH/8)."' width='".($TABLE_WIDTH/8)."'> 
+        ".$image."
          <font size='2'>
          <p>&nbsp;".$product['name']."</p>
          <p>&nbsp;".$row['quantity']." ".$quantity['name']."</p></font>
