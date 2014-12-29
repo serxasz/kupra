@@ -2,12 +2,6 @@
    "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 	<meta charset="utf-8">
-	<form action="globali_paieska.php" method="post">
-	<input style="width: 500px" type="text" name="term"
-	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
-    <input type="submit" name="submit" value="Ieskoti" /><br/>
-    </form>
-	<br>
 	<title><?php echo $title; ?></title>
 	<!-- old Style -->
 	<!-- <link rel="stylesheet" type="text/css" href="style.css"> -->
@@ -45,3 +39,32 @@
 	</script>
 </head>
 <body>
+	<nav class="navbar navbar-default">
+        <div class="container">
+          <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+              <span class="sr-only">Toggle navigation</span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+              <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="/">KuPRA</a>
+          </div>
+          <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+              <li><a href="#contact">	<form action="globali_paieska.php" method="post">
+	<input style="width: 500px" type="text" name="term"
+	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
+    <input type="submit" name="submit" value="Ieskoti" /><br/>
+    </form></a></li>
+              <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kalba <span class="caret"></span></a>
+                <ul class="dropdown-menu" role="menu">
+                  <li><a href="#">Anglų</a></li>
+                  <li><a href="#">Lietuvių</a></li>
+                </ul>
+              </li>
+            </ul>
+          </div><!--/.nav-collapse -->
+        </div>
+      </nav>

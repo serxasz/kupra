@@ -10,7 +10,7 @@ if (loggedIn($where)) {
 	echo "<h3>To Do</h3>";
 		echo "<br />";
 	echo "Turėtų būti pasirinkimai: <br />";
-		echo "po kiek elementų rodyti viename lange. (atskiras)";
+		echo "po kiek elementų rodyti viename lange. (atskiras)<br />";
 		echo "rikiuot pagal abecėlę <br />";
 		echo "naujausias virsuje? <br />";
 		echo "<br />";
@@ -76,7 +76,7 @@ if (loggedIn($where)) {
 			$query = "SELECT COUNT(*) as num FROM quantities";
 			$total_pages = mysql_fetch_array(mysql_query($query));
 			$total_pages = $total_pages[num];
-			echo "Viso įrašų: $total_pages";
+			echo "Viso įrašų: $total_pages<br /><br />";
 
 		/* Setup vars for query. */
 			$targetpage = "vnt_klasifikatorius.php"; 	//your file name  (the name of this file)
@@ -98,17 +98,20 @@ if (loggedIn($where)) {
 	$queryQuantities = "SELECT * FROM quantities LIMIT $start, $limit";
 	$quantities_result = mysql_query($queryQuantities);
 
-	echo "<table style=\"width:20%; text-align: center;\">
-		  	<tr>
-		    	<th>Vienetas</th> 
-	  	  	</tr>";
+	echo "<table class=\"table table-bordered table-striped\" style=\"width:20%; text-align: center;\">
+			<thead>
+			  	<tr>
+			    	<th class=\"text-center\">Vienetas</th> 
+		  	  	</tr>
+	  	  	</thead>
+	  	  	<tbody>";
 
 	while($quantity = mysql_fetch_row($quantities_result)) {
        	echo "<tr>
        			<td>$quantity[2]</td>
        		  </tr>";
    	}
-	echo "</table>";
+	echo "</tbody></table>";
 
 	/* Setup page vars for display. */
 	if ($page == 0) $page = 1;					//if no page var is given, default to 1.
