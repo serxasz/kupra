@@ -68,3 +68,21 @@
           </div><!--/.nav-collapse -->
         </div>
       </nav>
+
+      <?
+      if (loggedIn($where)) {
+    echo '<div class="container col-sm-2">
+			<div class="panel panel-default">
+            <div class="panel-heading">
+              <h3 class="panel-title">Meniu</h3>
+            </div>
+            <div class="panel-body">';
+    echo "<a href=\"vnt_klasifikatorius.php\">Matavimo vienetai</a><br />";
+    echo "<a href=\"produktu_klasifikatorius.php\">Produktų sąrašas</a><br />";
+    echo "<a href=\"receptai.php\">Receptai</a><br />";
+    echo "<a href=\"fridge.php\">Šaldytuvas</a><br />";
+    echo '</div>
+          </div>
+      	</div>';
+      	      }
+          ?>
