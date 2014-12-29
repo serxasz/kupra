@@ -7,6 +7,17 @@ $where=$phrase[81];
 if (loggedIn($where)) {
 	$username = $_SESSION['username'];
 
+	echo "<h3>To Do</h3>";
+		echo "<br />";
+	echo "Turėtų būti pasirinkimai: <br />";
+		echo "po kiek elementų rodyti viename lange. (atskiras)";
+		echo "rikiuot pagal abecėlę <br />";
+		echo "naujausias virsuje? <br />";
+		echo "<br />";
+	echo "URL turėtų būti draugiškesnis akiai";
+		echo "<br />";
+	echo "Multilanguage";
+
 	echo "<h2>Naujas vienetas</h2>";
 	
 	if (!empty($_POST)) {
@@ -69,7 +80,14 @@ if (loggedIn($where)) {
 
 		/* Setup vars for query. */
 			$targetpage = "vnt_klasifikatorius.php"; 	//your file name  (the name of this file)
-			$limit = 5; 									//how many items to show per page
+			$limit = 5; 								//how many items to show per page
+
+			$customLimit = $_GET['limit'];
+			if (isset($customLimit) & $customLimit != $limit) {
+				$limit = $customLimit;
+				$customLimit = "&limit=$customLimit";
+			}			
+
 			$page = $_GET['page'];
 
 			if ($page) 
