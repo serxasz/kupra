@@ -72,7 +72,7 @@
                     </ul>
                 </li>
                   <li>
-                    <a href="/"><?php $username = $_SESSION['username']; echo $username ?></a>
+                    <?php $username = $_SESSION['username']; echo "<a href=\"/m.php?user=$username\">$username</a>"; ?>
                   </li>
                   <li>
                     <a href="login.php?action=logout">Atsijungti</a>
