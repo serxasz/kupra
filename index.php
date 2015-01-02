@@ -5,6 +5,8 @@ include('include_content/language.php');
 include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
+	echo '<div class="container"';
+
 	$sql = "SELECT COUNT(message) FROM messages WHERE deleted = '0' AND receiver = '".$_SESSION['username']."'";
 	$rs_result = mysql_query($sql); 
 	$row = mysql_fetch_row($rs_result);
@@ -24,6 +26,8 @@ if (loggedIn($where)) {
 	if ($row[type]=="Administratorius") { echo"<a href=\"admin.php\">" . $phrase[17] . "</a><br/>"; }
     
     echo $phrase[48]; 
+
+    echo '</div>';
 } else {
 	include('include_content/not_registered.php');
 }

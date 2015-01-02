@@ -1,11 +1,19 @@
 <?php 
 include('config.php');
+$where = "vienetai"; 
 include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
-$where=$phrase[81]; 
+
 if (loggedIn($where)) {
 	$username = $_SESSION['username'];
+
+	// meniukas
+	echo '
+	<ol class="breadcrumb">
+	  <li><a href="/">Pradinis</a></li>
+	  <li class="active">Matavimo vienetai</li>
+	</ol>';
 
 	echo "<h2>Naujas vienetas</h2>";
 
@@ -53,9 +61,12 @@ if (loggedIn($where)) {
 				  	 <br />
 				  	 <a href=\"vnt_klasifikatorius.php\">Įvesti kitą</a>";
 	} else {
-		echo 	'<form action="vnt_klasifikatorius.php" method="post">
-					Pavadinimas: <input type="text" name="quantity">
-					<input type="submit" value="Papildyti">
+		echo 	'<form class="form-inline" action="vnt_klasifikatorius.php" method="post">
+					<div class="form-group">
+					 <label class="control-label" for="quantity">Pavadinimas</label>
+					 <input class="form-control" placeholder="" type="text" name="quantity">
+					</div>
+					<button type="submit" class="btn btn-default">Papildyti</button>
 				 </form>';
 	}
 
@@ -68,8 +79,6 @@ if (loggedIn($where)) {
 			$total_pages = $total_pages[num];
 
 		// sorter
-			echo "Viso įrašų: $total_pages";
-		// sorter
 		$limitForForm = $_GET['limit'];
 		if ($limitForForm == 10) {
 			$select10 = 'selected';
@@ -80,7 +89,7 @@ if (loggedIn($where)) {
 		} else {
 			$select10 = 'selected';
 		}
-		echo "<form>Rūšiuoti po: 
+		echo "<form>Viso įrašų: $total_pages. Puslapyje rodyti po: 
 		<select name=\"limit\" onchange=\"this.form.submit()\">';
 			<option $select10 value=\"10\">10</option>
 			<option $select25 value=\"25\">25</option>
@@ -110,7 +119,7 @@ if (loggedIn($where)) {
 	$queryQuantities = "SELECT * FROM quantities LIMIT $start, $limit";
 	$quantities_result = mysql_query($queryQuantities);
 
-	echo "<table class=\"table table-bordered table-striped\" style=\"width:20%; text-align: center;\">
+	echo "<table class=\"table table-bordered table-striped text-center\">
 			<thead>
 			  	<tr>
 			    	<th class=\"text-center\">Vienetas</th> 
@@ -137,9 +146,6 @@ if (loggedIn($where)) {
 	*/
 
 	include('include_content/pagination.php');	
-
-   	echo "<br /><br /><a href=\"index.php\">Atgal</a>";
-
 } else {
 	include('include_content/not_registered.php');
 }

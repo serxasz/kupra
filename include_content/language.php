@@ -16,7 +16,4 @@ if (!empty($_GET['page'])) { echo"<input type='hidden' name='page' value='" .$_G
 if (!empty($_GET['message'])) { echo"<input type='hidden' name='message' value='" .$_GET['message']. "'>"; }
 echo "</form></div>";
 */
-
-// Body container start
-echo "<div class=\"container\">";
 ?>

@@ -1,12 +1,12 @@
 <?php 
 include('config.php');
+$where = 'receptai';
 include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
-$where=$phrase[81]; 
 if (loggedIn($where)) {
 	
-	if (!empty($_POST) {
+	if (!empty($_POST)) {
 		
 	}
 

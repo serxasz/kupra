@@ -52,11 +52,12 @@
           </div>
           <div class="navbar-collapse collapse">
             <ul class="nav navbar-nav">
-              <li><a href="#contact">	<form action="globali_paieska.php" method="post">
-	<input style="width: 500px" type="text" name="term"
-	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
-    <input type="submit" name="submit" value="Ieskoti" /><br/>
-    </form></a></li>
+              <li><a href="#contact">
+                <form action="globali_paieska.php" method="post">
+                	<input style="width: 500px" type="text" name="term"
+                	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
+                   <input type="submit" name="submit" value="Ieskoti" /><br/>
+                </form></a></li>
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kalba <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
@@ -69,20 +70,35 @@
         </div>
       </nav>
 
-      <?
+<div class="container" role="main">
+<?
       if (loggedIn($where)) {
-    echo '<div class="container col-sm-2">
-			<div class="panel panel-default">
-            <div class="panel-heading">
-              <h3 class="panel-title">Meniu</h3>
-            </div>
-            <div class="panel-body">';
-    echo "<a href=\"vnt_klasifikatorius.php\">Matavimo vienetai</a><br />";
-    echo "<a href=\"produktu_klasifikatorius.php\">Produktų sąrašas</a><br />";
-    echo "<a href=\"receptai.php\">Receptai</a><br />";
-    echo "<a href=\"fridge.php\">Šaldytuvas</a><br />";
-    echo '</div>
-          </div>
-      	</div>';
-      	      }
-          ?>
+        echo '
+            <div class="container col-md-2">
+                <div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Meniu</h3>
+                        </div>
+                        <div class="panel-body">
+                            <a href="vnt_klasifikatorius.php">Matavimo vienetai</a><br />
+                            <a href="produktu_klasifikatorius.php">Produktai</a><br />';
+
+        if ($where == "produktai") {
+            echo           '<a href="prideti_produkta.php">--- Pridėti produktą</a><br />';
+        }
+
+        echo '
+                            <a href="visi_receptai.php">Receptai</a><br />';
+        if ($where == "receptai") {
+            echo           '<a href="prideti_recepta.php">--- Pridėti receptą</a><br />';
+            echo           '<a href="mano_receptai.php">--- Mano receptai</a><br />';
+        }
+
+        echo '
+                            <a href="fridge.php">Šaldytuvas</a><br />
+                        </div>
+                </div>
+            </div>';
+        }
+?>
+    <div class="container col-md-10">
