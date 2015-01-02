@@ -119,7 +119,7 @@ if (loggedIn($where)) {
 	$queryQuantities = "SELECT * FROM quantities LIMIT $start, $limit";
 	$quantities_result = mysql_query($queryQuantities);
 
-	echo "<table class=\"table table-bordered table-striped text-center\">
+	echo "<table class=\"table table-bordered table-striped text-center\" style=\"width: 35%\">
 			<thead>
 			  	<tr>
 			    	<th class=\"text-center\">Vienetas</th> 

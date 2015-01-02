@@ -5,6 +5,13 @@ include('include_content/language.php');
 include($_SESSION['lang']);
 $where="Šaldytuvas"; 
 if (loggedIn($where)) {
+    // meniukas
+    echo '
+    <ol class="breadcrumb">
+      <li><a href="/">Pradinis</a></li>
+      <li class="active">Šaldytuvas</li>
+    </ol>';
+
     
     $TABLE_WIDTH = 800;
     $NUM_ROWS = 4;

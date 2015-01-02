@@ -5,11 +5,18 @@ include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
 if (loggedIn($where)) {
-
 	$username = $_SESSION['username'];
 
+	// meniukas
+	echo '
+	<ol class="breadcrumb">
+	  <li><a href="/">Pradinis</a></li>
+	  <li><a href="visi_receptai.php">Receptai</a></li>
+	  <li class="active">Receptų sąrašas</li>
+	</ol>';
+
 	if ( (!empty($_GET["page"]) or (empty($_GET)) ) ) {
-		echo "<h2>Visų receptų sąrašas</h2>";
+		echo "<h2>Receptų sąrašas</h2>";
 
 		// Pagination 
 			// Total number of rows in table
@@ -32,13 +39,13 @@ if (loggedIn($where)) {
 		
 		$recipes_result = mysql_query($queryRecipes);
 
-		echo "<table style=\"width:20%; text-align: center;\">
+		echo "<table class=\"table table-bordered table-striped\" style=\"width: 50%\">
 			  	<tr>
-			  		<th>ID</th>
-			    	<th>Autorius</th>
-			    	<th>Pavadinimas</th>
-			    	<th>Porcijos</th>
-			    	<th>Gamybos trukmė</th>
+			  		<th style=\"width: 5%\">ID</th>
+			    	<th style=\"width: 5%\">Autorius</th>
+			    	<th style=\"width: 30%\">Pavadinimas</th>
+			    	<th style=\"width: 5%\">Porcijos</th>
+			    	<th style=\"width: 5%\">Gamybos trukmė</th>
 		  	  	</tr>";
 
 		while ($recipe = mysql_fetch_row($recipes_result)) {

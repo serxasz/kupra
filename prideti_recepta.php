@@ -5,6 +5,13 @@ include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
 if (loggedIn($where)) {
+	// meniukas
+	echo '
+	<ol class="breadcrumb">
+	  <li><a href="/">Pradinis</a></li>
+	  <li><a href="visi_receptai.php">Receptai</a></li>
+	  <li class="active">Pridėti receptą</li>
+	</ol>';
 	
 	if (!empty($_POST)) {
 		

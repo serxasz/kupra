@@ -5,8 +5,15 @@ include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
 if (loggedIn($where)) {
-
 	$username = $_SESSION['username'];
+
+	// meniukas
+	echo '
+	<ol class="breadcrumb">
+	  <li><a href="/">Pradinis</a></li>
+	  <li><a href="produktu_klasifikatorius.php">Produktai</a></li>
+	  <li class="active">Produktų sąrašas</li>
+	</ol>';
 	
 	echo "<h2>Produktų sąrašas</h2>";
 
@@ -62,11 +69,11 @@ if (loggedIn($where)) {
 	echo "<table class=\"table table-bordered table-striped\">
 		<thead>
 		  	<tr>
-		  		<th>ID</th>
-		    	<th>Produktas</th>
-		    	<th>Aprašymas</th>
-		    	<th>Vienetai</th>
-                <th>Nuotrauka</th>
+		  		<th style=\"width: 5%\">ID</th>
+		    	<th style=\"width: 15%\">Produktas</th>
+		    	<th style=\"width: 50%\">Aprašymas</th>
+		    	<th style=\"width: 15%\">Vienetai</th>
+                <th style=\"width: 15%\">Nuotrauka</th>
 	  	  	</tr>
         </thead>
         <tbody>";

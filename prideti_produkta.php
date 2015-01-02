@@ -5,8 +5,15 @@ include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
 if (loggedIn($where)) {
-
 	$username = $_SESSION['username'];
+
+	// meniukas
+	echo '
+	<ol class="breadcrumb">
+	  <li><a href="/">Pradinis</a></li>
+	  <li><a href="produktu_klasifikatorius.php">Produktai</a></li>
+	  <li class="active">Pridėti produktą</li>
+	</ol>';
 
 	echo "<h2>Naujas produktas</h2>";
 	

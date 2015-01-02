@@ -5,16 +5,21 @@ include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
 if (loggedIn($where)) {
-
 	$username = $_SESSION['username'];
+
+	// meniukas
+	echo '
+	<ol class="breadcrumb">
+	  <li><a href="/">Pradinis</a></li>
+	  <li><a href="visi_receptai.php">Receptai</a></li>
+	  <li class="active">Mano receptai</li>
+	</ol>';
 
 	if (!empty($_GET)) {
 		include('include_content/edit_rcp.php');
 	}
 
-	echo "<h3><a href=\"prideti_recepta.php\">Pridėti naują receptą</a></h3>";
-
-	echo "<h2>Mano receptų sąrašas</h2>";
+	echo "<h2>Mano receptai</h2>";
 	
 	// Pagination 
 		// Total number of rows in table
@@ -37,7 +42,7 @@ if (loggedIn($where)) {
 	
 	$recipes_result = mysql_query($queryRecipes);
 
-	echo "<table style=\"width:20%; text-align: center;\">
+	echo "<table class=\"table table-bordered table-striped\">
 		  	<tr>
 		  		<th>ID</th>
 		    	<th>Autorius</th>

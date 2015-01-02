@@ -61,8 +61,8 @@
               <li class="dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kalba <span class="caret"></span></a>
                 <ul class="dropdown-menu" role="menu">
-                  <li><a href="#Anglu">Anglų</a></li>
-                  <li><a href="#Lietuviu">Lietuvių</a></li>
+                  <li><a href="/?lang=0">Anglų</a></li>
+                  <li><a href="/?lang=1">Lietuvių</a></li>
                 </ul>
               </li>
             </ul>
@@ -74,7 +74,7 @@
 <?
       if (loggedIn($where)) {
         echo '
-            <div class="container col-md-2">
+            <div class="container col-md-3">
                 <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Meniu</h3>
@@ -84,14 +84,16 @@
                             <a href="produktu_klasifikatorius.php">Produktai</a><br />';
 
         if ($where == "produktai") {
+            echo           '<a href="produktu_klasifikatorius.php">--- Produktų sąrašas</a><br />';
             echo           '<a href="prideti_produkta.php">--- Pridėti produktą</a><br />';
         }
 
         echo '
                             <a href="visi_receptai.php">Receptai</a><br />';
         if ($where == "receptai") {
-            echo           '<a href="prideti_recepta.php">--- Pridėti receptą</a><br />';
+            echo           '<a href="visi_receptai.php">--- Receptų sąrašas</a><br />';
             echo           '<a href="mano_receptai.php">--- Mano receptai</a><br />';
+            echo           '<a href="prideti_recepta.php">--- Pridėti receptą</a><br />';
         }
 
         echo '
@@ -101,4 +103,4 @@
             </div>';
         }
 ?>
-    <div class="container col-md-10">
+    <div class="container col-md-9">
