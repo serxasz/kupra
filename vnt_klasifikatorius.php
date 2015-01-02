@@ -7,19 +7,8 @@ $where=$phrase[81];
 if (loggedIn($where)) {
 	$username = $_SESSION['username'];
 
-	echo "<h3>To Do</h3>";
-		echo "<br />";
-	echo "Turėtų būti pasirinkimai: <br />";
-		echo "po kiek elementų rodyti viename lange. (atskiras)<br />";
-		echo "rikiuot pagal abecėlę <br />";
-		echo "naujausias virsuje? <br />";
-		echo "<br />";
-	echo "URL turėtų būti draugiškesnis akiai";
-		echo "<br />";
-	echo "Multilanguage";
-
 	echo "<h2>Naujas vienetas</h2>";
-	
+
 	if (!empty($_POST)) {
 		$newQuantityName = $_POST['quantity'];
 
@@ -71,16 +60,39 @@ if (loggedIn($where)) {
 	}
 
 	echo "<h2>Matavimo vienetai</h2>";
+
 	// Pagination 
 		// Total number of rows in table
 			$query = "SELECT COUNT(*) as num FROM quantities";
 			$total_pages = mysql_fetch_array(mysql_query($query));
 			$total_pages = $total_pages[num];
-			echo "Viso įrašų: $total_pages<br /><br />";
+
+		// sorter
+			echo "Viso įrašų: $total_pages";
+		// sorter
+		$limitForForm = $_GET['limit'];
+		if ($limitForForm == 10) {
+			$select10 = 'selected';
+		} elseif ($limitForForm == 25) {
+			$select25 = 'selected';
+		} elseif ($limitForForm == 50) {
+			$select50 = 'selected';
+		} else {
+			$select10 = 'selected';
+		}
+		echo "<form>Rūšiuoti po: 
+		<select name=\"limit\" onchange=\"this.form.submit()\">';
+			<option $select10 value=\"10\">10</option>
+			<option $select25 value=\"25\">25</option>
+			<option $select50 value=\"50\">50</option>
+		</select>
+		<noscript><input type=\"submit\" value=\"Submit\"></noscript>
+		</form>";
+		echo '<br />';
 
 		/* Setup vars for query. */
 			$targetpage = "vnt_klasifikatorius.php"; 	//your file name  (the name of this file)
-			$limit = 5; 								//how many items to show per page
+			$limit = 10; 								//how many items to show per page
 
 			$customLimit = $_GET['limit'];
 			if (isset($customLimit) & $customLimit != $limit) {
