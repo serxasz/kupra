@@ -42,14 +42,14 @@ if (loggedIn($where)) {
 	
 	$recipes_result = mysql_query($queryRecipes);
 
-	echo "<table class=\"table table-bordered table-striped\">
+		echo "<table class=\"table table-bordered table-striped\" style=\"width: 70%\">
 		  	<tr>
-		  		<th>ID</th>
-		    	<th>Autorius</th>
-		    	<th>Pavadinimas</th>
-		    	<th>Porcijos</th>
-		    	<th>Gamybos trukmė</th>
-		    	<th></th>
+			  	<th style=\"width: 5%\">ID</th>
+			    <th style=\"width: 5%\">Autorius</th>
+			    <th style=\"width: 30%\">Pavadinimas</th>
+			    <th style=\"width: 5%\">Porcijos</th>
+			    <th style=\"width: 5%\">Gamybos trukmė</th>
+		    	<th style=\"width: 20%\"></th>
 	  	  	</tr>";
 
 	while ($recipe = mysql_fetch_row($recipes_result)) {

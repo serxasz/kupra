@@ -42,30 +42,42 @@
 	<nav class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
-            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
-              <span class="sr-only">Toggle navigation</span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-              <span class="icon-bar"></span>
-            </button>
+                <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
             <a class="navbar-brand" href="/">KuPRA</a>
-          </div>
-          <div class="navbar-collapse collapse">
-            <ul class="nav navbar-nav">
-              <li><a href="#contact">
-                <form action="globali_paieska.php" method="post">
-                	<input style="width: 500px" type="text" name="term"
-                	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
-                   <input type="submit" name="submit" value="Ieskoti" /><br/>
-                </form></a></li>
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kalba <span class="caret"></span></a>
-                <ul class="dropdown-menu" role="menu">
-                  <li><a href="/?lang=0">Anglų</a></li>
-                  <li><a href="/?lang=1">Lietuvių</a></li>
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                <li>
+                <?php if (loggedIn($where)) {
+                    echo '
+                    <form action="globali_paieska.php" method="post">
+                    	<input style="width: 500px" type="text" name="term"
+                    	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
+                        <input type="submit" name="submit" value="Ieskoti" /><br/>
+                    </form>';
+                    } else {
+                        echo 'Čia turi būti prisijungimo langai Čia turi būti prisijungimo langai';
+                    } ?>
+                </li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kalba <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                      <li><a href="/?lang=0">Anglų</a></li>
+                      <li><a href="/?lang=1">Lietuvių</a></li>
+                    </ul>
+                </li>
+                  <li>
+                    <a href="/"><?php $username = $_SESSION['username']; echo $username ?></a>
+                  </li>
+                  <li>
+                    <a href="login.php?action=logout">Atsijungti</a>
+                  </li>
                 </ul>
-              </li>
-            </ul>
           </div><!--/.nav-collapse -->
         </div>
       </nav>
@@ -80,7 +92,14 @@
                             <h3 class="panel-title">Meniu</h3>
                         </div>
                         <div class="panel-body">
-                            <a href="vnt_klasifikatorius.php">Matavimo vienetai</a><br />
+                            <a href="vnt_klasifikatorius.php">Matavimo vienetai</a><br />';
+
+        if ($where == "vienetai") {
+            echo           '<a href="vnt_klasifikatorius.php">--- Vienetų sąrašas</a><br />';
+            echo           '<a href="prideti_vieneta.php">--- Pridėti vienetą</a><br />';
+        }
+
+        echo '
                             <a href="produktu_klasifikatorius.php">Produktai</a><br />';
 
         if ($where == "produktai") {
@@ -101,6 +120,8 @@
                         </div>
                 </div>
             </div>';
-        }
+        echo '<div class="container col-md-9">';
+    } else {
+            echo '<div class=\"container col-md-12\">';
+    }
 ?>
-    <div class="container col-md-9">

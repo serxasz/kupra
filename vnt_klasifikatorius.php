@@ -12,65 +12,11 @@ if (loggedIn($where)) {
 	echo '
 	<ol class="breadcrumb">
 	  <li><a href="/">Pradinis</a></li>
-	  <li class="active">Matavimo vienetai</li>
+	  <li><a href="/vnt_klasifikatorius.php">Vienetai</a></li>
+	  <li class="active">Vienetų sąrašas</li>
 	</ol>';
 
-	echo "<h2>Naujas vienetas</h2>";
-
-	if (!empty($_POST)) {
-		$newQuantityName = $_POST['quantity'];
-
-		// Validation
-			// Wrong format
-			$minQuantityLength = 2;
-			$maxQuantityLength = 20;
-
-			if ( (strlen($newQuantityName) < $minQuantityLength) or (strlen($newQuantityName) > $maxQuantityLength) ) {
-				$wrongFormat = true;
-			} else {
-				$wrongFormat = false;
-			}
-
-			// Duplicate
-			$duplicate = false;
-
-			$queryQuantities = "SELECT name FROM quantities";
-
-			$quantities_result = mysql_query($queryQuantities);
-
-			while($quantity = mysql_fetch_row($quantities_result)) {
-				if ($quantity[0] == $newQuantityName) {
-					$duplicate = true;
-					break;
-				}
-			}
-
-			if ($duplicate) {
-				echo "Vienetas su vardu \"$newQuantityName\" jau egzistuoja.";
-			} else if ($wrongFormat) {
-				echo "Leidžiamas vieneto pavadinimo dydis yra nuo $minQuantityLength simbolių iki $maxQuantityLength";
-			} else {
-				$sql = "INSERT INTO quantities (username, name) VALUES ('$username', '$newQuantityName')";
-
-				if (mysql_query($sql)) {
-					echo "Sėkmingai papildyta \"$newQuantityName\" vienetu.";
-				}
-			}
-
-			echo 	"<br />
-				  	 <br />
-				  	 <a href=\"vnt_klasifikatorius.php\">Įvesti kitą</a>";
-	} else {
-		echo 	'<form class="form-inline" action="vnt_klasifikatorius.php" method="post">
-					<div class="form-group">
-					 <label class="control-label" for="quantity">Pavadinimas</label>
-					 <input class="form-control" placeholder="" type="text" name="quantity">
-					</div>
-					<button type="submit" class="btn btn-default">Papildyti</button>
-				 </form>';
-	}
-
-	echo "<h2>Matavimo vienetai</h2>";
+	echo "<h2>Vienetų sąrašas</h2>";
 
 	// Pagination 
 		// Total number of rows in table
