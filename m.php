@@ -133,7 +133,6 @@ if (loggedIn($where)) {
 		}else { $sOutput = $phrase[55]; }	
 	}else { echo"<script>top.location = 'm.php?user=" . $_SESSION['username'] . "';</script>"; } 
 	echo $sOutput;
-	echo "<br><a href='index.php'>" . $phrase[56] . "</a>";
 }else {
 	include('include_content/not_registered.php');	
 }

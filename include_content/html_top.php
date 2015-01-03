@@ -39,6 +39,7 @@
 	</script>
 </head>
 <body>
+<div class="container" role="main">
 	<nav class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
@@ -48,46 +49,47 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="/">KuPRA<span class="glyphicon glyphicon-cutlery"></span></a>
+            <a class="navbar-brand" href="/">KuPRA <span class="glyphicon glyphicon-cutlery"></span> </a>
             </div>
             <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav navbar-header">
+                    <li>
+                    <?php if (loggedIn($where)) {
+                        echo '
+                        <form class="navbar-form navbar-header" role="search" action="globali_paieska.php" method="post">
+                            <input style="width: 500px" type="text" name="term"
+                        	placeholder ="Receptų paieška pagal pavadinimą arba vartotojo vardą"/>
+                            <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
+                        </form>';
+                        } else {
+                            echo 'Čia turi būti prisijungimo langai Čia turi būti prisijungimo langai';
+                        } ?>
+                    </li>
+                </ul>
                 <ul class="nav navbar-nav">
-                <li>
-                <?php if (loggedIn($where)) {
-                    echo '
-                    <form action="globali_paieska.php" method="post">
-                    	<input style="width: 500px" type="text" name="term"
-                    	placeholder ="Ieskoti recepto pagal pavadinima arba vartotojo varda"/>
-                        <input type="submit" name="submit" value="Ieskoti" /><br/>
-                    </form>';
-                    } else {
-                        echo 'Čia turi būti prisijungimo langai Čia turi būti prisijungimo langai';
-                    } ?>
-                </li>
-                <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
-                    <ul class="dropdown-menu" role="menu">
-                      <li><a href="/?lang=0">Anglų</a></li>
-                      <li><a href="/?lang=1">Lietuvių</a></li>
-                    </ul>
-                </li>
-                  <li>
-                    <?php if (loggedIn(null)) { $username = $_SESSION['username']; echo "<a href=\"/m.php?user=$username\"><span class=\"glyphicon glyphicon-user\"></span> $username</a>"; } ?>
-                  </li>
-                  <li>
-                    <?php if (loggedIn(null)) { echo '<a href="login.php?action=logout"><span class="glyphicon glyphicon-off"></span> Atsijungti</a>'; } ?>
-                  </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
+                        <ul class="dropdown-menu" role="menu">
+                          <li><a href="/?lang=0">Anglų</a></li>
+                          <li><a href="/?lang=1">Lietuvių</a></li>
+                        </ul>
+                    </li>
+                      <li>
+                        <?php if (loggedIn(null)) { $username = $_SESSION['username']; echo "<a href=\"/m.php?user=$username\"><span class=\"glyphicon glyphicon-user\"></span> $username</a>"; } ?>
+                      </li>
+                      <li>
+                        <?php if (loggedIn(null)) { echo '<a href="login.php?action=logout"><span class="glyphicon glyphicon-off"></span> Atsijungti</a>'; } ?>
+                    </li>
                 </ul>
           </div><!--/.nav-collapse -->
         </div>
       </nav>
-
-<div class="container" role="main">
+      <div class="row">
 <?
     // Meniu
       if (loggedIn($where)) {
         echo '
-            <div class="container col-md-3">
+            <div class="col-md-2">
                 <div class="panel panel-default">
                         <div class="panel-heading">
                             <h3 class="panel-title">Meniu</h3>
@@ -157,7 +159,7 @@
         echo '         </div>
                 </div>
             </div>';
-        echo '<div class="container col-md-9">';
+        echo '<div class="container col-md-10">';
     } else {
             echo '<div class=\"container col-md-12\">';
     }
