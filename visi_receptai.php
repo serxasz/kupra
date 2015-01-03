@@ -15,7 +15,14 @@ if (loggedIn($where)) {
 	  <li class="active">Receptų sąrašas</li>
 	</ol>';
 
-	if ( (!empty($_GET["page"]) or (empty($_GET)) ) ) {
+	if ( 
+			( !empty($_GET["page"]) )
+				or 
+			( empty($_GET) )
+				or
+			( !empty($_GET["limit"]) )
+		)
+		{
 		echo "<h2>Receptų sąrašas</h2>";
 
 		// Pagination 
@@ -35,7 +42,7 @@ if (loggedIn($where)) {
 		} else {
 			$select10 = 'selected';
 		}
-		echo "<form>Viso įrašų: $total_pages. Puslapyje rodyti po: (neveikia kolkas)
+		echo "<form>Viso įrašų: $total_pages. Puslapyje rodyti po: 
 		<select name=\"limit\" onchange=\"this.form.submit()\">';
 			<option $select10 value=\"10\">10</option>
 			<option $select25 value=\"25\">25</option>
@@ -48,6 +55,20 @@ if (loggedIn($where)) {
 			/* Setup vars for query. */
 				$targetpage = "visi_receptai.php"; 	//your file name  (the name of this file)
 				$limit = 10; 									//how many items to show per page
+
+				$customLimit = $_GET['limit'];
+				if (isset($customLimit) & $customLimit != $limit) {
+					$limit = $customLimit;
+					$customLimit = "&limit=$customLimit";
+				}			
+
+				$page = $_GET['page'];
+
+				if ($page) 
+					$start = ($page - 1) * $limit; 			//first item to display on this page
+				else
+					$start = 0;								//if no page var is given, set start to 0
+
 				$page = $_GET['page'];
 
 				if ($page) 
@@ -91,8 +112,6 @@ if (loggedIn($where)) {
 			We're actually saving the code to a variable in case we want to draw it more than once.
 		*/
 		include('include_content/pagination.php');
-		
-	   	echo "<br /><br /><a href=\"receptai.php\">Atgal</a>";
     } else {
     	$viewID = $_GET["view"];
 

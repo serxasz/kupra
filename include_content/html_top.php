@@ -52,7 +52,7 @@
             <a class="navbar-brand" href="/">KuPRA <span class="glyphicon glyphicon-cutlery"></span> </a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-header">
+                <ul class="nav navbar-nav navbar-center">
                     <li>
                     <?php if (loggedIn($where)) {
                         echo '
@@ -160,6 +160,15 @@
                 </div>
             </div>';
         echo '<div class="container col-md-10">';
+
+        // Admin menu
+        $sql = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
+        $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
+        $row = mysql_fetch_array($query);
+        if ($row[type]=="Administratorius") { 
+            //echo 'admin menu';
+        }
+
     } else {
             echo '<div class=\"container col-md-12\">';
     }
