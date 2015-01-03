@@ -10,7 +10,7 @@ if (loggedIn($where)) {
 	// meniukas
 	echo '
 	<ol class="breadcrumb">
-	  <li><a href="/">Pradinis</a></li>
+	  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 	  <li><a href="visi_receptai.php">Receptai</a></li>
 	  <li class="active">Receptų sąrašas</li>
 	</ol>';
@@ -23,7 +23,27 @@ if (loggedIn($where)) {
 				$query = "SELECT COUNT(*) as num FROM recipes";
 				$total_pages = mysql_fetch_array(mysql_query($query));
 				$total_pages = $total_pages[num];
-				echo "Viso įrašų: $total_pages";
+		
+		// sorter
+		$limitForForm = $_GET['limit'];
+		if ($limitForForm == 10) {
+			$select10 = 'selected';
+		} elseif ($limitForForm == 25) {
+			$select25 = 'selected';
+		} elseif ($limitForForm == 50) {
+			$select50 = 'selected';
+		} else {
+			$select10 = 'selected';
+		}
+		echo "<form>Viso įrašų: $total_pages. Puslapyje rodyti po: (neveikia kolkas)
+		<select name=\"limit\" onchange=\"this.form.submit()\">';
+			<option $select10 value=\"10\">10</option>
+			<option $select25 value=\"25\">25</option>
+			<option $select50 value=\"50\">50</option>
+		</select>
+		<noscript><input type=\"submit\" value=\"Submit\"></noscript>
+		</form>";
+		echo '<br />';
 
 			/* Setup vars for query. */
 				$targetpage = "visi_receptai.php"; 	//your file name  (the name of this file)

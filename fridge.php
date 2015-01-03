@@ -1,14 +1,14 @@
 <?php 
 include('config.php');
+$where = "saldytuvas"; 
 include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
-$where="Šaldytuvas"; 
 if (loggedIn($where)) {
     // meniukas
     echo '
     <ol class="breadcrumb">
-      <li><a href="/">Pradinis</a></li>
+      <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
       <li class="active">Šaldytuvas</li>
     </ol>';
 

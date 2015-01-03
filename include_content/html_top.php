@@ -48,7 +48,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-            <a class="navbar-brand" href="/">KuPRA</a>
+            <a class="navbar-brand" href="/">KuPRA<span class="glyphicon glyphicon-cutlery"></span></a>
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
@@ -65,17 +65,17 @@
                     } ?>
                 </li>
                 <li class="dropdown">
-                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Kalba <span class="caret"></span></a>
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
                     <ul class="dropdown-menu" role="menu">
                       <li><a href="/?lang=0">Anglų</a></li>
                       <li><a href="/?lang=1">Lietuvių</a></li>
                     </ul>
                 </li>
                   <li>
-                    <?php $username = $_SESSION['username']; echo "<a href=\"/m.php?user=$username\">$username</a>"; ?>
+                    <?php if (loggedIn(null)) { $username = $_SESSION['username']; echo "<a href=\"/m.php?user=$username\"><span class=\"glyphicon glyphicon-user\"></span> $username</a>"; } ?>
                   </li>
                   <li>
-                    <a href="login.php?action=logout">Atsijungti</a>
+                    <?php if (loggedIn(null)) { echo '<a href="login.php?action=logout"><span class="glyphicon glyphicon-off"></span> Atsijungti</a>'; } ?>
                   </li>
                 </ul>
           </div><!--/.nav-collapse -->
@@ -84,6 +84,7 @@
 
 <div class="container" role="main">
 <?
+    // Meniu
       if (loggedIn($where)) {
         echo '
             <div class="container col-md-3">
@@ -94,30 +95,66 @@
                         <div class="panel-body">
                             <a href="vnt_klasifikatorius.php">Matavimo vienetai</a><br />';
 
-        if ($where == "vienetai") {
-            echo           '<a href="vnt_klasifikatorius.php">--- Vienetų sąrašas</a><br />';
-            echo           '<a href="prideti_vieneta.php">--- Pridėti vienetą</a><br />';
+        if ($where == "vienetai" or $where == "naujas_vienetas") {
+            if ($where == "vienetai") {
+                $listStart = '<div class="bg-info">';
+                $listEnd = '</div>';
+            } else {
+                $createStart = '<div class="bg-info">';
+                $createEnd = '</div>';
+            }
+
+            echo           "$listStart<a href=\"vnt_klasifikatorius.php\">--- Vienetų sąrašas</a><br />$listEnd";
+            echo           "$createStart<a href=\"prideti_vieneta.php\">--- Pridėti vienetą</a><br />$createEnd";
         }
 
         echo '
                             <a href="produktu_klasifikatorius.php">Produktai</a><br />';
 
-        if ($where == "produktai") {
-            echo           '<a href="produktu_klasifikatorius.php">--- Produktų sąrašas</a><br />';
-            echo           '<a href="prideti_produkta.php">--- Pridėti produktą</a><br />';
+        if ($where == "produktai" or $where == "naujas_produktas") {
+            if ($where == "produktai") {
+                $listStart = '<div class="bg-info">';
+                $listEnd = '</div>';
+            } else {
+                $createStart = '<div class="bg-info">';
+                $createEnd = '</div>';
+            }
+
+            echo           "$listStart<a href=\"produktu_klasifikatorius.php\">--- Produktų sąrašas</a><br />$listEnd";
+            echo           "$createStart<a href=\"prideti_produkta.php\">--- Pridėti produktą</a><br />$createEnd";
         }
 
         echo '
                             <a href="visi_receptai.php">Receptai</a><br />';
-        if ($where == "receptai") {
-            echo           '<a href="visi_receptai.php">--- Receptų sąrašas</a><br />';
-            echo           '<a href="mano_receptai.php">--- Mano receptai</a><br />';
-            echo           '<a href="prideti_recepta.php">--- Pridėti receptą</a><br />';
+        if ($where == "receptai" or $where == "mano_receptai" or $where == "naujas_receptas") {
+            if ($where == "receptai") {
+                $listStart = '<div class="bg-info">';
+                $listEnd = '</div>';
+            } elseif ($where == "mano_receptai") {
+                $myStart = '<div class="bg-info">';
+                $myEnd = '</div>';
+            } else {
+                $createStart = '<div class="bg-info">';
+                $createEnd = '</div>';    
+            }
+
+            echo           "$listStart<a href=\"visi_receptai.php\">--- Receptų sąrašas</a><br />$listEnd";
+            echo           "$myStart<a href=\"mano_receptai.php\">--- Mano receptai</a><br />$myEnd";
+            echo           "$createStart<a href=\"prideti_recepta.php\">--- Pridėti receptą</a><br />$createEnd";
         }
 
-        echo '
-                            <a href="fridge.php">Šaldytuvas</a><br />
-                        </div>
+
+        if ($where == "saldytuvas") {
+            $listStart = '<div class="bg-info">';
+            $listEnd = '</div>';
+
+            echo "$listStart<a href=\"fridge.php\">Šaldytuvas</a><br />$listEnd";
+        } else {
+            echo "<a href=\"fridge.php\">Šaldytuvas</a><br />";
+        }
+        
+
+        echo '         </div>
                 </div>
             </div>';
         echo '<div class="container col-md-9">';

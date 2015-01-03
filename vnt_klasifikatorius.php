@@ -11,7 +11,7 @@ if (loggedIn($where)) {
 	// meniukas
 	echo '
 	<ol class="breadcrumb">
-	  <li><a href="/">Pradinis</a></li>
+	  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 	  <li><a href="/vnt_klasifikatorius.php">Vienetai</a></li>
 	  <li class="active">Vienetų sąrašas</li>
 	</ol>';

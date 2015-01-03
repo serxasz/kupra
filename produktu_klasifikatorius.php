@@ -10,7 +10,7 @@ if (loggedIn($where)) {
 	// meniukas
 	echo '
 	<ol class="breadcrumb">
-	  <li><a href="/">Pradinis</a></li>
+	  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 	  <li><a href="produktu_klasifikatorius.php">Produktai</a></li>
 	  <li class="active">Produktų sąrašas</li>
 	</ol>';
