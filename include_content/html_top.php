@@ -286,7 +286,9 @@
                  </div>';
         }
            echo' </div>';
-        echo '<div class="container col-md-10">';
+        echo '<div class="container col-md-10" >
+              <div class="panel panel-default">
+               <div class="panel-body">';
 
     } else {
             echo '<div class=\"container col-md-12\">';

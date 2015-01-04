@@ -1,5 +1,5 @@
-<!-- col-md-9 container -->
-</div>
+<!-- col-md-10 container -->
+</div></div></div>
 
 <!-- Below navbar container -->
 
