@@ -39,7 +39,7 @@ if (loggedIn($where)) {
 		  	<tr>
 			    <th style=\"width: 50%\">Recepto Pavadinimas</th>
 				<th style=\"width: 30%\">Produktai</th>
-				
+				<th style=\"width: 30%\">Gaminti</th>
 				
 				
 			    
@@ -47,24 +47,76 @@ if (loggedIn($where)) {
 	  	  	</tr>";
 	    echo 	'<tr>
 	       			
-					<td>
+					
 					';
 						
 						
 					
 	
 					$recept_result = mysql_query("SELECT * FROM menus_recipes WHERE menuid='$menu[0]' ");
-					echo "<table class=\"table table-bordered table-striped\" style=\"width: 20%\">";
+					//echo "<table class=\"table table-bordered table-striped\" style=\"width: 20%\">";
 					while ($rec = mysql_fetch_row($recept_result)) {
 					
 						$r_result =mysql_query('SELECT * FROM recipes WHERE id IN ('.$rec[0].')');
 						while ($r = mysql_fetch_row($r_result)) {
-							echo "<center>
-								$r[2] <div>
-								</center>";
+							echo '
+							<td><ceter>'.$r[2].'</center></td>';
+						
+						
+				
+				  	$queryProducts = "SELECT * FROM recipe_products WHERE recipe_id='$rec[0]'";
+    	$products = mysql_query($queryProducts);
+		echo "<td><table style=\"width:20%; text-align: center;\">
+			  	<tr>
+			  		<th></th>
+			  		<th>Produktas</th>
+			    	<th>Vienetas</th>
+			    	<th>Kiekis</th>
+		  	  	</tr>";
+
+		while ($product = mysql_fetch_row($products)) {
+			$queryProductInfo = "SELECT * FROM products WHERE id='$product[2]'";
+			$result_productInfo = mysql_query($queryProductInfo);
+			$productInfo = mysql_fetch_row($result_productInfo);
+
+			$queryQuantityInfo = "SELECT name FROM quantities WHERE id='$productInfo[2]'";
+			$result_quantityInfo = mysql_query($queryQuantityInfo);
+			$quantityInfo = mysql_fetch_row($result_quantityInfo);		
+	        
+	        $file = glob("uploads/products/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+	        $image = "";
+	        foreach ($file as $i) {
+	            if ($i == "uploads/products/" . $productInfo[3] . ".jpg" or $i == "uploads/products/" . $productInfo[3] . ".jpeg" or $i == "uploads/products/" . $productInfo[3] . ".png" or $i == "uploads/products/" . $productInfo[3] . ".gif") {
+	                        $image = '<img src="'.$i.'" alt="photo" height="75" width="75">';
+	                    }
+	                }
+
+		    echo 	"<tr>
+		    			<td>$image</td>
+		       			<td>$productInfo[3]</td>
+		       			<td>$quantityInfo[0]</td>
+		       			<td>$product[3]</td>
+		       		</tr>";
+	   	}
+
+	  echo "</table></td>";
+			
+				
+				
+				
+				
+				
+				
+				
+				
+				
+				
+						echo '
+								<td><input name="gaminti' . $menuid . '" type="submit" value="gaminti" /></td> </tr>';
+								
 						}
 					}
-					echo "</table>";
+					echo "<tr><td colspan=\"3\">";
 						
 					if (isset($_POST['go'.$menuid])) {
 							$pun = $_POST['taskOption'.$menuid];
@@ -77,6 +129,7 @@ if (loggedIn($where)) {
 					}
 					
 					echo'<form method="post" action="valgiarastis.php">
+					
 					<center>
 					<select name= "taskOption'.$menuid.'" >';
 					$recipes = "SELECT * FROM recipes  ";
@@ -90,13 +143,13 @@ if (loggedIn($where)) {
 					
 				
 					echo '
-						</select>
-						<div><br>
+						</select>   
+						
 						<input name="go' . $menuid . '" type="submit" value="patvirtinti" />
 						</form>
 					</center>
-					<td></td>
 					</td>
+					
 				
 	       	
 	       		  </tr>';
