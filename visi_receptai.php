@@ -120,7 +120,7 @@ if (loggedIn($where)) {
 		$recipe = mysql_fetch_row($recipes_result);
 
 		if ($recipe[1] == $username) {
-			$edit = "<a href=\"mano_receptai.php?edit=true&id=$recipe[0]\">  (Redaguoti receptą)</a>";
+			$edit = "<a href=\"redaguoti_recepta.php?edit=true&id=$recipe[0]\">  (Redaguoti receptą)</a>";
 		} else {
 			$edit = "";
 		}
@@ -178,6 +178,7 @@ if (loggedIn($where)) {
 
 	   	echo "</table>";
         
+
         $supply = "";
         $current = $recipe[0];
         $sql1 = "SELECT product_amount, product_id FROM recipe_products WHERE recipe_id = '$current'"; 
