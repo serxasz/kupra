@@ -6,16 +6,11 @@ include('config.php');
 
     $username = $_SESSION['username'];
 
-    if (!empty($q)){
-        echo "<h3>Rasta produktų užklausai - $q</h3>";
-    }
-
     // Pagination 
     // Total number of rows in table
       $query = "SELECT COUNT(*) as num FROM products WHERE name LIKE '$q%'";
       $total_pages = mysql_fetch_array(mysql_query($query));
       $total_pages = $total_pages[num];
-      echo "Viso įrašų: $total_pages";
 
     /* Setup vars for query. */
       $targetpage = "prideti_recepta.php?q=$q&rcpid=$rcpID";   //your file name  (the name of this file)
@@ -27,7 +22,12 @@ include('config.php');
       else
         $start = 0;               //if no page var is given, set start to 0
 
-
+      if (!empty($q)){
+          echo "<h3>Rasta produktų užklausai - $q</h3>";
+          echo "Rasta produktų: $total_pages.";
+      } else {
+        echo "Rodoma $limit populiariausių produktų";
+      }
 
       $queryProducts = "SELECT * FROM products WHERE name LIKE '$q%' LIMIT $start, $limit";
       $products_result = mysql_query($queryProducts);
@@ -56,6 +56,11 @@ include('config.php');
                             $image = '<img src="'.$i.'" alt="photo" height="75" width="75">';
                         }
                     }
+            $query = "SELECT * FROM recipe_products WHERE product_id='$product[0]' AND recipe_id='$rcpID'";
+            $info = mysql_query($query);
+            $quanty = mysql_fetch_row($info);
+
+            $quan = intval($quanty[3]);
 
             echo "<tr>
                 <td>$image</td>
@@ -63,12 +68,16 @@ include('config.php');
                 <td>$product[4]</td>
                 <td>$quantity[0]</td>
                     <td>
-                        <input type=\"text\" value=\"0\" size=\"5\" onchange=\"productAddition(this.value, $product[0], $rcpID)\">
+                        <input type=\"text\" value=\"$quan\" size=\"5\" onchange=\"productAddition(this.value, $product[0], $rcpID)\">
                     </td>
                 </tr>";
         }
 
-      if(mysql_num_rows($products_result) > 0) { 
+
+      if(mysql_num_rows($products_result) > 0) {
+          if ($total_pages > $limit) {
+            echo '<tr><td colspan="5">Norėdami matyti kitus patikslinkite paiešką.</td></tr>';
+          }
           echo "</table>";
         }
 
@@ -83,5 +92,5 @@ include('config.php');
         We're actually saving the code to a variable in case we want to draw it more than once.
       */
 
-      include('include_content/pagination.php');
+      //include('include_content/pagination.php');
 ?>

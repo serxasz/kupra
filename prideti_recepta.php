@@ -161,11 +161,9 @@ if (loggedIn($where)) {
 						</div>";
 				echo '
 				<form action="prideti_recepta.php" method="post">
-				<input class="form-control" type="submit" value="Pereiti į antrą etapą.">';
+				<input class="form-control" type="submit" value="Sukurti receptą">';
 			}
 		}
-	} else {
-		echo "rodom kita psl";
 	}
 } else {
 	include('include_content/not_registered.php');

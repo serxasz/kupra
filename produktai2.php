@@ -58,12 +58,13 @@ include('config.php');
             }
         }
        	$numeracija++;
+
 			    echo 	"<tr>
 			    			<td>$numeracija</td>
 			    			<td>$image</td>
 			       			<td>$productInfo[3]</td>
 			       			<td>$quantityInfo[0]</td>
-			       			<td><input type=\"text\" value=\"$product[3]\" size=\"5\" onchange=\"productAddition(this.value, $productInfo[0], $rcpID)\"></td>
+			       			<td><input type=\"text\" value=\"$product[3]\" size=\"5\" onchange=\"productAddition(this.value, $productInfo[0], $rcpID);showUser('', $rcpID)\"></td>
 			       		</tr>";
 	}
 
