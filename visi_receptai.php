@@ -124,21 +124,26 @@ if (loggedIn($where)) {
 		} else {
 			$edit = "";
 		}
-
-    	echo "<h2>Recepeto peržiūra</h2>";
-    	echo "<h1>$recipe[2]</h1>$edit";
-    	echo "<h4>Autorius: $recipe[1]</h4>";
-    	echo "<h3>Aprašymas</h3>";
-    	echo "$recipe[5]";
-    	echo "<h4>Gamybos trukmė: $recipe[4]</h4>";
-    	echo "<h4>Porcijos: $recipe[3]</h4>";
+        echo '<table class="table table-bordered" align="center">';
+    	echo "<tr align='center'><td colspan='2'><font size='6'>$recipe[2]</font>$edit</td></tr>";
+        $file = glob("uploads/recipes/".$recipe[2]."/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+        if (!empty($file)) {
+        foreach ($file as $i) {
+            echo '<tr align="center"><td colspan="2"><img src="'.$i.'" style="height:400px; width:400px;" alt="photo"></td></tr>';
+        }
+        }
+    	echo "<tr align='center'><td width='20%'><b>Autorius:</b></td><td>$recipe[1]</td></tr>";
+    	echo "<tr align='center'><td><b>Aprašymas:</b></td><td>$recipe[5]</td></tr>";
+    	echo "<tr align='center'><td><b>Gamybos trukmė:</b></td><td>$recipe[4]</td></tr>";
+    	echo "<tr align='center'><td><b>Porcijos:</b></td><td>$recipe[3]</td></tr>";
+        echo '</table>';
     	echo "<h3>Produktai</h3>";
 
     	// get list of products
 
        	$queryProducts = "SELECT * FROM recipe_products WHERE recipe_id='$viewID'";
     	$products = mysql_query($queryProducts);
-		echo "<table style=\"width:20%; text-align: center;\">
+		echo "<table class=\"table table-bordered\" style=\"width:20%; text-align: center;\">
 			  	<tr>
 			  		<th></th>
 			  		<th>Produktas</th>
@@ -172,6 +177,48 @@ if (loggedIn($where)) {
 	   	}
 
 	   	echo "</table>";
+        
+        $supply = "";
+        $current = $recipe[0];
+        $sql1 = "SELECT product_amount, product_id FROM recipe_products WHERE recipe_id = '$current'"; 
+        $query1 = mysql_query($sql1) or die("Query Failed: " . mysql_error());
+        $makeable = true;
+        while ($product = mysql_fetch_array($query1)) {
+        $sql2 = "SELECT product_id,quantity FROM fridge WHERE product_id = '".$product['product_id']."' AND fridge.username = '".$_SESSION['username']."' LIMIT 1"; 
+            $query2 = mysql_query($sql2) or die("Query Failed: " . mysql_error());
+            $answer = mysql_fetch_array($query2);
+            if (mysql_num_rows($query2) == 1) {
+                if ($answer['quantity'] >= $product['product_amount']) {                    
+                } else {
+                    $s = "SELECT name FROM products WHERE id = '".$product['product_id']."' LIMIT 1"; 
+                    $q = mysql_query($s) or die("Query Failed: " . mysql_error());
+                    $a = mysql_fetch_array($q);
+                    if (mysql_num_rows($q) == 1) {
+                    $kiek = $product['product_amount'] - $answer['quantity'];
+                    $supply .= "<tr><td>".$a['name']."</td><td>".$kiek."</td></tr>";
+                    }
+                    $makeable = false;
+                }
+   } else {
+                
+                $s = "SELECT name FROM products WHERE id = '".$product['product_id']."' LIMIT 1"; 
+                $q = mysql_query($s) or die("Query Failed: " . mysql_error());
+                $a = mysql_fetch_array($q);
+                if (mysql_num_rows($q) == 1) {
+                $supply .= "<tr><td>".$a['name']."</td><td>".$product['product_amount']."</td></tr>";
+                }
+                $makeable = false;
+            }
+        }
+        if ($makeable) {
+            echo"<font color='green' size='4'>Šaldytuve yra pakankamai produktų šiam patiekalui pagaminti!</font>";
+        } else {
+            echo"<font color='red' size='4'>Nepakankamų produktų sąrašas:</font>";
+            echo"<table class=\"table table-bordered\" style=\"width:20%; text-align: center;\">";
+            echo"<tr align='center'><td align='center'><b>Produktas</b></td><td align='center'><b>Kiekis</b></td></tr>";
+        }       
+        $supply .= "</table>";
+        echo $supply;
     }
 
 } else {
