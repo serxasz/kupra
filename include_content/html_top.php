@@ -144,8 +144,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="/?lang=0">Anglų</a></li>
-                          <li><a href="/?lang=1">Lietuvių</a></li>
+                          <li><a href="<? echo $_SERVER['PHP_SELF']; ?>?lang=0">Anglų</a></li>
+                          <li><a href="<? echo $_SERVER['PHP_SELF']; ?>?lang=1">Lietuvių</a></li>
                         </ul>
                     </li>
                       <li>
