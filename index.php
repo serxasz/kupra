@@ -11,7 +11,7 @@ if (loggedIn($where)) {
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">';
     $active = true;
-    $sql = "SELECT * FROM recipes ORDER BY id ASC LIMIT 50";
+    $sql = "SELECT * FROM recipes ORDER BY id DESC LIMIT 50";
 	$result = mysql_query($sql);
 	while($row = mysql_fetch_assoc($result)){
         if ($active) {
@@ -20,10 +20,10 @@ if (loggedIn($where)) {
         } else {
             echo'<div class="item">';
         }
-        $file = glob("uploads/recipes/".$row['id']."/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+        $file = glob("uploads/recipes/".$row['name']."/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
         if (!empty($file)) {
         foreach ($file as $i) {
-            if ($i == "uploads/recipes/".$row['id']."/1.jpg" or $i == "uploads/recipes/".$row['id']."/1.jpeg" or $i == "uploads/recipes/".$row['id']."/1.png" or $i == "uploads/recipes/".$row['id']."/1.gif") {
+            if ($i == "uploads/recipes/".$row['name']."/1.jpg" or $i == "uploads/recipes/".$row['name']."/1.jpeg" or $i == "uploads/recipes/".$row['name']."/1.png" or $i == "uploads/recipes/".$row['name']."/1.gif") {
                         $image = '<img src="'.$i.'" style="height:400px; width:400px;" alt="photo">';
                     }
                 }

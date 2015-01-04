@@ -22,7 +22,7 @@ if (loggedIn($where)) {
 		echo "<h3>Pagrindinė informacija</h3>";
 
 		echo '
-			<form action="prideti_recepta.php" method="post">
+			<form action="prideti_recepta.php" method="post" enctype="multipart/form-data">
 						<div class="form-group">
 							<label for="name" class="control-label">Pavadinimas:</label>
 							<input class="form-control" type="text" name="name">
@@ -40,7 +40,8 @@ if (loggedIn($where)) {
 							<input class="form-control" type="text" name="portions">
 						</div>
 						<div class="form-group">
-							<label for="photo" class="control-label">Nuotrauka:</label>
+							<label for="photo" class="control-label">Nuotraukos:</label>
+                            <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
 						</div>
 
 						<div class="form-group">
@@ -94,6 +95,37 @@ if (loggedIn($where)) {
 		} else if (!is_numeric($duration)) {
 			echo "Gamybos trukmė - \"$duration\" nėra leistinas kiekis. Naudokitės skaičiais [0-9].";
 		} else {
+            
+            $valid_formats = array("jpg", "png", "gif", "jpeg");
+            $max_file_size = 1024*100; //100 kb
+            $path = "uploads/recipes/".$name."/"; // Upload directory
+            mkdir($path, 0777);
+            $count = 0;
+
+            if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
+            // Loop $_FILES to exeicute all files
+            foreach ($_FILES['files']['name'] as $f => $namex) {     
+            if ($_FILES['files']['error'][$f] == 4) {
+                continue; // Skip file if any error found
+            }	       
+            if ($_FILES['files']['error'][$f] == 0) {	           
+                if ($_FILES['files']['size'][$f] > $max_file_size) {
+                    $message[] = "$namex is too large!.";
+                    continue; // Skip large files
+	        }
+			elseif( ! in_array(pathinfo($namex, PATHINFO_EXTENSION), $valid_formats) ){
+				$message[] = "$name is not a valid format";
+				continue; // Skip invalid file formats
+			}
+	        else{ // No error found! Move uploaded files 
+	            if(move_uploaded_file($_FILES["files"]["tmp_name"][$f], $path.$namex))
+	            $count++; // Number of successfully uploaded file
+                rename($path.$namex, $path.$count.".".pathinfo($namex, PATHINFO_EXTENSION));
+	        }
+	    }
+	}
+}
+            
 			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$portions', '$duration', '$private')";
 
 			if (mysql_query($sql)) {
