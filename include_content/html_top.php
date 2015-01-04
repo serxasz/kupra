@@ -115,7 +115,7 @@
                     <?php if (loggedIn($where)) {
                         echo '
                         <form class="navbar-form navbar-header" role="search" action="globali_paieska.php" method="post">
-                            <input style="width: 500px" type="text" name="term"
+                            <input style="width: 380px" type="text" name="term"
                         	placeholder ="Receptų paieška pagal pavadinimą arba vartotojo vardą"/>
                             <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                         </form>';
@@ -128,12 +128,28 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="/?lang=0">Anglų</a></li>
-                          <li><a href="/?lang=1">Lietuvių</a></li>
+                          <li><a href="<? echo $_SERVER['PHP_SELF']; ?>?lang=0">Anglų</a></li>
+                          <li><a href="<? echo $_SERVER['PHP_SELF']; ?>?lang=1">Lietuvių</a></li>
                         </ul>
                     </li>
                       <li>
                         <?php if (loggedIn(null)) { $username = $_SESSION['username']; echo "<a href=\"/m.php?user=$username\"><span class=\"glyphicon glyphicon-user\"></span> $username</a>"; } ?>
+                      </li>
+                      <li>
+                        <?php if (loggedIn(null)) { 
+                            $sql = "SELECT COUNT(message) FROM messages WHERE deleted = '0' AND receiver = '".$_SESSION['username']."'";
+                            $rs_result = mysql_query($sql); 
+                            $row = mysql_fetch_row($rs_result);
+                            $sql = "SELECT COUNT(new) FROM messages WHERE deleted = '0' AND receiver = '".$_SESSION['username']."' AND new='1'";
+                            $rs_result = mysql_query($sql); 
+                            $row1 = mysql_fetch_row($rs_result);
+                            if ($row1[0] > 0) { $strong1 = "<b>"; $strong2 = "</b>"; }else { $strong1 = ""; $strong2 = ""; }
+                            echo"<a href=\"pm.php\"><span class=\"glyphicon glyphicon-envelope\"></span>".$strong1." [".$row[0]."/".$max_pm."]".$strong2."</a>";
+                            } 
+                        ?>
+                      </li>
+                      <li>
+                        <?php if (loggedIn(null)) { echo"<a href=\"users_online.php\"><span class=\"glyphicon glyphicon-globe\"></span> Prisijungę:  <b>" . countOnlineUsers() . "</b></a>"; } ?>
                       </li>
                       <li>
                         <?php if (loggedIn(null)) { echo '<a href="login.php?action=logout"><span class="glyphicon glyphicon-off"></span> Atsijungti</a>'; } ?>
@@ -237,18 +253,28 @@
 		
 
 
-        echo '         </div>
-                </div>
-            </div>';
-        echo '<div class="container col-md-10">';
-
-        // Admin menu
+        echo '         </div>';
+         echo'       </div>';
+         // Admin menu
         $sql = "SELECT type FROM users where username='".$_SESSION['username']."' LIMIT 1";
         $query = mysql_query($sql) or trigger_error("Query Failed: " . mysql_error());
         $row = mysql_fetch_array($query);
         if ($row[type]=="Administratorius") { 
-            //echo 'admin menu';
+            echo'<div class="panel panel-default">
+                        <div class="panel-heading">
+                            <h3 class="panel-title">Admin Menu</h3>
+                        </div>
+                        <div class="panel-body">
+                            <a href="admin.php?action=member_list">Narių sąrašas</a><br>
+                            <a href="admin.php?action=delete_user">Ištrinti vartotoją</a><br>
+                            <a href="admin.php?action=group_email">Siųsti masinį email</a><br>
+                            <a href="edit_clasificator.php">Matavimo vienetai</a><br>
+                            <a href="edit_products.php">Produktai</a>
+                 </div>
+                 </div>';
         }
+           echo' </div>';
+        echo '<div class="container col-md-10">';
 
     } else {
             echo '<div class=\"container col-md-12\">';
