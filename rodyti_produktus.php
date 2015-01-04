@@ -1,24 +1,14 @@
 <?php
-include('config.php');
-    
-    $rcpID = $_GET['rcpid'];
-    $q = $_GET['q'];
-
-    $username = $_SESSION['username'];
-
-    if (!empty($q)){
-        echo "<h3>Rasta produktų užklausai - $q</h3>";
-    }
-
+		include('config.php');
     // Pagination 
     // Total number of rows in table
-      $query = "SELECT COUNT(*) as num FROM products WHERE name LIKE '$q%'";
+      $query = "SELECT COUNT(*) as num FROM products";
       $total_pages = mysql_fetch_array(mysql_query($query));
       $total_pages = $total_pages[num];
       echo "Viso įrašų: $total_pages";
 
     /* Setup vars for query. */
-      $targetpage = "prideti_recepta.php?q=$q&rcpid=$rcpID";   //your file name  (the name of this file)
+      $targetpage = "produktu_klasifikatorius.php";   //your file name  (the name of this file)
       $limit = 10;                  //how many items to show per page
       $page = $_GET['page'];
 
@@ -29,7 +19,7 @@ include('config.php');
 
 
 
-      $queryProducts = "SELECT * FROM products WHERE name LIKE '$q%' LIMIT $start, $limit";
+      $queryProducts = "SELECT * FROM products LIMIT $start, $limit";
       $products_result = mysql_query($queryProducts);
       
       if(mysql_num_rows($products_result) > 0) { 

@@ -7,53 +7,48 @@ include($_SESSION['lang']);
 if (loggedIn($where)) {
 	$username = $_SESSION['username'];
 
-	if (empty($_POST)) {
+	if (empty($_POST) & empty($_GET)) {
 		// meniukas
 		echo '
 		<ol class="breadcrumb">
 		  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 		  <li><a href="visi_receptai.php">Receptai</a></li>
 		  <li><a href="prideti_recepta.php">Pridėti receptą</a></li>
-		  <li class="active">Etapas 2 iš 2</li>
+		  <li class="active">Etapas 1 iš 2</li>
 		</ol>';
 
 		echo "<h2>Naujo recepto kūrimas (Etapas 1 iš 2)</h2>";
 		echo "<h3>Pagrindinė informacija</h3>";
 
 		echo '	<form action="prideti_recepta.php" method="post">
-					<table style=width:20%; text-align: center;>
-						<tr>
-							<td>Pavadinimas:</td>
-							<td><input type="text" name="name"><td>
-						</tr>
-						<tr>
-						<tr>
-							<td>Aprašymas:</td>
-							<td><input type="text" name="description"></td>
-						</tr>
-						<tr>
-							<td>Gamybos trukmė:</td>
-							<td><input type="text" name="duration"></td>
-						</tr>
-						<tr>
-							<td>Porcijos:</td>
-							<td><input type="text" name="portions"></td>
-						</tr>
-						<tr>
-							<td>Nuotrauka</td>
-							<td>...</td>
-						</tr>
-						<tr>
-							<td>Privatus receptas:</td>
-							<td><input type="checkbox" name="private" value="yes" /></td>
-					  	</tr>
-					  	<tr>
-						  	<td></td>
-						  	<td><input type="submit" value="Pereiti į antrą etapą."></td>
-					  	</tr>	
-					</table>
-				</form>';		
-	} else {
+						<div class="form-group">
+							<label for="name" class="control-label">Pavadinimas:</label>
+							<input class="form-control" type="text" name="name">
+						</div>
+						<div class="form-group">
+							<label class="control-label">Aprašymas:</label>
+							<textarea class="form-control" rows="8" name="description"></textarea>
+						</div>
+						<div class="form-group">
+							<label for="duration" class="control-label">Gamybos trukmė:</label>
+							<input class="form-control" type="text" name="duration">
+						</div>
+						<div class="form-group">
+							<label for="portions" class="control-label">Porcijos:</label>
+							<input class="form-control" type="text" name="portions">
+						</div>
+						<div class="form-group">
+							<label for="photo" class="control-label">Nuotrauka:</label>
+						</div>
+
+						<div class="form-group">
+							<label for="private" class="control-label">Privatus skelbimas:</label>
+							<input type="checkbox" name="private" value="yes" />
+						</div>						
+
+						<input class="form-control" type="submit" value="Pereiti į antrą etapą.">	
+				</form><br /><br /><br /><br />';		
+	} else if (empty($_GET)) {
 		$name = $_POST["name"];
 		$description = $_POST["description"];
 		$portions = $_POST["portions"];
@@ -121,9 +116,13 @@ if (loggedIn($where)) {
 						Produktų paieška: <input type=\"text\" onkeyup=\"showUser(this.value, $viewID)\">
 					  </form>
 						<br>
-						<div id=\"txtHint\"><b>Rasti produktai bus rodomi šioje dalyje.</b></div>";
+						<div id=\"txtHint\">";
+				echo "RODYS PRODUKTUS";
+				echo   "</div>";
 			}
 		}
+	} else {
+		echo "rodom kita psl";
 	}
 } else {
 	include('include_content/not_registered.php');
