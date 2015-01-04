@@ -300,7 +300,7 @@
            echo' </div>';
         echo '<div class="container col-md-10" >
               <div class="panel panel-default">
-               <div class="panel-body">';
+               <div class="panel-body" align="center">';
 
     } else {
             echo '<div class=\"container col-md-12\">';

@@ -6,7 +6,7 @@ include($_SESSION['lang']);
 $where=$phrase[81]; 
 if (loggedIn($where)) {
     
-    echo' <h4>Geriausiai įvertinti receptai:</h4><br>
+    echo'Geriausiai įvertinti receptai:</h4><br>
     <div id="carousel-example-generic" class="carousel slide" data-ride="carousel">
   <!-- Wrapper for slides -->
   <div class="carousel-inner" role="listbox">
