@@ -16,6 +16,7 @@ if (loggedIn($where)) {
 	
 	$recipe = mysql_fetch_row($recipes_result);
 
+	if (empty($_POST)) {
 	// meniukas
 	echo "
 	<ol class=\"breadcrumb\">
@@ -29,32 +30,31 @@ if (loggedIn($where)) {
 	echo "<h2>Recepto redagavimas (Etapas 1 iš 2)</h2>";
 	echo "<h3>Pagrindinė informacija</h3>";
 
-	if (empty($_POST)) {
-		echo "	<form action=\"redaguoti_recepta.php?edit=true&id=$editID\" method=\"post\">
-						<div class=\"form-group\">
-							<label for=\"name\" class=\"control-label\">Pavadinimas:</label>
-							<input class=\"form-control\" type=\"text\" name=\"name\" value=\"$recipe[2]\">
-						</div>
-						<div class=\"form-group\">
-							<label class=\"control-label\">Aprašymas:</label>
-							<textarea class=\"form-control\" rows=\"8\" name=\"description\">$recipe[5]</textarea>
-						</div>
-						<div class=\"form-group\">
-							<label for=\"duration\" class=\"control-label\">Gamybos trukmė:</label>
-							<input class=\"form-control\" type=\"text\" name=\"duration\" value=\"$recipe[3]\">
-						</div>
-						<div class=\"form-group\">
-							<label for=\"portions\" class=\"control-label\" >Porcijos:</label>
-							<input class=\"form-control\" type=\"text\" name=\"portions\" value=\"$recipe[4]\">
-						</div>
+	echo "	<form action=\"redaguoti_recepta.php?edit=true&id=$editID\" method=\"post\">
+					<div class=\"form-group\">
+						<label for=\"name\" class=\"control-label\">Pavadinimas:</label>
+						<input class=\"form-control\" type=\"text\" name=\"name\" value=\"$recipe[2]\">
+					</div>
+					<div class=\"form-group\">
+						<label class=\"control-label\">Aprašymas:</label>
+						<textarea class=\"form-control\" rows=\"8\" name=\"description\">$recipe[5]</textarea>
+					</div>
+					<div class=\"form-group\">
+						<label for=\"duration\" class=\"control-label\">Gamybos trukmė:</label>
+						<input class=\"form-control\" type=\"text\" name=\"duration\" value=\"$recipe[3]\">
+					</div>
+					<div class=\"form-group\">
+						<label for=\"portions\" class=\"control-label\" >Porcijos:</label>
+						<input class=\"form-control\" type=\"text\" name=\"portions\" value=\"$recipe[4]\">
+					</div>
 
-						<div class=\"form-group\">
-							<label for=\"private\" class=\"control-label\">Privatus skelbimas:</label>
-							<input type=\"checkbox\" name=\"private\" value=\"yes\" />
-						</div>	
+					<div class=\"form-group\">
+						<label for=\"private\" class=\"control-label\">Privatus skelbimas:</label>
+						<input type=\"checkbox\" name=\"private\" value=\"yes\" />
+					</div>	
 
-						<input class=\"form-control\" type=\"submit\" value=\"Išssaugoti.\">
-				</form>";		
+					<input class=\"form-control\" type=\"submit\" value=\"Išssaugoti.\">
+			</form>";		
 	} else {
 		$name = $_POST["name"];
 		$description = $_POST["description"];
@@ -81,7 +81,35 @@ if (loggedIn($where)) {
 			$sql = "UPDATE recipes SET username='$username', name='$name', description='$description', portions='$portions', duration='$duration' WHERE id='$editID'";
 
 			if (mysql_query($sql)) {
-				echo "Sėkmingai pakeista.";
+				// meniukas
+				echo "
+				<ol class=\"breadcrumb\">
+				  <li><span class=\"glyphicon glyphicon-home\"></span><a href=\"/\"> Pradinis</a></li>
+				  <li><a href=\"visi_receptai.php\">Receptai</a></li>
+				  <li><a href=\"mano_receptai.php\">Mano receptai</a></li>
+				  <li class=\"active\">$recipe[2]</li>
+				</ol>";
+
+				echo "<h2>Recepto redagavimas (Etapas 2 iš 2)</h2>";
+				echo '<h3>Produktų pridėjimas</h3>';
+
+				echo '<div class="col-md-6">';
+				echo "<h4>Recepto '$name' produktai</h4>";
+
+				echo '<div id="addProduct"><b>Šią vietą užpildys receptui priskirti produktai.<br /></b></div>';
+				echo '</div>';
+
+				echo '<div class="col-md-6">
+						<h4>Produktų paieška</h4>';
+
+				echo "<form>
+						Ieškoti: <input type=\"text\" onkeyup=\"showUser(this.value, $editID)\">
+					  </form>
+						<br>
+						<div id=\"txtHint\">";
+				echo "<script>showUser('', $editID)</script>";
+				echo   "</div>
+						</div>";
 			} else {
 				die(mysql_error());
 			}
