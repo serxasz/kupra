@@ -177,8 +177,51 @@ if (loggedIn($where)) {
 	   	}
 
 	   	echo "</table>";
+		
+		//REITINGAVIMAS
+	$find_data = mysql_query ("SELECT * FROM ratings WHERE recipe_name='$recipe[2]'");
+	
+	while ($row = mysql_fetch_assoc($find_data))
+	{
+		$id = $row['id'];
+		$name_of_recipe = $row['recipe_name'];
+		$current_rating = $row['rating'];
+		$current_hits = $row['hits'];
+		
+		echo "
+			<form method='POST'>
+				<select name='rating'>
+					<option>1</option>
+					<option>2</option>
+					<option>3</option>
+					<option>4</option>
+					<option>5</option>
+				</select>
+				<input type='hidden' value='$recipe[2]' name='recipe_name'>
+				<input type='submit' value='Ivertinti!'>
+			</form>
+		";
+	}
+	$post_recipe = $_POST['$recipe[2]'];
+	$post_rating = $_POST['rating'];
+	
+	$new_hits = $current_hits + 1;
+	
+	$update_hits = mysql_query ("UPDATE ratings SET hits = '$new_hits' WHERE id='$id'");
+	
+	$sql69 = "INSERT INTO rates (nameofrecipe, nameofuser, rating) VALUES ('$recipe[2]','$username','$post_rating')";
+	
+	if (mysql_query($sql69)) {
+	echo '<br>Aciu uz vote!<br>';
+	}
+	
+	$pre_rating = $current_rating + ($post_rating / $new_hits);
+	
+	$new_rating = $pre_rating / $new_hits;
+	
+	$update_rating = mysql_query("UPDATE ratings SET rating ='$new_rating' WHERE id='$id'");
         
-
+//////////
         $supply = "";
         $current = $recipe[0];
         $sql1 = "SELECT product_amount, product_id FROM recipe_products WHERE recipe_id = '$current'"; 
