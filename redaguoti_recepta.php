@@ -37,7 +37,7 @@ if (loggedIn($where)) {
 						</div>
 						<div class=\"form-group\">
 							<label class=\"control-label\">Aprašymas:</label>
-							<textarea class=\"form-control\" rows=\"8\" name=\"description\" value=\"$recipe[5]\"></textarea>
+							<textarea class=\"form-control\" rows=\"8\" name=\"description\">$recipe[5]</textarea>
 						</div>
 						<div class=\"form-group\">
 							<label for=\"duration\" class=\"control-label\">Gamybos trukmė:</label>
