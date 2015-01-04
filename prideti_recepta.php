@@ -17,10 +17,12 @@ if (loggedIn($where)) {
 		  <li class="active">Etapas 1 iš 2</li>
 		</ol>';
 
+		echo '<div class="">';
 		echo "<h2>Naujo recepto kūrimas (Etapas 1 iš 2)</h2>";
 		echo "<h3>Pagrindinė informacija</h3>";
 
-		echo '	<form action="prideti_recepta.php" method="post">
+		echo '
+			<form action="prideti_recepta.php" method="post">
 						<div class="form-group">
 							<label for="name" class="control-label">Pavadinimas:</label>
 							<input class="form-control" type="text" name="name">
@@ -47,7 +49,7 @@ if (loggedIn($where)) {
 						</div>						
 
 						<input class="form-control" type="submit" value="Pereiti į antrą etapą.">	
-				</form><br /><br /><br /><br />';		
+				</form><br /><br /><br /><br /></div>';		
 	} else if (empty($_GET)) {
 		$name = $_POST["name"];
 		$description = $_POST["description"];
@@ -101,24 +103,31 @@ if (loggedIn($where)) {
 				  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 				  <li><a href="visi_receptai.php">Receptai</a></li>
 				  <li><a href="prideti_recepta.php">Pridėti receptą</a></li>
-				  <li class="active">Etapas 1 iš 2</li>
+				  <li class="active">Etapas 2 iš 2</li>
 				</ol>';
 
 				echo "<h2>Naujo recepto kūrimas (Etapas 2 iš 2)</h2>";
 				echo '<h3>Produktų pridėjimas</h3>';
-				echo "<h4>$name produktai</h4>";
 
-				$viewID = mysql_insert_id();
+				echo '<div class="col-md-6">';
+				echo "<h4>Recepto '$name' produktai</h4>";
 
 				echo '<div id="addProduct"><b>Šią vietą užpildys receptui priskirti produktai.<br /></b></div>';
+				echo '</div>';
 
+				echo '<div class="col-md-6">
+						<h4>Produktų paieška</h4>';
+
+				$viewID = mysql_insert_id();
 				echo "<form>
-						Produktų paieška: <input type=\"text\" onkeyup=\"showUser(this.value, $viewID)\">
+						Ieškoti: <input type=\"text\" onkeyup=\"showUser(this.value, $viewID)\">
 					  </form>
 						<br>
 						<div id=\"txtHint\">";
-				echo "RODYS PRODUKTUS";
-				echo   "</div>";
+				echo "<script>showUser('', $viewID)</script>";
+				echo   "</div>
+						</div>";
+				echo '<form action="prideti_recepta.php" method="post">';
 			}
 		}
 	} else {
