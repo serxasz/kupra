@@ -1,4 +1,4 @@
-<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
+﻿<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
    "http://www.w3.org/TR/html4/loose.dtd">
 <head>
 	<meta charset="utf-8">
@@ -41,22 +41,10 @@
     <?php 
     if ($where == "naujas_receptas") {
     echo'   <script>
-            function showUser(str, rcpID) {
+            function showUser(str) {
                 if (str == "") {
-                    if (window.XMLHttpRequest) {
-                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                        xmlhttp = new XMLHttpRequest();
-                    } else {
-                        // code for IE6, IE5
-                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
-                        }
-                    }
-                    xmlhttp.open("GET","produktai.php?rcpid="+rcpID,true);
-                    xmlhttp.send();
+                    document.getElementById("txtHint").innerHTML = "";
+                    return;
                 } else { 
                     if (window.XMLHttpRequest) {
                         // code for IE7+, Firefox, Chrome, Opera, Safari
@@ -70,7 +58,7 @@
                             document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
                         }
                     }
-                    xmlhttp.open("GET","produktai.php?q="+str+"&rcpid="+rcpID,true);
+                    xmlhttp.open("GET","produktai.php?q="+str,true);
                     xmlhttp.send();
                 }
             }
@@ -82,7 +70,7 @@
     <?php 
     if ($where == "naujas_receptas") {
     echo'   <script>
-            function productAddition(str, id, rcpID) {
+            function productAddition(str, id) {
                 if (str == "") {
                     document.getElementById("addProduct").innerHTML = "";
                     return;
@@ -99,7 +87,7 @@
                             document.getElementById("addProduct").innerHTML = xmlhttp.responseText;
                         }
                     }
-                    xmlhttp.open("GET","produktai2.php?add="+str+"&id="+id+"&rcpid="+rcpID,true);
+                    xmlhttp.open("GET","produktai2.php?add="+str+"&id="+id,true);
                     xmlhttp.send();
                 }
             }
@@ -132,11 +120,7 @@
                             <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                         </form>';
                         } else {
-                            echo '<form class="navbar-form navbar-header" name="login" method="post" action="login.php?action=login">
-                            <input style="width: 200px" class="form-control" type="text" name="username" placeholder="Enter username"/>
-                            <input style="width: 200px" class="form-control" type="password" name="password" placeholder="Enter password"/>
-                            <button type="submit" name="submit" class="btn btn-default">Prisijungti</button>
-                            </form>';
+                            echo 'Čia turi būti prisijungimo langai Čia turi būti prisijungimo langai';
                         } ?>
                     </li>
                 </ul>
@@ -144,8 +128,8 @@
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
-                          <li><a href="<? echo $_SERVER['PHP_SELF']; ?>?lang=0">Anglų</a></li>
-                          <li><a href="<? echo $_SERVER['PHP_SELF']; ?>?lang=1">Lietuvių</a></li>
+                          <li><a href="/?lang=0">Anglų</a></li>
+                          <li><a href="/?lang=1">Lietuvių</a></li>
                         </ul>
                     </li>
                       <li>
@@ -158,11 +142,6 @@
           </div><!--/.nav-collapse -->
         </div>
       </nav>
-      <?
-        if ($where == "login") {
-            echo'<div class="alert alert-warning" role="alert" align="center">KuPRA - uždara bendruomenė. Norėdami peržiūrėti turinį, privalote prisijungti!</div>';
-        }
-      ?>
       <div class="row">
 <?
     // Meniu
@@ -230,10 +209,33 @@
             $listEnd = '</div>';
 
             echo "$listStart<a href=\"fridge.php\">Šaldytuvas</a><br />$listEnd";
+		
         } else {
-            echo "<a href=\"fridge.php\">Šaldytuvas</a><br />";
+            echo "<a href=\"fridge.php\">Šaldytuvas</a><br />";	
+	
         }
-        
+
+
+
+		
+		 echo '
+                            <a href="valgiarastis.php">Valgiaraštis</a><br />';
+
+        if ($where == "valgiarastis" or $where == "naujas_valgiarastis") {
+            if ($where == "valgiarastis") {
+                $listStart = '<div class="bg-info">';
+                $listEnd = '</div>';
+            } else {
+                $createStart = '<div class="bg-info">';
+                $createEnd = '</div>';
+            }
+
+            echo           "$listStart<a href=\"valgiarastis.php\">--- Valgiaraščiai</a><br />$listEnd";
+            echo           "$createStart<a href=\"sukurti_valgiarasti.php\">--- Sukurti Valgiarašti</a><br />$createEnd";
+        }
+		
+		
+
 
         echo '         </div>
                 </div>
