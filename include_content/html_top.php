@@ -183,7 +183,7 @@
                             <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                         </form>';
                         } else {
-                            echo 'Čia turi būti prisijungimo langai Čia turi būti prisijungimo langai';
+                           
                         } ?>
                     </li>
                 </ul>

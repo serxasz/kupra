@@ -31,37 +31,29 @@ if (loggedIn($where)) {
 
 	if (empty($_POST)) {
 		echo "	<form action=\"redaguoti_recepta.php?edit=true&id=$editID\" method=\"post\">
-					<table style=width:20%; text-align: center;>
-						<tr>
-							<td>Pavadinimas:</td>
-							<td><input type=\"text\" name=\"name\" value=\"$recipe[2]\"><td>
-						</tr>
-						<tr>
-						<tr>
-							<td>Aprašymas:</td>
-							<td><input type=\"text\" name=\"description\" value=\"$recipe[5]\"'></td>
-						</tr>
-						<tr>
-							<td>Gamybos trukmė:</td>
-							<td><input type=\"text\" name=\"duration\" value=\"$recipe[3]\"></td>
-						</tr>
-						<tr>
-							<td>Porcijos:</td>
-							<td><input type=\"text\" name=\"portions\" value=\"$recipe[4]\"></td>
-						</tr>
-						<tr>
-							<td>Nuotrauka</td>
-							<td>...</td>
-						</tr>
-						<tr>
-							<td>Privatus receptas:</td>
-							<td><input type=\"checkbox\" name=\"private\" value=\"yes\" /></td>
-					  	</tr>
-					  	<tr>
-						  	<td></td>
-						  	<td><input type=\"submit\" value=\"Toliau.\"></td>
-					  	</tr>	
-					</table>
+						<div class=\"form-group\">
+							<label for=\"name\" class=\"control-label\">Pavadinimas:</label>
+							<input class=\"form-control\" type=\"text\" name=\"name\" value=\"$recipe[2]\">
+						</div>
+						<div class=\"form-group\">
+							<label class=\"control-label\">Aprašymas:</label>
+							<textarea class=\"form-control\" rows=\"8\" name=\"description\" value=\"$recipe[5]\"></textarea>
+						</div>
+						<div class=\"form-group\">
+							<label for=\"duration\" class=\"control-label\">Gamybos trukmė:</label>
+							<input class=\"form-control\" type=\"text\" name=\"duration\" value=\"$recipe[3]\">
+						</div>
+						<div class=\"form-group\">
+							<label for=\"portions\" class=\"control-label\" >Porcijos:</label>
+							<input class=\"form-control\" type=\"text\" name=\"portions\" value=\"$recipe[4]\">
+						</div>
+
+						<div class=\"form-group\">
+							<label for=\"private\" class=\"control-label\">Privatus skelbimas:</label>
+							<input type=\"checkbox\" name=\"private\" value=\"yes\" />
+						</div>	
+
+						<input class=\"form-control\" type=\"submit\" value=\"Išssaugoti.\">
 				</form>";		
 	} else {
 		$name = $_POST["name"];
