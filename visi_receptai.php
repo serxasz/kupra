@@ -177,5 +177,6 @@ if (loggedIn($where)) {
 } else {
 	include('include_content/not_registered.php');
 }
+
 include('include_content/html_bottom.php'); 
 ?>
