@@ -1,7 +1,12 @@
-<?php
-	$username = $_SESSION['username'];
+<?php 
+include('config.php');
+$where = "redaguoti_recepta";
+include('include_content/html_top.php');
+include('include_content/language.php');
+include($_SESSION['lang']);
+if (loggedIn($where)) {
 
-	echo "<h2>Recepto redagavimas (Etapas 1 iš 2)</h2>";
+	$username = $_SESSION['username'];
 
 	$editID = $_GET["id"];
 
@@ -11,8 +16,21 @@
 	
 	$recipe = mysql_fetch_row($recipes_result);
 
+	// meniukas
+	echo "
+	<ol class=\"breadcrumb\">
+	  <li><span class=\"glyphicon glyphicon-home\"></span><a href=\"/\"> Pradinis</a></li>
+	  <li><a href=\"visi_receptai.php\">Receptai</a></li>
+	  <li><a href=\"mano_receptai.php\">Mano receptai</a></li>
+	  <li class=\"active\">$recipe[2]</li>
+	</ol>";
+
+
+	echo "<h2>Recepto redagavimas (Etapas 1 iš 2)</h2>";
+	echo "<h3>Pagrindinė informacija</h3>";
+
 	if (empty($_POST)) {
-		echo "	<form action=\"mano_receptai.php?edit=true&id=$editID\" method=\"post\">
+		echo "	<form action=\"redaguoti_recepta.php?edit=true&id=$editID\" method=\"post\">
 					<table style=width:20%; text-align: center;>
 						<tr>
 							<td>Pavadinimas:</td>
@@ -81,4 +99,8 @@
 		  	 <br />
 		  	 <a href=\"mano_receptai.php\">Pakeisti kitą</a>";
 	}
-   	?>
+} else {
+	include('include_content/not_registered.php');
+}
+include('include_content/html_bottom.php'); 
+?>

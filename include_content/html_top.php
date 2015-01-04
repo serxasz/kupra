@@ -37,6 +37,64 @@
 	theme : 'modern'
 	});
 	</script>
+
+    <?php 
+    if ($where == "naujas_receptas") {
+    echo'   <script>
+            function showUser(str, rcpID) {
+                if (str == "") {
+                    document.getElementById("txtHint").innerHTML = "";
+                    return;
+                } else { 
+                    if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            document.getElementById("txtHint").innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET","produktai.php?q="+str+"&rcpid="+rcpID,true);
+                    xmlhttp.send();
+                }
+            }
+            </script>';
+    }
+
+    ?>
+
+    <?php 
+    if ($where == "naujas_receptas") {
+    echo'   <script>
+            function productAddition(str, id, rcpID) {
+                if (str == "") {
+                    document.getElementById("addProduct").innerHTML = "";
+                    return;
+                } else { 
+                    if (window.XMLHttpRequest) {
+                        // code for IE7+, Firefox, Chrome, Opera, Safari
+                        xmlhttp = new XMLHttpRequest();
+                    } else {
+                        // code for IE6, IE5
+                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
+                    }
+                    xmlhttp.onreadystatechange = function() {
+                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
+                            document.getElementById("addProduct").innerHTML = xmlhttp.responseText;
+                        }
+                    }
+                    xmlhttp.open("GET","produktai2.php?add="+str+"&id="+id+"&rcpid="+rcpID,true);
+                    xmlhttp.send();
+                }
+            }
+            </script>';
+    }
+
+    ?>
 </head>
 <body>
 <div class="container" role="main">
@@ -128,14 +186,14 @@
 
         echo '
                             <a href="visi_receptai.php">Receptai</a><br />';
-        if ($where == "receptai" or $where == "mano_receptai" or $where == "naujas_receptas") {
+        if ($where == "receptai" or $where == "mano_receptai" or $where == "naujas_receptas" or $where == "redaguoti_recepta") {
             if ($where == "receptai") {
                 $listStart = '<div class="bg-info">';
                 $listEnd = '</div>';
-            } elseif ($where == "mano_receptai") {
+            } elseif ($where == "mano_receptai" or $where == "redaguoti_recepta") {
                 $myStart = '<div class="bg-info">';
                 $myEnd = '</div>';
-            } else {
+            } elseif ($where == "naujas_receptas") {
                 $createStart = '<div class="bg-info">';
                 $createEnd = '</div>';    
             }

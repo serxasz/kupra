@@ -3,7 +3,7 @@
 
 	echo "<h2>Naujo recepto kūrimas (Etapas 2 iš 2) (Work in progres...)</h2>";
 
-		echo "<h2>Produktų sąrašas</h2>";
+		echo "<h3>Produktų sąrašas</h3>";
 
 	// Pagination 
 		// Total number of rows in table

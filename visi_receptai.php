@@ -170,6 +170,8 @@ if (loggedIn($where)) {
 		       			<td>$product[3]</td>
 		       		</tr>";
 	   	}
+
+	   	echo "</table>";
     }
 
 } else {

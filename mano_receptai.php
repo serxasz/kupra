@@ -15,10 +15,6 @@ if (loggedIn($where)) {
 	  <li class="active">Mano receptai</li>
 	</ol>';
 
-	if (!empty($_GET)) {
-		include('include_content/edit_rcp.php');
-	}
-
 	echo "<h2>Mano receptai</h2>";
 	
 	// Pagination 
@@ -26,11 +22,47 @@ if (loggedIn($where)) {
 			$query = "SELECT COUNT(*) as num FROM recipes WHERE username='$username'";
 			$total_pages = mysql_fetch_array(mysql_query($query));
 			$total_pages = $total_pages[num];
-			echo "Viso įrašų: $total_pages";
+
+		// sorter
+		$limitForForm = $_GET['limit'];
+		if ($limitForForm == 10) {
+			$select10 = 'selected';
+		} elseif ($limitForForm == 25) {
+			$select25 = 'selected';
+		} elseif ($limitForForm == 50) {
+			$select50 = 'selected';
+		} else {
+			$select10 = 'selected';
+		}
+		echo "<form>Viso įrašų: $total_pages. Puslapyje rodyti po: 
+		<select name=\"limit\" onchange=\"this.form.submit()\">';
+			<option $select10 value=\"10\">10</option>
+			<option $select25 value=\"25\">25</option>
+			<option $select50 value=\"50\">50</option>
+		</select>
+		<noscript><input type=\"submit\" value=\"Submit\"></noscript>
+		</form>";
+		echo '<br />';
 
 		/* Setup vars for query. */
 			$targetpage = "mano_receptai.php"; 	//your file name  (the name of this file)
-			$limit = 5; 									//how many items to show per page
+			$limit = 10; 									//how many items to show per page
+
+			$customLimit = $_GET['limit'];
+			if (isset($customLimit) & $customLimit != $limit) {
+				$limit = $customLimit;
+				$customLimit = "&limit=$customLimit";
+			}			
+
+			$page = $_GET['page'];
+
+			if ($page) 
+				$start = ($page - 1) * $limit; 			//first item to display on this page
+			else
+				$start = 0;								//if no page var is given, set start to 0
+
+
+
 			$page = $_GET['page'];
 
 			if ($page) 
@@ -59,7 +91,7 @@ if (loggedIn($where)) {
 	       			<td><a href=\"visi_receptai.php?view=$recipe[0]\">$recipe[2]</a></td>
 	       			<td>$recipe[3]</td>
 	       			<td>$recipe[4]</td>
-	       			<td><a href=\"mano_receptai.php?edit=true&id=$recipe[0]\">Redaguoti</a></td>
+	       			<td><a href=\"redaguoti_recepta.php?edit=true&id=$recipe[0]\">Redaguoti</a></td>
 	       		  </tr>";
    	}
 
