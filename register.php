@@ -108,31 +108,29 @@ if (loggedIn(0)) {
 		$sUsername = $_POST['username']; 
 	} 
 	$sError = "";
-	$sOutput .= $phrase[68];
-	if (!empty($_SESSION['error'])) { 
-		$sError = '<span id="error">' . $_SESSION['error'] . '</span><br>';
-		$sOutput .= '
-		<table width="340"  border="0" align="center" cellpadding="3" cellspacing="5" bgcolor="#FFCCCC">
-			<tr>
-				<td><div align="center"><strong><font color="#FF0000">' . $sError . '</font></strong></div></td>
-			</tr>
-		</table>';
-		unset($_SESSION['error']);
-	}  
+ 
 	$sOutput .= '
+    <div class="container" align="center">
+    <div class="row">
+    <div class="col-md-3"></div>
+    <div class="col-md-6">
 	<form name="register" method="post" action="register.php?action=register" enctype="multipart/form-data">
-		<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
-			<tr> 
+		<table class="table table-bordered" align="center">';
+        if (!empty($_SESSION['error'])) { 
+		$sOutput .= '<tr><td colspan="2"><div class="alert alert-danger" role="alert" align="center">'.$_SESSION['error'].'</div></td></tr>';
+		unset($_SESSION['error']);
+	} 
+			$sOutput .= '<tr> 
 				<td width="40%"><strong>' . $phrase[16] . '</strong></td>
-				<td width="60%" align="center"><input type="text" name="username" value="' . $sUsername . '"></td>
+				<td width="60%" align="center"><input class="form-control" placeholder="Enter username" type="text" name="username" value="' . $sUsername . '"></td>
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[21] . '</strong></td>
-				<td align="center"><input type="password" name="password" value=""></td>
+				<td align="center"><input class="form-control" placeholder="Enter password" type="password" name="password" value=""></td>
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[69] . '</strong></td>
-				<td align="center"><input type="password" name="password2" value=""></td>
+				<td align="center"><input class="form-control" placeholder="Enter password again" type="password" name="password2" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>' . $phrase[115] . '</strong></td>
@@ -145,19 +143,19 @@ if (loggedIn(0)) {
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[52] . '</strong></td>
-				<td align="center"><input type="text" name="email" value=""></td>
+				<td align="center"><input class="form-control" placeholder="Enter email" type="text" name="email" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Vardas:</strong></td>
-				<td align="center"><input type="text" name="name" value=""></td>
+				<td align="center"><input class="form-control" placeholder="Enter your name" type="text" name="name" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Pavarde:</strong></td>
-				<td align="center"><input type="text" name="surname" value=""></td>
+				<td align="center"><input class="form-control" placeholder="Enter your surname" type="text" name="surname" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Aprašymas:</strong></td>
-				<td align="center"><input type="text" name="description" value=""></td>
+				<td align="center"><input class="form-control" placeholder="Enter description" type="text" name="description" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Avataras:</strong></td>
@@ -170,12 +168,14 @@ if (loggedIn(0)) {
 				<td colspan="2" align="center">' . recaptcha_get_html($publickey) . '</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><input type="submit" name="submit" value=" ' . $phrase[70] . ' "></td>
+				<td colspan="2" align="center"><button type="submit" class="btn btn-default">' . $phrase[70] . '</button></td>
 			</tr>
 		</table>
     </form> 
-    <br> 
-    ' . $phrase[71] . ' '; 
+    </div>
+    <div class="col-md-3"></div>
+    </div>
+    </div>'; 
 } 
  
 $sOutput .= '</div>'; 

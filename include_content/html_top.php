@@ -132,7 +132,11 @@
                             <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                         </form>';
                         } else {
-                            echo 'Čia turi būti prisijungimo langai Čia turi būti prisijungimo langai';
+                            echo '<form class="navbar-form navbar-header" name="login" method="post" action="login.php?action=login">
+                            <input style="width: 200px" class="form-control" type="text" name="username" placeholder="Enter username"/>
+                            <input style="width: 200px" class="form-control" type="password" name="password" placeholder="Enter password"/>
+                            <button type="submit" name="submit" class="btn btn-default">Prisijungti</button>
+                            </form>';
                         } ?>
                     </li>
                 </ul>
@@ -154,6 +158,11 @@
           </div><!--/.nav-collapse -->
         </div>
       </nav>
+      <?
+        if ($where == "login") {
+            echo'<div class="alert alert-warning" role="alert" align="center">KuPRA - uždara bendruomenė. Norėdami peržiūrėti turinį, privalote prisijungti!</div>';
+        }
+      ?>
       <div class="row">
 <?
     // Meniu

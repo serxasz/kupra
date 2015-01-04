@@ -1,6 +1,7 @@
 <?php 
 include('config.php');
 $sOutput="";
+$where="login";
   
 if (isset($_GET['action'])) { 
 	switch (strtolower($_GET['action'])) {
@@ -38,37 +39,40 @@ echo"<script>top.location = 'index.php';</script>";
 		$sUsername = $_POST['username']; 
 	} 
 	$sError = "";
-$sOutput .= ' ' . $phrase[20] . '<br>';	
-	if (!empty($_SESSION['error'])) { 
-		$sError = '<span id="error">' . $_SESSION['error'] . '</span><br>';
-		$sOutput .= '
-		<table width="280"  border="0" align="center" cellpadding="3" cellspacing="5" bgcolor="#FFCCCC">
-			<tr>
-				<td><div align="center"><strong><font color="#FF0000">' . $sError . '</font></strong></div></td>
-			</tr>
-		</table>';
+	$sOutput .= '<div class="container" align="center">
+    <div class="row">
+    <div class="col-md-4"></div>
+    <div class="col-md-4">
+    <form name="login" method="post" action="login.php?action=login">
+    <table class="table table-bordered" align="center">';
+    if (!empty($_SESSION['error'])) { 
+		$sOutput .= '<tr><td colspan="2"><div class="alert alert-danger" role="alert" align="center">'.$_SESSION['error'].'</div></td></tr>';
 		unset($_SESSION['error']);
 	} 
-	$sOutput .= ' 
-    <form name="login" method="post" action="login.php?action=login">
-		<table width="280" border="1" align="center" cellpadding="5" cellspacing="0">
-			<tr> 
+			$sOutput .= '<tr> 
 				<td width="40%"><strong>' . $phrase[16] . '</strong></td>
-				<td width="60%" align="center"><input type="text" name="username" value="' . $sUsername . '"></td>
+				<td width="60%" align="center"><input type="text" class="form-control" placeholder="Enter username" name="username" value="' . $sUsername . '"></td>
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[21] . '</strong></td>
-				<td align="center"><input type="password" name="password" value=""></td>
+				<td align="center"><input type="password" class="form-control" placeholder="Enter password" name="password" value=""></td>
 			</tr>
 			<tr>
 				<td colspan="2" align="center">' . $phrase[22] . '
 				<input type="checkbox" name="set_cookie" id="set_cookie" value="1"><br>
-				<input type="submit" name="submit" value=" ' . $phrase[23] . ' "><br>
-				<a href="recover.php">' . $phrase[24] . '</a></td>
+                <button type="submit" class="btn btn-default">' . $phrase[23] . '</button>
+                </td>
 			</tr>
 		</table> 
-    </form> 
-    ' . $phrase[25] . ' '; 
+    </form>
+    </div>
+    <div class="col-md-4"></div>
+    </div>
+    </div>
+    <div class="container" align="center">
+    <br><a class="btn btn-default" href="recover.php" role="button">' . $phrase[24] . '</a>
+    <a class="btn btn-default" href="register.php" role="button">Dar neužsiregistravęs?</a>
+    </div>'; 
 } 
  
 $sOutput .= '</div>'; 
