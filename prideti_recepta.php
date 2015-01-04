@@ -127,7 +127,9 @@ if (loggedIn($where)) {
 				echo "<script>showUser('', $viewID)</script>";
 				echo   "</div>
 						</div>";
-				echo '<form action="prideti_recepta.php" method="post">';
+				echo '
+				<form action="prideti_recepta.php" method="post">
+				<input class="form-control" type="submit" value="Pereiti į antrą etapą.">';
 			}
 		}
 	} else {

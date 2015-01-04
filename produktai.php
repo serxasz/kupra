@@ -33,14 +33,13 @@ include('config.php');
       $products_result = mysql_query($queryProducts);
       
       if(mysql_num_rows($products_result) > 0) { 
-            echo "<table style=\"width:20%; text-align: center;\">
+            echo "<table class=\"table table-bordered table-striped\" style=\"width:20%; text-align: center;\">
                 <tr>
-                  <th>ID</th>
+                  <th>Nuotrauka</th>
                   <th>Produktas</th>
                   <th>Aprašymas</th>
-                  <th>Vienetai</th>
-                        <th>Nuotrauka</th>
-                        <th>Pridėti</th>
+                  <th>Vienetas</th>
+                  <th>Kiekis</th>
                   </tr>";
       } 
                 
@@ -59,26 +58,17 @@ include('config.php');
                     }
 
             echo "<tr>
-                <td>$product[0]</td>
+                <td>$image</td>
                 <td>$product[3]</td>
                 <td>$product[4]</td>
                 <td>$quantity[0]</td>
-                    <td>$image</td>
                     <td>
-                        <input type=\"text\" value=\"0\" size=\"5\" onkeyup=\"productAddition(this.value, $product[0], $rcpID)\">
+                        <input type=\"text\" value=\"0\" size=\"5\" onchange=\"productAddition(this.value, $product[0], $rcpID)\">
                     </td>
                 </tr>";
         }
 
       if(mysql_num_rows($products_result) > 0) { 
-            echo '<tr>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    <td></td>
-                    </tr>';
           echo "</table>";
         }
 

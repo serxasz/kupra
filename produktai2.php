@@ -26,8 +26,9 @@ include('config.php');
 	$products = mysql_query($queryProducts);
 
 	if(mysql_num_rows($products) > 0) { 
-		echo "<table style=\"width:20%; text-align: center;\">
+		echo "<table class=\"table table-bordered table-striped\" style=\"width:20%; text-align: center;\">
 			  	<tr>
+			  		<th></th>
 			  		<th></th>
 			  		<th>Produktas</th>
 			    	<th>Vienetas</th>
@@ -35,6 +36,7 @@ include('config.php');
 		  	  	</tr>";
 	}
 
+	$numeracija = 0;
 	while ($product = mysql_fetch_row($products)) {
 		$queryProductInfo = "SELECT * FROM products WHERE id='$product[2]'";
 		$result_productInfo = mysql_query($queryProductInfo);
@@ -53,14 +55,15 @@ include('config.php');
             	or $i == "uploads/products/" . $productInfo[3] . ".png" 
             	or $i == "uploads/products/" . $productInfo[3] . ".gif") {
                         $image = '<img src="'.$i.'" alt="photo" height="75" width="75">';
-                    }
-                }
-
+            }
+        }
+       	$numeracija++;
 			    echo 	"<tr>
+			    			<td>$numeracija</td>
 			    			<td>$image</td>
 			       			<td>$productInfo[3]</td>
 			       			<td>$quantityInfo[0]</td>
-			       			<td>$product[3]</td>
+			       			<td><input type=\"text\" value=\"$product[3]\" size=\"5\" onchange=\"productAddition(this.value, $productInfo[0], $rcpID)\"></td>
 			       		</tr>";
 	}
 
