@@ -18,6 +18,7 @@ include('config.php');
     		mysql_query($sql);
     		print_r(mysql_error());
     	}
+    } else {
     }
 
 	// get list of products
@@ -34,6 +35,7 @@ include('config.php');
 			    	<th>Vienetas</th>
 			    	<th>Kiekis</th>
 		  	  	</tr>";
+	} else {
 	}
 
 	$numeracija = 0;
@@ -64,7 +66,7 @@ include('config.php');
 			    			<td>$image</td>
 			       			<td>$productInfo[3]</td>
 			       			<td>$quantityInfo[0]</td>
-			       			<td><input type=\"text\" value=\"$product[3]\" size=\"5\" onchange=\"productAddition(this.value, $productInfo[0], $rcpID);showUser('', $rcpID)\"></td>
+			       			<td><input type=\"text\" value=\"$product[3]\" size=\"5\" onchange=\"productAddition(this.value, $productInfo[0], $rcpID)\"></td>
 			       		</tr>";
 	}
 

@@ -14,6 +14,13 @@ if (loggedIn($where)) {
 		
 	$recipes_result = mysql_query($queryRecipes);
 	
+	if( !(isAdministrator($username)) and (mysql_num_rows($recipes_result) <= 0) ) { 
+		echo "Klaida.";
+	} else {
+	$queryRecipes = "SELECT * FROM recipes WHERE id='$editID'";
+		
+	$recipes_result = mysql_query($queryRecipes);
+
 	$recipe = mysql_fetch_row($recipes_result);
 
 	if (empty($_POST)) {
@@ -23,6 +30,7 @@ if (loggedIn($where)) {
 	  <li><span class=\"glyphicon glyphicon-home\"></span><a href=\"/\"> Pradinis</a></li>
 	  <li><a href=\"visi_receptai.php\">Receptai</a></li>
 	  <li><a href=\"mano_receptai.php\">Mano receptai</a></li>
+	  <li><a href=\"visi_receptai.php?view=$recipe[0]\">$recipe[2]</a></li>
 	  <li class=\"active\">$recipe[2]</li>
 	</ol>";
 
@@ -87,7 +95,8 @@ if (loggedIn($where)) {
 				  <li><span class=\"glyphicon glyphicon-home\"></span><a href=\"/\"> Pradinis</a></li>
 				  <li><a href=\"visi_receptai.php\">Receptai</a></li>
 				  <li><a href=\"mano_receptai.php\">Mano receptai</a></li>
-				  <li class=\"active\">$recipe[2]</li>
+				  <li><a href=\"visi_receptai.php?view=$recipe[0]\">$name</a></li>
+				  <li class=\"active\">Etapas 2 iš 2</li>
 				</ol>";
 
 				echo "<h2>Recepto redagavimas (Etapas 2 iš 2)</h2>";
@@ -96,7 +105,64 @@ if (loggedIn($where)) {
 				echo '<div class="col-md-6">';
 				echo "<h4>Recepto '$name' produktai</h4>";
 
-				echo '<div id="addProduct"><b>Šią vietą užpildys receptui priskirti produktai.<br /></b></div>';
+
+					echo "<div id=\"addProduct\">";
+
+					// get list of products
+				    $viewID = $editID;
+				   	$queryProducts = "SELECT * FROM recipe_products WHERE recipe_id='$viewID'";
+					$products = mysql_query($queryProducts);
+
+					if(mysql_num_rows($products) > 0) { 
+						echo "<table class=\"table table-bordered table-striped\" style=\"width:20%; text-align: center;\">
+							  	<tr>
+							  		<th></th>
+							  		<th></th>
+							  		<th>Produktas</th>
+							    	<th>Vienetas</th>
+							    	<th>Kiekis</th>
+						  	  	</tr>";
+					} else {
+					}
+
+					$numeracija = 0;
+					while ($product = mysql_fetch_row($products)) {
+						$queryProductInfo = "SELECT * FROM products WHERE id='$product[2]'";
+						$result_productInfo = mysql_query($queryProductInfo);
+						$productInfo = mysql_fetch_row($result_productInfo);
+
+						$queryQuantityInfo = "SELECT name FROM quantities WHERE id='$productInfo[2]'";
+						$result_quantityInfo = mysql_query($queryQuantityInfo);
+						$quantityInfo = mysql_fetch_row($result_quantityInfo);		
+				        
+				        $file = glob("uploads/products/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+				        $image = "";
+				        foreach ($file as $i) {
+				            if ($i == "uploads/products/" . $productInfo[3] . ".jpg" 
+				            	or 
+				            	$i == "uploads/products/" . $productInfo[3] . ".jpeg" 
+				            	or $i == "uploads/products/" . $productInfo[3] . ".png" 
+				            	or $i == "uploads/products/" . $productInfo[3] . ".gif") {
+				                        $image = '<img src="'.$i.'" alt="photo" height="75" width="75">';
+				            }
+				        }
+				       	$numeracija++;
+
+							    echo 	"<tr>
+							    			<td>$numeracija</td>
+							    			<td>$image</td>
+							       			<td>$productInfo[3]</td>
+							       			<td>$quantityInfo[0]</td>
+							       			<td><input type=\"text\" value=\"$product[3]\" size=\"5\" onchange=\"productAddition(this.value, $productInfo[0], $editID)\"></td>
+							       		</tr>";
+					}
+
+					if(mysql_num_rows($products) > 0) { 
+						echo "</table>";
+					} else {
+						echo '<b>Šią vietą užpildys receptui priskirti produktai.</b>';
+					}
+					echo "</div>";
 				echo '</div>';
 
 				echo '<div class="col-md-6">
@@ -114,11 +180,8 @@ if (loggedIn($where)) {
 				die(mysql_error());
 			}
 		}
-
-	echo 	"<br />
-		  	 <br />
-		  	 <a href=\"mano_receptai.php\">Pakeisti kitą</a>";
 	}
+}
 } else {
 	include('include_content/not_registered.php');
 }

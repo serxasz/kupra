@@ -49,7 +49,7 @@ if (loggedIn($where)) {
 							<input type="checkbox" name="private" value="yes" />
 						</div>						
 
-						<input class="form-control" type="submit" value="Pereiti į antrą etapą.">	
+						<input class="form-control" type="submit" value="Sukurti receptą ir pereiti į antrą etapą">	
 				</form><br /><br /><br /><br /></div>';		
 	} else if (empty($_GET)) {
 		$name = $_POST["name"];
@@ -135,7 +135,10 @@ if (loggedIn($where)) {
 				<ol class="breadcrumb">
 				  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 				  <li><a href="visi_receptai.php">Receptai</a></li>
-				  <li><a href="prideti_recepta.php">Pridėti receptą</a></li>
+				  <li><a href="prideti_recepta.php">Pridėti receptą</a></li>';
+				 echo "
+				  <li><a href=\"visi_receptai.php?view=$viewID\">$name</a></li>";
+				 echo'
 				  <li class="active">Etapas 2 iš 2</li>
 				</ol>';
 
@@ -160,9 +163,9 @@ if (loggedIn($where)) {
 				echo "<script>showUser('', $viewID)</script>";
 				echo   "</div>
 						</div>";
-				echo '
+				/*echo '
 				<form action="prideti_recepta.php" method="post">
-				<input class="form-control" type="submit" value="Sukurti receptą">';
+				<input class="form-control" type="submit" value="Sukurti receptą">';*/
 			}
 		}
 	}

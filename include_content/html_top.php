@@ -39,7 +39,7 @@
 	</script>
 
     <?php 
-    if ($where == "naujas_receptas") {
+    if ($where == "naujas_receptas" or $where== "redaguoti_recepta") {
     echo'   <script>
             function showUser(str, rcpID) {
                 if (str == "") {
@@ -80,7 +80,7 @@
     ?>
 
     <?php 
-    if ($where == "naujas_receptas") {
+    if ($where == "naujas_receptas" or $where == "redaguoti_recepta") {
     echo'   <script>
             function productAddition(str, id, rcpID) {
                 if (str == "") {
@@ -117,46 +117,6 @@
             }
             </script>';
     }
-    ?>
-    <?php 
-    if ($where == "naujas_receptas") {
-    echo'   <script>
-            function pageChange(str, id, rcpID) {
-                if (str == "") {
-                    if (window.XMLHttpRequest) {
-                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                        xmlhttp = new XMLHttpRequest();
-                    } else {
-                        // code for IE6, IE5
-                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            document.getElementById("addProduct").innerHTML = xmlhttp.responseText;
-                        }
-                    }
-                    xmlhttp.open("GET","produktai3.php?add=empty"+"&id="+id+"&rcpid="+rcpID,true);
-                    xmlhttp.send();
-                } else { 
-                    if (window.XMLHttpRequest) {
-                        // code for IE7+, Firefox, Chrome, Opera, Safari
-                        xmlhttp = new XMLHttpRequest();
-                    } else {
-                        // code for IE6, IE5
-                        xmlhttp = new ActiveXObject("Microsoft.XMLHTTP");
-                    }
-                    xmlhttp.onreadystatechange = function() {
-                        if (xmlhttp.readyState == 4 && xmlhttp.status == 200) {
-                            document.getElementById("addProduct").innerHTML = xmlhttp.responseText;
-                        }
-                    }
-                    xmlhttp.open("GET","produktai2.php?add="+str+"&id="+id+"&rcpid="+rcpID,true);
-                    xmlhttp.send();
-                }
-            }
-            </script>';
-    }
-
     ?>
 </head>
 <body>
@@ -332,7 +292,8 @@
                             <a href="admin.php?action=delete_user">Ištrinti vartotoją</a><br>
                             <a href="admin.php?action=group_email">Siųsti masinį email</a><br>
                             <a href="edit_clasificator.php">Matavimo vienetai</a><br>
-                            <a href="edit_products.php">Produktai</a>
+                            <a href="edit_products.php">Produktai</a><br>
+                            <a href="edit_recipes.php">Receptai</a>
                  </div>
                  </div>';
         }
