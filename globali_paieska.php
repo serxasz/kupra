@@ -15,7 +15,7 @@ if (loggedIn($where)) {
 	  <li class="active">Receptu paieska</li>
 	</ol>';
 
-if ( isset( $_POST['term'] ) ) {
+//if ( isset( $_POST['term'] ) ) {
 		echo "<h2>Rasti receptai: </h2>";
 
 		$adjacents = 3;
@@ -109,11 +109,11 @@ if ( isset( $_POST['term'] ) ) {
 		$lastpage = ceil($total_pages/$limit);	
 		$lpm1 = $lastpage - 1;				
 		include('include_content/pagination.php');
-	}
-	else {
-	print "Uzsklausa su '$term'";
-	echo '<h2><font color ="red">nedave rezultatu.</font></h2>';
-	}
+	//}
+	//else {
+	//print "Uzsklausa su '$term'";
+	//echo '<h2><font color ="red">nedave rezultatu.</font></h2>';
+	//}
 } else {
 	echo '<h1><font color="red">Reikia prisijungti!</font><h1>';
 	include('include_content/not_registered.php');
