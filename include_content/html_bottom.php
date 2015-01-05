@@ -3,8 +3,18 @@
 
 <!-- Below navbar container -->
 
-</div>
 
+
+</div>
+<br />
+<br />
+<br />
+<div class="panel panel-default col-md-12 container text-center">
+	<br />
+	KuPRA @ 2015
+	<br />
+	<br />
+</div>
 <!-- Page container-->
 </div>
 	<!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
