@@ -110,12 +110,11 @@ if (loggedIn(0)) {
 	$sError = "";
  
 	$sOutput .= '
-    <div class="container" align="center">
+    <div class="container" align="left">
     <div class="row">
-    <div class="col-md-3"></div>
     <div class="col-md-6">
 	<form name="register" method="post" action="register.php?action=register" enctype="multipart/form-data">
-		<table class="table table-bordered" align="center">';
+		<table class="table table-bordered" align="left">';
         if (!empty($_SESSION['error'])) { 
 		$sOutput .= '<tr><td colspan="2"><div class="alert alert-danger" role="alert" align="center">'.$_SESSION['error'].'</div></td></tr>';
 		unset($_SESSION['error']);
@@ -173,7 +172,7 @@ if (loggedIn(0)) {
 		</table>
     </form> 
     </div>
-    <div class="col-md-3"></div>
+    <div class="col-md-6"></div>
     </div>
     </div>'; 
 } 

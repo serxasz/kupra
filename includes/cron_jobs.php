@@ -17,6 +17,8 @@ if (isset($_COOKIE['lang'])) {
 			$_SESSION['lang'] = $lang_array[$_COOKIE['lang']];	
 		}else { setcookie('lang', '', time()); }
 	}else { setcookie('lang', '', time()); }
+} else {
+    setcookie('lang', 1, time() + (10 * 365 * 24 * 60 * 60));
 }
 if (isset($_GET['lang'])) {
 	if ((0 <= $_GET['lang']) && ($lang_count >= $_GET['lang']) && (is_numeric($_GET['lang']))) {

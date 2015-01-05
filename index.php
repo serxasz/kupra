@@ -48,7 +48,7 @@ if (loggedIn($where)) {
 </div>';
     
 } else {
-	include('include_content/not_registered.php');
+	echo"<script>top.location = 'register.php';</script>"; 
 }
 include('include_content/html_bottom.php'); 
 ?>
