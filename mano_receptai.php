@@ -18,6 +18,7 @@ if (loggedIn($where)) {
 	echo "<h2>Mano receptai</h2>";
 	
 	// Pagination 
+	$adjacents = 3;
 		// Total number of rows in table
 			$query = "SELECT COUNT(*) as num FROM recipes WHERE username='$username'";
 			$total_pages = mysql_fetch_array(mysql_query($query));
@@ -52,7 +53,7 @@ if (loggedIn($where)) {
 			if (isset($customLimit) & $customLimit != $limit) {
 				$limit = $customLimit;
 				$customLimit = "&limit=$customLimit";
-			}			
+			}
 
 			$page = $_GET['page'];
 
@@ -60,15 +61,6 @@ if (loggedIn($where)) {
 				$start = ($page - 1) * $limit; 			//first item to display on this page
 			else
 				$start = 0;								//if no page var is given, set start to 0
-
-
-
-			$page = $_GET['page'];
-
-			if ($page) 
-				$start = ($page - 1) * $limit; 			//first item to display on this page
-			else
-				$start = 0;
 			
 	$queryRecipes = "SELECT * FROM recipes WHERE username='$username' LIMIT $start, $limit";
 	
@@ -108,9 +100,6 @@ if (loggedIn($where)) {
 		We're actually saving the code to a variable in case we want to draw it more than once.
 	*/
 	include('include_content/pagination.php');	
-
-   	echo "<br /><br /><a href=\"receptai.php\">Atgal</a>";
-
 } else {
 	include('include_content/not_registered.php');
 }

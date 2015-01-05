@@ -19,6 +19,8 @@ if (loggedIn($where)) {
 	echo "<h2>Vienetų sąrašas</h2>";
 
 	// Pagination 
+
+		$adjacents = 3;
 		// Total number of rows in table
 			$query = "SELECT COUNT(*) as num FROM quantities";
 			$total_pages = mysql_fetch_array(mysql_query($query));

@@ -26,6 +26,7 @@ if (loggedIn($where)) {
 		echo "<h2>Receptų sąrašas</h2>";
 
 		// Pagination 
+		$adjacents = 3;
 			// Total number of rows in table
 				$query = "SELECT COUNT(*) as num FROM recipes";
 				$total_pages = mysql_fetch_array(mysql_query($query));
@@ -61,13 +62,6 @@ if (loggedIn($where)) {
 					$limit = $customLimit;
 					$customLimit = "&limit=$customLimit";
 				}			
-
-				$page = $_GET['page'];
-
-				if ($page) 
-					$start = ($page - 1) * $limit; 			//first item to display on this page
-				else
-					$start = 0;								//if no page var is given, set start to 0
 
 				$page = $_GET['page'];
 
