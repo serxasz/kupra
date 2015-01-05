@@ -68,7 +68,7 @@ if (loggedIn($where)) {
 	$queryProducts = "SELECT * FROM products LIMIT $start, $limit";
 	$products_result = mysql_query($queryProducts);
 
-	echo "<table class=\"table table-bordered table-striped\">
+	echo "<table class=\"table table-bordered table-striped\" style=\"width: 80%;\">
 		<thead>
 		  	<tr>
 		  		<th style=\"width: 5%\">ID</th>

@@ -145,7 +145,7 @@ if (loggedIn($where)) {
 				 echo'
 				  <li class="active">Etapas 2 iš 2</li>
 				</ol>';
-
+				echo '<p class="bg-success">Receptas sėkmingai išsaugotas. Liko pridėti produktus..</p>';
 				echo "<h2>Naujo recepto kūrimas (Etapas 2 iš 2)</h2>";
 				echo '<h3>Produktų pridėjimas</h3>';
 
@@ -158,7 +158,6 @@ if (loggedIn($where)) {
 				echo '<div class="col-md-6">
 						<h4>Produktų paieška</h4>';
 
-				echo "DEBUG <br /> MYSQL INSERT ID === $viewID";
 				echo "<form>
 						Ieškoti: <input type=\"text\" onkeyup=\"showUser(this.value, $viewID)\">
 					  </form>
@@ -167,6 +166,10 @@ if (loggedIn($where)) {
 				echo "<script>showUser('', $viewID)</script>";
 				echo   "</div>
 						</div>";
+
+				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$viewID\">Grįžti į etapą 1</a><br />";
+
+				echo "<a class=\"form-control\" href=\"visi_receptai.php?view=$viewID\">Iššsaugoti</a>";
 				/*echo '
 				<form action="prideti_recepta.php" method="post">
 				<input class="form-control" type="submit" value="Sukurti receptą">';*/

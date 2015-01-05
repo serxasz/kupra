@@ -176,6 +176,8 @@ if (loggedIn($where)) {
 				echo "<script>showUser('', $editID)</script>";
 				echo   "</div>
 						</div>";
+
+				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$editID\">Grįžti į etapą 1</a>";
 			} else {
 				die(mysql_error());
 			}
