@@ -74,18 +74,22 @@ if (loggedIn($where)) {
 		
 		$recipes_result = mysql_query($queryRecipes);
 
-		echo "<table class=\"table table-bordered table-striped\" style=\"width: 50%\">
-			  	<tr>
-			  		<th style=\"width: 5%\">ID</th>
-			    	<th style=\"width: 5%\">Autorius</th>
-			    	<th style=\"width: 30%\">Pavadinimas</th>
-			    	<th style=\"width: 5%\">Porcijos</th>
-			    	<th style=\"width: 5%\">Gamybos trukmė</th>
-		  	  	</tr>";
+		echo "<table class=\"table table-bordered table-striped\" style=\"width: 80%\">
+			  	";
 
 		while ($recipe = mysql_fetch_row($recipes_result)) {
+        
+        $image = '<img src="images/no-photo.jpg" style="height:200px; width:200px;" alt="photo">';
+        $file = glob("uploads/recipes/".$recipe[2]."/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+        if (!empty($file)) {
+        foreach ($file as $i) {
+            $image = '<img src="'.$i.'" style="height:200px; width:200px;" alt="photo">';
+            break;
+        }
+        }
+        
 		    echo 	"<tr>
-		       			<td>$recipe[0]</td>
+		       			<td><a href=\"visi_receptai.php?view=$recipe[0]\">$image</a></td>
 		       			<td>$recipe[1]</td>
 		       			<td><a href=\"visi_receptai.php?view=$recipe[0]\">$recipe[2]</a></td>
 		       			<td>$recipe[3]</td>
