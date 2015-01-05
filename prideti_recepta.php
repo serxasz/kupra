@@ -128,8 +128,8 @@ if (loggedIn($where)) {
             
 			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$portions', '$duration', '$private')";
 
-			$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
-			if (mysql_query($sql) AND (mysql_query($sql2))) {
+			//$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
+			if (mysql_query($sql)) {
 				// meniukas
 				echo '
 				<ol class="breadcrumb">

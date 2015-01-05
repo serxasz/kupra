@@ -5,7 +5,7 @@ include('include_content/language.php');
 $where=$phrase[81]; 
 if (loggedIn($where)) {
 	$username = $_SESSION['username'];
-	$term = $_POST['term'];
+	$term = $_REQUEST['term'];
 	$ieskoti = $term;
 
 	echo '
@@ -79,6 +79,8 @@ if (loggedIn($where)) {
 					<th>Pavadinimas</th>
 					<th>Porciju skaicius</th>
 					<th>Pagaminimo trukme</th>
+					<th>Reitingas</th>
+					<th>Balsai</th>
 				</tr>
 				";
 
@@ -98,6 +100,8 @@ if (loggedIn($where)) {
 		       			<td><a href=\"visi_receptai.php?view=$recipe[0]\">$recipe[2]</a></td>
 		       			<td>$recipe[3]</td>
 		       			<td>$recipe[4]</td>
+						<td>$recipe[7]</td>
+						<td>$recipe[8]</td>
 		       		  </tr>";
 	   	}
 
