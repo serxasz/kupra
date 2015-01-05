@@ -180,7 +180,10 @@ if (loggedIn($where)) {
 		
 	//REITINGAVIMAS
 	$if_voted = mysql_query ("
-	SELECT nameofuser, rating FROM rates WHERE nameofuser='$username'
+	SELECT *
+	FROM rates
+	WHERE nameofuser='$username'
+	AND nameofrecipe='$recipe[2]'
 	");
 	
 	if($row = mysql_fetch_assoc($if_voted)) {
