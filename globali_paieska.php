@@ -67,7 +67,10 @@ if (loggedIn($where)) {
 					where name
 					like '%$ieskoti%'
 					or username
-					like '%$ieskoti%'
+					='$ieskoti'
+					or rating
+					='$ieskoti'
+					ORDER BY rating DESC
 					LIMIT $start, $limit";
 		
 		$recipes_result = mysql_query($queryRecipes);

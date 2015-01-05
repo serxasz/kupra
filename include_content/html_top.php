@@ -146,7 +146,7 @@
                         echo '
                         <form class="navbar-form navbar-header" role="search" action="globali_paieska.php" method="post">
                             <input style="width: 380px" type="text" name="term"
-                        	placeholder ="Receptų paieška pagal pavadinimą arba vartotojo vardą"/>
+                        	placeholder ="Recepto pavadinimas ar vartotojo vardas ar reitingas"/>
                             <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                         </form>';
                         } else {
