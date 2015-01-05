@@ -35,16 +35,24 @@ if (loggedIn($where)) {
         }
     }  
     
-    echo'<table width="'.$TABLE_WIDTH.'" border="1" align="center" cellpadding="5" cellspacing="1">';
-    echo'<tr><td>ID</td><td>Autorius</td><td>Pavadinimas</td><td>Porcijos</td><td>Pagaminimo trukmė</td></tr>';
+    echo'<table width="'.$TABLE_WIDTH.'" class="table table-bordered">';
+    echo'<tr><td>Nuotrauka</td><td>Autorius</td><td>Pavadinimas</td><td>Porcijos</td><td>Pagaminimo trukmė</td></tr>';
     
     if (!empty($recipes)) {
         foreach ($recipes as $i) {
             $sql = "SELECT id,username,name,portions,duration FROM recipes WHERE id = '".$i."' LIMIT 1"; 
             $query = mysql_query($sql) or die("Query Failed: " . mysql_error());
             $recipe = mysql_fetch_array($query);
+            $image = '<img src="images/no-photo.jpg" style="height:200px; width:200px;" alt="photo">';
+        $file = glob("uploads/recipes/".$recipe[2]."/*.{jpg,jpeg,png,gif}",GLOB_BRACE);
+        if (!empty($file)) {
+        foreach ($file as $i) {
+            $image = '<img src="'.$i.'" style="height:200px; width:200px;" alt="photo">';
+            break;
+        }
+        }
             if (mysql_num_rows($query) == 1) {
-                echo"<tr><td>".$recipe['id']."</td><td>".$recipe['username']."</td><td>".$recipe['name']."</td><td>".$recipe['portions']."</td><td>".$recipe['duration']."</td></tr>";
+                echo"<tr><td><a href='visi_receptai.php?view=".$recipe['id']."'>".$image."</a></td><td>".$recipe['username']."</td><td><a href='visi_receptai.php?view=".$recipe['id']."'>".$recipe['name']."</a></td><td>".$recipe['portions']."</td><td>".$recipe['duration']."</td></tr>";
             }
         }
     } else {
