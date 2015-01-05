@@ -172,7 +172,7 @@
                         ?>
                       </li>
                       <li>
-                        <?php if (loggedIn(null)) { echo"<a href=\"users_online.php\"><span class=\"glyphicon glyphicon-globe\"></span> Prisijungę:  <b>" . countOnlineUsers() . "</b></a>"; } ?>
+                        <?php if (loggedIn(null)) { echo"<a href=\"users_online.php\"><span class=\"glyphicon glyphicon-list\"></span> Prisijungę:  <b>" . countOnlineUsers() . "</b></a>"; } ?>
                       </li>
                       <li>
                         <?php if (loggedIn(null)) { echo '<a href="login.php?action=logout"><span class="glyphicon glyphicon-off"></span> Atsijungti</a>'; } ?>
