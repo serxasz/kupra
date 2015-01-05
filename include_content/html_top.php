@@ -119,8 +119,15 @@
     }
     ?>
 </head>
-<body>
-<div class="container" role="main">
+<?php
+    if ($where == "register") {
+        echo '<body background="bgimage.jpg">
+        <div class="container" role="main">';
+    } else {
+        echo '<body background="bgdefault.jpg">
+        <div class="container" role="main" style="background: rgba(255,255,255,0.3);">';
+    }
+?>
 	<nav class="navbar navbar-default">
         <div class="container">
           <div class="navbar-header">
@@ -133,7 +140,7 @@
             <a class="navbar-brand" href="/">KuPRA <span class="glyphicon glyphicon-cutlery"></span> </a>
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav navbar-center">
+                <ul class="nav navbar-nav navbar-center:first">
                     <li>
                     <?php if (loggedIn($where)) {
                         echo '
@@ -153,7 +160,7 @@
                         } ?>
                     </li>
                 </ul>
-                <ul class="nav navbar-nav">
+                <ul class="nav navbar-nav .navbar-right:first">
                     <li class="dropdown">
                         <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><span class="glyphicon glyphicon-globe"></span> Kalba <span class="caret"></span></a>
                         <ul class="dropdown-menu" role="menu">
@@ -304,8 +311,8 @@
                  </div>';
         }
            echo' </div>';
-        echo '<div class="container col-md-10" >
-              <div class="panel panel-default">
+        echo '<div class="container col-md-10">
+              <div class="panel panel-default" style="min-height: 600px;">
                <div class="panel-body" align="center">';
 
     } else {

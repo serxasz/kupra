@@ -62,7 +62,7 @@ if (loggedIn($where)) {
 				  	 <br />
 				  	 <a href=\"vnt_klasifikatorius.php\">Įvesti kitą</a>";
 	} else {
-		echo 	'<form class="form-inline" action="vnt_klasifikatorius.php" method="post">
+		echo 	'<form class="form-inline" action="prideti_vieneta.php" method="post">
 					<div class="form-group">
 					 <label class="control-label" for="quantity">Pavadinimas</label>
 					 <input class="form-control" placeholder="" type="text" name="quantity">

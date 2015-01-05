@@ -1,5 +1,6 @@
 <?php 
 include('config.php');
+$where = "register";
 include('include_content/html_top.php');
 include('include_content/language.php');
 include($_SESSION['lang']);
@@ -110,11 +111,11 @@ if (loggedIn(0)) {
 	$sError = "";
  
 	$sOutput .= '
-    <div class="container" align="left">
+    <div class="container">
     <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-4">
 	<form name="register" method="post" action="register.php?action=register" enctype="multipart/form-data">
-		<table class="table table-bordered" align="left">';
+		<table align="left" style="background: rgba(255,255,255,0.7);" class="table table-bordered" align="left">';
         if (!empty($_SESSION['error'])) { 
 		$sOutput .= '<tr><td colspan="2"><div class="alert alert-danger" role="alert" align="center">'.$_SESSION['error'].'</div></td></tr>';
 		unset($_SESSION['error']);
@@ -134,7 +135,7 @@ if (loggedIn(0)) {
             <tr> 
 				<td><strong>' . $phrase[115] . '</strong></td>
 				<td align="center">
-                <select name="type">
+                <select class="form-control" name="type">
                 <option value="Paprastas" selected="selected">   Paprastas   </option>
                 <option value="Kulinaras"> Kulinaras </option>
                 </select>
@@ -158,7 +159,7 @@ if (loggedIn(0)) {
 			</tr>
             <tr> 
 				<td><strong>Avataras:</strong></td>
-				<td align="center"><input type="file" name="fileToUpload" id="fileToUpload"></td>
+				<td align="center"><input class="btn btn-default" type="file" name="fileToUpload" id="fileToUpload"></td>
 			</tr>
             <tr> 
 				<td colspan="2" align="center"><input type="checkbox" name="private" value="1"> Paskyra privati<br></td>
@@ -167,7 +168,7 @@ if (loggedIn(0)) {
 				<td colspan="2" align="center">' . recaptcha_get_html($publickey) . '</td>
 			</tr>
 			<tr>
-				<td colspan="2" align="center"><button type="submit" class="btn btn-default">' . $phrase[70] . '</button></td>
+				<td colspan="2" align="center"><button type="submit" class="btn btn-primary">' . $phrase[70] . '</button></td>
 			</tr>
 		</table>
     </form> 
