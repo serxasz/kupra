@@ -181,7 +181,7 @@ if (loggedIn($where)) {
 	SELECT *
 	FROM rates
 	WHERE nameofuser='$username'
-	AND nameofrecipe='$recipe[2]'
+	AND recipeid='$recipe[0]'
 	");
 	
 	if($row = mysql_fetch_assoc($if_voted)) {
@@ -191,12 +191,12 @@ if (loggedIn($where)) {
 		echo '<font color="red"><h1> jau balsavai! Davei '; echo $ratinggiven; echo ' !</h1></font><br>';
 	} else {
 	
-	$find_data = mysql_query ("SELECT * FROM ratings WHERE recipe_name='$recipe[2]'");
+	$find_data = mysql_query ("SELECT * FROM recipes WHERE id='$recipe[0]'");
 	
 	while ($row = mysql_fetch_assoc($find_data))
 	{
 		$id = $row['id'];
-		$name_of_recipe = $row['recipe_name'];
+		$name_of_recipe = $row['name'];
 		$current_hits = $row['hits'];
 		
 		echo "
@@ -208,7 +208,7 @@ if (loggedIn($where)) {
 					<option>4</option>
 					<option>5</option>
 				</select>
-				<input type='hidden' value='$recipe[2]' name='recipe_name'>
+				<input type='hidden' value='$recipe[0]' name='recipe_name'>
 				<input type='submit' value='Ivertinti!' name='IVERTINIMAS'>
 			</form>
 		";
@@ -216,31 +216,34 @@ if (loggedIn($where)) {
 	
 	if ( isset( $_POST['IVERTINIMAS'] ) ) { 
 	
-	$post_recipe = $_POST['$recipe[2]'];
+	$post_recipe = $_POST['$recipe[0]'];
 	$post_rating = $_POST['rating'];
 	
 	$new_hits = $current_hits + 1;
 	
-	$update_hits = mysql_query ("UPDATE ratings SET hits = '$new_hits' WHERE id='$id'");
+	$update_hits = mysql_query ("
+	UPDATE recipes SET hits = '$new_hits' WHERE id='$recipe[0]'
+	");
 	
 	$sql69 = "INSERT INTO rates (nameofrecipe, nameofuser, rating, recipeid) VALUES ('$recipe[2]','$username','$post_rating', '$recipe[0]')";
 	
 	if (mysql_query($sql69)) {
-	echo '<br>Vote priimtas!<br>';
+	echo '<br>'; echo $post_rating; echo ' reitingas priimtas!<br>';
 	}
 	$new_rating = mysql_query ("
-	SELECT recipes.id, recipes.name, AVG(rates.rating) AS rating
-	FROM recipes
-	LEFT JOIN rates
-	ON recipes.id = rates.recipeid
-	GROUP BY recipes.id
+	SELECT recipeid, AVG(rating) AS reitingas
+	FROM rates
+	WHERE recipeid = '$id'
 	");
 	
 	while ($row = mysql_fetch_assoc($new_rating)){
-		$newest_rating = $row['rating'];
+		$newest_rating = $row['reitingas'];
 	}
-	$update_rating = mysql_query("UPDATE ratings SET rating ='$newest_rating' WHERE id='$id'");
-     }   
+	
+	$update_rating = mysql_query("UPDATE recipes SET rating ='$newest_rating' WHERE id='$recipe[0]'");
+	echo '<br>Bendras "'; echo $recipe[2]; echo '" reitingas yra: '; echo $newest_rating; echo '<br>';
+	
+	 }   
 		}
 //////////
         $supply = "";

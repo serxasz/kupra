@@ -133,9 +133,9 @@ if (loggedIn($where)) {
 			mysql_query($sql);
 			$viewID = mysql_insert_id();
 
-			$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
-			if ( mysql_query($sql2) ) {
-
+			//$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
+			if ( mysql_query($sql) ) {
+			
 				// meniukas
 				echo '
 				<ol class="breadcrumb">
