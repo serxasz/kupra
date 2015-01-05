@@ -27,13 +27,13 @@ if (loggedIn($where)) {
 			$minNameLength = 2;
 			$maxNameLength = 20;
 
-			$minDescLength = 2;
-			$maxDescLength = 255;
+			$minDescLength = 0;
+			$maxDescLength = 1000;
 
 			// Duplicate
 			$duplicate = false;
 
-			$queryForName = "SELECT name FROM products WHERE name='$name'";
+			$queryForName = "SELECT name FROM products WHERE name='$name' AND quantities_id='$quantities'";
 			$name_result = mysql_query($queryForName);
 
 			if (mysql_num_rows($name_result) == 0) {
@@ -55,7 +55,7 @@ if (loggedIn($where)) {
 		} else if ( (strlen($description) < $minDescLength) or (strlen($description) > $maxDescLength) ) {
 			echo "Leidžiamas produkto aprašymo dydis yra nuo $minDescLength simbolių iki $maxDescLength";
 		} else if ($duplicate) { 
-			echo "Produktas su vardu \"$name\" jau egzistuoja.";
+			echo "Produktas su vardu \"$name\" ir vienetu \"$quantities\" jau egzistuoja.";
 		} else if ($noSelection) {
 			echo "Matavimo vienetas privalo būti pasirinktas.";
 		} else {
@@ -100,7 +100,7 @@ if (loggedIn($where)) {
 																 '$name',
 																 '$description')";
                     if (mysql_query($sql)) {
-                        echo "Sėkmingai papildyta receptu \"$name\".";
+                        echo "Sėkmingai papildyta produktu \"$name\".";
                     }
                 }
 		}

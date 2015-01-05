@@ -66,7 +66,7 @@ if (loggedIn($where)) {
 		// Validation
 			// Wrong format
 			$minNameLength = 2;
-			$maxNameLength = 20;
+			$maxNameLength = 40;
 
 			$minDescLength = 2;
 			$maxDescLength = 255;
@@ -99,7 +99,9 @@ if (loggedIn($where)) {
             $valid_formats = array("jpg", "png", "gif", "jpeg");
             $max_file_size = 1024*100; //100 kb
             $path = "uploads/recipes/".$name."/"; // Upload directory
-            mkdir($path, 0777);
+            if (!file_exists($path)) {
+                mkdir($path, 0777);
+            }
             $count = 0;
 
             if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
@@ -128,8 +130,12 @@ if (loggedIn($where)) {
             
 			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$portions', '$duration', '$private')";
 
+			mysql_query($sql);
+			$viewID = mysql_insert_id();
+
 			$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
-			if (mysql_query($sql) AND (mysql_query($sql2))) {
+			if ( mysql_query($sql2) ) {
+
 				// meniukas
 				echo '
 				<ol class="breadcrumb">
@@ -141,7 +147,7 @@ if (loggedIn($where)) {
 				 echo'
 				  <li class="active">Etapas 2 iš 2</li>
 				</ol>';
-
+				echo '<p class="bg-success">Receptas sėkmingai išsaugotas. Liko pridėti produktus..</p>';
 				echo "<h2>Naujo recepto kūrimas (Etapas 2 iš 2)</h2>";
 				echo '<h3>Produktų pridėjimas</h3>';
 
@@ -154,7 +160,6 @@ if (loggedIn($where)) {
 				echo '<div class="col-md-6">
 						<h4>Produktų paieška</h4>';
 
-				$viewID = mysql_insert_id();
 				echo "<form>
 						Ieškoti: <input type=\"text\" onkeyup=\"showUser(this.value, $viewID)\">
 					  </form>
@@ -163,6 +168,10 @@ if (loggedIn($where)) {
 				echo "<script>showUser('', $viewID)</script>";
 				echo   "</div>
 						</div>";
+
+				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$viewID\">Grįžti į etapą 1</a><br />";
+
+				echo "<a class=\"form-control\" href=\"visi_receptai.php?view=$viewID\">Iššsaugoti</a>";
 				/*echo '
 				<form action="prideti_recepta.php" method="post">
 				<input class="form-control" type="submit" value="Sukurti receptą">';*/

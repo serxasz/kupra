@@ -72,10 +72,10 @@ if (loggedIn($where)) {
 		// Validation
 			// Wrong format
 			$minNameLength = 2;
-			$maxNameLength = 20;
+			$maxNameLength = 40;
 
 			$minDescLength = 2;
-			$maxDescLength = 255;
+			$maxDescLength = 20000;
 
 		if ( (strlen($name) < $minNameLength) or (strlen($name) > $maxNameLength) ) {
 			echo "Leidžiamas recepto pavadinimo dydis yra nuo $minNameLength simbolių iki $maxNameLength";
@@ -176,6 +176,8 @@ if (loggedIn($where)) {
 				echo "<script>showUser('', $editID)</script>";
 				echo   "</div>
 						</div>";
+
+				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$editID\">Grįžti į etapą 1</a>";
 			} else {
 				die(mysql_error());
 			}

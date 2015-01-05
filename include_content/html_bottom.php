@@ -9,7 +9,14 @@
 <br />
 <br />
 <br />
-<div class="panel panel-default col-md-12 container text-center">
+
+<?php
+    if ($where == "register") {
+        echo '<div class="col-md-12 container text-center" style="background: rgba(255,255,255,0.5);">';
+    } else {
+        echo '<div class="panel panel-default col-md-12 container text-center">';
+    }
+?>
 	<br />
 	KuPRA @ 2015
 	<br />

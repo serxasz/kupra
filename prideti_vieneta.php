@@ -24,7 +24,7 @@ if (loggedIn($where)) {
 		// Validation
 			// Wrong format
 			$minQuantityLength = 2;
-			$maxQuantityLength = 20;
+			$maxQuantityLength = 25;
 
 			if ( (strlen($newQuantityName) < $minQuantityLength) or (strlen($newQuantityName) > $maxQuantityLength) ) {
 				$wrongFormat = true;
@@ -60,9 +60,9 @@ if (loggedIn($where)) {
 
 			echo 	"<br />
 				  	 <br />
-				  	 <a href=\"vnt_klasifikatorius.php\">Įvesti kitą</a>";
+				  	 <a href=\"prideti_vieneta.php\">Įvesti kitą</a>";
 	} else {
-		echo 	'<form class="form-inline" action="vnt_klasifikatorius.php" method="post">
+		echo 	'<form class="form-inline" action="prideti_vieneta.php" method="post">
 					<div class="form-group">
 					 <label class="control-label" for="quantity">Pavadinimas</label>
 					 <input class="form-control" placeholder="" type="text" name="quantity">

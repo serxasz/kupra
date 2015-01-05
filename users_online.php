@@ -13,7 +13,7 @@ if (loggedIn($where)) {
 	$start_from = ($page-1) * 20;
 	$sql = "SELECT username,place FROM users_online,users WHERE users_online.uid = users.id ORDER BY username ASC LIMIT $start_from, 20"; 
 	$query = mysql_query($sql) or die("Query Failed: " . mysql_error());
-	$sOutput = '<table width="340" border="1" align="center" cellpadding="5" cellspacing="0">
+	$sOutput = '<table width="340" class="table table-bordered table-striped">
 					<tr> 
 						<td colspan="2" align="center"> ' . $phrase[75] . ' </td>
 					</tr>';
