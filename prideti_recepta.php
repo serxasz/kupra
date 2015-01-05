@@ -99,7 +99,9 @@ if (loggedIn($where)) {
             $valid_formats = array("jpg", "png", "gif", "jpeg");
             $max_file_size = 1024*100; //100 kb
             $path = "uploads/recipes/".$name."/"; // Upload directory
-            mkdir($path, 0777);
+            if (!file_exists($path)) {
+                mkdir($path, 0777);
+            }
             $count = 0;
 
             if(isset($_POST) and $_SERVER['REQUEST_METHOD'] == "POST"){
