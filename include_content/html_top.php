@@ -143,6 +143,12 @@
                             <button type="submit" name="submit" class="btn btn-default"><i class="glyphicon glyphicon-search"></i></button>
                         </form>';
                         } else {
+                        
+                        echo '<form class="navbar-form navbar-header" name="login" method="post" action="login.php?action=login">
+                            <input style="width: 200px" class="form-control" type="text" name="username" placeholder="Enter username"/>
+                            <input style="width: 200px" class="form-control" type="password" name="password" placeholder="Enter password"/>
+                            <button type="submit" name="submit" class="btn btn-default">Prisijungti</button>
+                            </form>';
                            
                         } ?>
                     </li>
