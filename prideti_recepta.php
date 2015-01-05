@@ -66,7 +66,7 @@ if (loggedIn($where)) {
 		// Validation
 			// Wrong format
 			$minNameLength = 2;
-			$maxNameLength = 20;
+			$maxNameLength = 40;
 
 			$minDescLength = 2;
 			$maxDescLength = 255;
@@ -128,8 +128,12 @@ if (loggedIn($where)) {
             
 			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$portions', '$duration', '$private')";
 
+			mysql_query($sql);
+			$viewID = mysql_insert_id();
+
 			$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
-			if (mysql_query($sql) AND (mysql_query($sql2))) {
+			if ( mysql_query($sql2) ) {
+
 				// meniukas
 				echo '
 				<ol class="breadcrumb">
@@ -154,7 +158,7 @@ if (loggedIn($where)) {
 				echo '<div class="col-md-6">
 						<h4>Produktų paieška</h4>';
 
-				$viewID = mysql_insert_id();
+				echo "DEBUG <br /> MYSQL INSERT ID === $viewID";
 				echo "<form>
 						Ieškoti: <input type=\"text\" onkeyup=\"showUser(this.value, $viewID)\">
 					  </form>

@@ -72,10 +72,10 @@ if (loggedIn($where)) {
 		// Validation
 			// Wrong format
 			$minNameLength = 2;
-			$maxNameLength = 20;
+			$maxNameLength = 40;
 
 			$minDescLength = 2;
-			$maxDescLength = 255;
+			$maxDescLength = 20000;
 
 		if ( (strlen($name) < $minNameLength) or (strlen($name) > $maxNameLength) ) {
 			echo "Leidžiamas recepto pavadinimo dydis yra nuo $minNameLength simbolių iki $maxNameLength";
