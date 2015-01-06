@@ -49,11 +49,11 @@ if (loggedIn($where)) {
 					</div>
 					<div class=\"form-group\">
 						<label for=\"duration\" class=\"control-label\">Gamybos trukmė:</label>
-						<input class=\"form-control\" type=\"text\" name=\"duration\" value=\"$recipe[3]\">
+						<input class=\"form-control\" type=\"text\" name=\"duration\" value=\"$recipe[4]\">
 					</div>
 					<div class=\"form-group\">
 						<label for=\"portions\" class=\"control-label\" >Porcijos:</label>
-						<input class=\"form-control\" type=\"text\" name=\"portions\" value=\"$recipe[4]\">
+						<input class=\"form-control\" type=\"text\" name=\"portions\" value=\"$recipe[3]\">
 					</div>
 
 					<div class=\"form-group\">
