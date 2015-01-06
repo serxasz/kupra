@@ -134,8 +134,6 @@ if (loggedIn($where)) {
 			$viewID = mysql_insert_id();
 
 			//$sql2 = "INSERT INTO ratings (recipe_name, rating, hits) VALUES ('$name', 0, 0)";
-			if ( mysql_query($sql) ) {
-			
 				// meniukas
 				echo '
 				<ol class="breadcrumb">
@@ -175,7 +173,7 @@ if (loggedIn($where)) {
 				/*echo '
 				<form action="prideti_recepta.php" method="post">
 				<input class="form-control" type="submit" value="Sukurti receptą">';*/
-			}
+			
 		}
 	}
 } else {
