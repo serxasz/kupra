@@ -98,7 +98,7 @@ if (loggedIn($where)) {
         }
         }
 							
-							echo '<a href=\"visi_receptai.php?view=$r[0]\"><center>'.$image.'</center></a></td>';
+							echo '<br><a href=visi_receptai.php?view='.$r[0].'><center>'.$image.'</center><br></a></td>';
 						
 						
 				
