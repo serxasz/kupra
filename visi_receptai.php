@@ -201,13 +201,12 @@ if (loggedIn($where)) {
 		
 		echo "
 			<form method='POST'>
-				<select name='rating'>
-					<option>1</option>
-					<option>2</option>
-					<option>3</option>
-					<option>4</option>
-					<option>5</option>
-				</select>
+				<select name='rating'>";
+
+			for ($i=1; $i <= 10; $i++) {
+				echo "<option>$i</option>";
+			}
+		echo "</select>
 				<input type='hidden' value='$recipe[0]' name='recipe_name'>
 				<input type='submit' value='Ivertinti!' name='IVERTINIMAS'>
 			</form>

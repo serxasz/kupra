@@ -60,18 +60,30 @@ if (loggedIn($where)) {
 				if ($page) 
 					$start = ($page - 1) * $limit; 			
 				else
-					$start = 0;							
+					$start = 0;
 
-		$queryRecipes = "select *
-					from recipes
-					where name
-					like '%$ieskoti%'
-					or username
-					='$ieskoti'
-					or rating
-					='$ieskoti'
-					ORDER BY rating DESC
-					LIMIT $start, $limit";
+		if (intval($ieskoti)) {
+			$queryRecipes = "select *
+								from recipes
+								where name
+								like '%$ieskoti%'
+								or username
+								='$ieskoti'
+								or rating
+								='$ieskoti'
+								ORDER BY rating DESC
+								LIMIT $start, $limit";
+		} else {
+			$queryRecipes = "select *
+								from recipes
+								where name
+								like '%$ieskoti%'
+								or username
+								='$ieskoti'
+								ORDER BY rating DESC
+								LIMIT $start, $limit";
+		}
+		
 		
 		$recipes_result = mysql_query($queryRecipes);
 
