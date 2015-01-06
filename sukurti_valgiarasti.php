@@ -10,17 +10,29 @@ if (loggedIn($where)) {
     echo'
     <ol class="breadcrumb">
       <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
-      <li class="active">Sukurti Valgiarasti</li>
-    </ol>';
+      <li class="active"><center>Sukurti Valgiarasti </center></li>
+    </ol>
+	
+	  <table  style="background: rgba(245,245,245,0.7);width: 50%" class="table table-bordered" align="center" >
+';
+
 	
 
-	echo'<form method="post" action="sukurti_valgiarasti.php">
+	echo' <form method="post" action="sukurti_valgiarasti.php">
+		
 		<div class="form-group">
+		<tr> <td><center>
 		 <label class="control-label" for="menuname">Pavadinimas</label>
-		 <input class="form-control" placeholder="" type="text" name="menuname">
+		 </center> </td></tr>
+		 <tr> <td>
+		<center> <input class="form-control" placeholder="" type="text" name="menuname"></center>
 		</div>
-		<input name="go" type="submit" value="Sukurti Valgiarasti" />
-		</form>';
+		 </td></tr>
+		 <tr> <td>
+		<center><input name="go" type="submit" value="Sukurti Valgiarasti" /></center>
+		 </td></tr>
+		
+		</form></table>';;
 		
 	if (isset($_POST['go'])) {
 		$menuname = $_POST['menuname'];
