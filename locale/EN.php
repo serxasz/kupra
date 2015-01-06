@@ -172,4 +172,13 @@ $phrase[112] = "NO";
 $phrase[113] = "Subject:";
 $phrase[114] = "Only last ".$max_pm." of already deleted messages are saved!";
 $phrase[115] = "User type:";
+$phrase[116] = "Enter username";
+$phrase[117] = "Enter password";
+$phrase[118] = "Enter password again";
+$phrase[119] = "Enter your email";
+$phrase[120] = "Enter your name";
+$phrase[121] = "Enter your surname";
+$phrase[122] = "Enter description";
+$phrase[123] = "Sign in";
+$phrase[124] = "Language";
 ?>

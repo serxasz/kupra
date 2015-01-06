@@ -44,7 +44,7 @@ echo"<script>top.location = 'index.php';</script>";
     <div class="col-md-4"></div>
     <div class="col-md-4">
     <form name="login" method="post" action="login.php?action=login">
-    <table class="table table-bordered" align="center">';
+    <table  style="background: rgba(255,255,255,0.7);" class="table table-bordered" align="center">';
     if (!empty($_SESSION['error'])) { 
 		$sOutput .= '<tr><td colspan="2"><div class="alert alert-danger" role="alert" align="center">'.$_SESSION['error'].'</div></td></tr>';
 		unset($_SESSION['error']);

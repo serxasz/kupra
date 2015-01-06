@@ -39,6 +39,7 @@
 	</script>
 
     <?php 
+	
     if ($where == "naujas_receptas" or $where== "redaguoti_recepta") {
     echo'   <script>
             function showUser(str, rcpID) {
@@ -80,6 +81,7 @@
     ?>
 
     <?php 
+	include($_SESSION['lang']);
     if ($where == "naujas_receptas" or $where == "redaguoti_recepta") {
     echo'   <script>
             function productAddition(str, id, rcpID) {

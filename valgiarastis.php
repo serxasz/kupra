@@ -32,7 +32,12 @@ if (loggedIn($where)) {
 				
 			
 		}
-		if (isset($_POST['go'.$menuid])) {
+		
+				}
+				
+				$recept_id = $recept_id + 1;
+			}
+			if (isset($_POST['go'.$menuid])) {
 							$pun = $_POST['taskOption'.$menuid];
 							
 							$sql = "INSERT INTO menus_recipes (recipeid, menuid, date) VALUES ('$pun', '$menu[0]','$datedate')";
@@ -41,9 +46,6 @@ if (loggedIn($where)) {
 							}
 						
 					}
-				}
-				$recept_id = $recept_id + 1;
-			}
 	$menuid = $menuid +1;
 	}
 	

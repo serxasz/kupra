@@ -172,4 +172,16 @@ $phrase[112] = "NE";
 $phrase[113] = "Tema:";
 $phrase[114] = "Saugomas tik paskutinis ".$max_pm." jau ištrintų žinučių!";
 $phrase[115] = "Vartotojo tipas:";
+
+$phrase[116] = "Įvesti slaptažodį";
+$phrase[117] = "Įvesti slapyvardį";
+$phrase[118] = "Pakartoti slaptažodį";
+$phrase[119] = "Internetinio pašto adresas";
+$phrase[120] = "Įvesti vardą";
+$phrase[121] = "Įvesti pavardę";
+$phrase[122] = "Įvesti aprašymą";
+$phrase[123] = "Prisijungti";
+$phrase[124] = "Kalba";
+
+
 ?>

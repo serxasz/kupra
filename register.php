@@ -122,15 +122,15 @@ if (loggedIn(0)) {
 	} 
 			$sOutput .= '<tr> 
 				<td width="40%"><strong>' . $phrase[16] . '</strong></td>
-				<td width="60%" align="center"><input class="form-control" placeholder="Enter username" type="text" name="username" value="' . $sUsername . '"></td>
+				<td width="60%" align="center"><input class="form-control" placeholder="'.$phrase[117].'" type="text" name="username" value="' . $sUsername . '"></td>
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[21] . '</strong></td>
-				<td align="center"><input class="form-control" placeholder="Enter password" type="password" name="password" value=""></td>
+				<td align="center"><input class="form-control" placeholder="'.$phrase[116].'" type="password" name="password" value=""></td>
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[69] . '</strong></td>
-				<td align="center"><input class="form-control" placeholder="Enter password again" type="password" name="password2" value=""></td>
+				<td align="center"><input class="form-control" placeholder="'.$phrase[118].'" type="password" name="password2" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>' . $phrase[115] . '</strong></td>
@@ -143,19 +143,19 @@ if (loggedIn(0)) {
 			</tr>
 			<tr> 
 				<td><strong>' . $phrase[52] . '</strong></td>
-				<td align="center"><input class="form-control" placeholder="Enter email" type="text" name="email" value=""></td>
+				<td align="center"><input class="form-control" placeholder="'.$phrase[119].'" type="text" name="email" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Vardas:</strong></td>
-				<td align="center"><input class="form-control" placeholder="Enter your name" type="text" name="name" value=""></td>
+				<td align="center"><input class="form-control" placeholder="'.$phrase[120].'" type="text" name="name" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Pavarde:</strong></td>
-				<td align="center"><input class="form-control" placeholder="Enter your surname" type="text" name="surname" value=""></td>
+				<td align="center"><input class="form-control" placeholder="'.$phrase[121].'" type="text" name="surname" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Aprašymas:</strong></td>
-				<td align="center"><input class="form-control" placeholder="Enter description" type="text" name="description" value=""></td>
+				<td align="center"><input class="form-control" placeholder="'.$phrase[122].'" type="text" name="description" value=""></td>
 			</tr>
             <tr> 
 				<td><strong>Avataras:</strong></td>

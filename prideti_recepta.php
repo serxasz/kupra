@@ -128,7 +128,7 @@ if (loggedIn($where)) {
 	}
 }
             
-			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$portions', '$duration', '$private')";
+			$sql = "INSERT INTO recipes (username, name, description, portions, duration, private) VALUES ('$username','$name', '$description', '$duration', '$portions', '$private')";
 
 			mysql_query($sql);
 			$viewID = mysql_insert_id();
