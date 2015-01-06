@@ -62,7 +62,7 @@ if (loggedIn($where)) {
 
 			echo 	"<br />
 				  	 <br />
-				  	 <a href=\"prideti_vieneta.php\">Įvesti kitą</a>";
+				  	 <a href=\"prideti_vieneta.php\">Įvesti kitą</a></table>";
 	} else {
 		echo 	'<form class="form-inline" action="prideti_vieneta.php" method="post">
 					<div class="form-group">
