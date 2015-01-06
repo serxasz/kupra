@@ -132,8 +132,8 @@ if (loggedIn($where)) {
         }
     	echo "<tr align='center'><td width='20%'><b>Autorius:</b></td><td>$recipe[1]</td></tr>";
     	echo "<tr align='center'><td><b>Aprašymas:</b></td><td>$recipe[5]</td></tr>";
-    	echo "<tr align='center'><td><b>Gamybos trukmė:</b></td><td>$recipe[4]</td></tr>";
-    	echo "<tr align='center'><td><b>Porcijos:</b></td><td>$recipe[3]</td></tr>";
+    	echo "<tr align='center'><td><b><span class=\"glyphicon glyphicon glyphicon-time\"></span> Gamybos trukmė (minutėmis):</b></td><td>$recipe[4]</td></tr>";
+    	echo "<tr align='center'><td><b><span class=\"glyphicon glyphicon glyphicon-adjust\"></span> Porcijos:</b></td><td>$recipe[3]</td></tr>";
         echo '</table>';
     	echo "<h3>Produktai</h3>";
 

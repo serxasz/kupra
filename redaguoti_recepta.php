@@ -40,28 +40,28 @@ if (loggedIn($where)) {
 
 	echo "	<form action=\"redaguoti_recepta.php?edit=true&id=$editID\" method=\"post\">
 					<div class=\"form-group\">
-						<label for=\"name\" class=\"control-label\">Pavadinimas:</label>
+						<label for=\"name\" class=\"control-label\">Pavadinimas</label>
 						<input class=\"form-control\" type=\"text\" name=\"name\" value=\"$recipe[2]\">
 					</div>
 					<div class=\"form-group\">
-						<label class=\"control-label\">Aprašymas:</label>
+						<label class=\"control-label\">Aprašymas</label>
 						<textarea class=\"form-control\" rows=\"8\" name=\"description\">$recipe[5]</textarea>
 					</div>
 					<div class=\"form-group\">
-						<label for=\"duration\" class=\"control-label\">Gamybos trukmė:</label>
+						<label for=\"duration\" class=\"control-label\"><span class=\"glyphicon glyphicon glyphicon-time\"></span> Gamybos trukmė (minutėmis)</label>
 						<input class=\"form-control\" type=\"text\" name=\"duration\" value=\"$recipe[4]\">
 					</div>
 					<div class=\"form-group\">
-						<label for=\"portions\" class=\"control-label\" >Porcijos:</label>
+						<label for=\"portions\" class=\"control-label\" ><span class=\"glyphicon glyphicon glyphicon-adjust\"></span> Porcijos</label>
 						<input class=\"form-control\" type=\"text\" name=\"portions\" value=\"$recipe[3]\">
 					</div>
 
 					<div class=\"form-group\">
-						<label for=\"private\" class=\"control-label\">Privatus skelbimas:</label>
+						<label for=\"private\" class=\"control-label\">Privatus skelbimas</label>
 						<input type=\"checkbox\" name=\"private\" value=\"yes\" />
 					</div>	
 
-					<input class=\"form-control\" type=\"submit\" value=\"Išssaugoti.\">
+					<input class=\"form-control\" type=\"submit\" value=\"Baigta. Pereiti į Etapą 2\">
 			</form>";		
 	} else {
 		$name = $_POST["name"];
@@ -177,7 +177,8 @@ if (loggedIn($where)) {
 				echo   "</div>
 						</div>";
 
-				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$editID\">Grįžti į etapą 1</a>";
+				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$editID\">Grįžti į Etapą 1 (Pagrindinė informacija)</a><br /><br />";
+				echo "<a class=\"form-control\" href=\"visi_receptai.php?view=$recipe[0]\">Išsaugoti</a>";
 			} else {
 				die(mysql_error());
 			}

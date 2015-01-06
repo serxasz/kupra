@@ -24,32 +24,32 @@ if (loggedIn($where)) {
 		echo '
 			<form action="prideti_recepta.php" method="post" enctype="multipart/form-data">
 						<div class="form-group">
-							<label for="name" class="control-label">Pavadinimas:</label>
+							<label for="name" class="control-label">Pavadinimas</label>
 							<input class="form-control" type="text" name="name">
 						</div>
 						<div class="form-group">
-							<label class="control-label">Aprašymas:</label>
+							<label class="control-label">Aprašymas</label>
 							<textarea class="form-control" rows="8" name="description"></textarea>
 						</div>
 						<div class="form-group">
-							<label for="duration" class="control-label">Gamybos trukmė:</label>
+							<label for="duration" class="control-label"><span class="glyphicon glyphicon glyphicon-time"></span> Gamybos trukmė (minutėmis)</label>
 							<input class="form-control" type="text" name="duration">
 						</div>
 						<div class="form-group">
-							<label for="portions" class="control-label">Porcijos:</label>
+							<label for="portions" class="control-label"><span class="glyphicon glyphicon glyphicon-adjust"></span> Porcijos</label>
 							<input class="form-control" type="text" name="portions">
 						</div>
 						<div class="form-group">
-							<label for="photo" class="control-label">Nuotraukos:</label>
+							<label for="photo" class="control-label">Nuotraukos</label>
                             <input type="file" id="file" name="files[]" multiple="multiple" accept="image/*" />
 						</div>
 
 						<div class="form-group">
-							<label for="private" class="control-label">Privatus skelbimas:</label>
+							<label for="private" class="control-label">Privatus skelbimas</label>
 							<input type="checkbox" name="private" value="yes" />
 						</div>						
 
-						<input class="form-control" type="submit" value="Sukurti receptą ir pereiti į antrą etapą">	
+						<input class="form-control" type="submit" value="Baigta. Pereiti į Etapą 2">	
 				</form><br /><br /><br /><br /></div>';		
 	} else if (empty($_GET)) {
 		$name = $_POST["name"];
@@ -167,9 +167,9 @@ if (loggedIn($where)) {
 				echo   "</div>
 						</div>";
 
-				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$viewID\">Grįžti į etapą 1</a><br />";
+				echo "<a href=\"redaguoti_recepta.php?edit=true&id=$viewID\">Grįžti į Etapą 1 (Pagrindinė informacija)</a><br /><br />";
 
-				echo "<a class=\"form-control\" href=\"visi_receptai.php?view=$viewID\">Iššsaugoti</a>";
+				echo "<a class=\"form-control\" href=\"visi_receptai.php?view=$viewID\">Išsaugoti</a>";
 				/*echo '
 				<form action="prideti_recepta.php" method="post">
 				<input class="form-control" type="submit" value="Sukurti receptą">';*/
