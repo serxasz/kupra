@@ -76,8 +76,9 @@ if (loggedIn($where)) {
 					<tr> <td>
 					<center><button type="submit" class="btn btn-default" style=";width: 50%">Pridėti</button></center>
 					 </td></tr>
-				 </form></table>';
+				 </form>';
 	}
+	echo '</table>';
 } else {
 	include('include_content/not_registered.php');
 }

@@ -19,16 +19,17 @@ if (loggedIn($where)) {
 	 	
 	$menus_result = mysql_query("SELECT * FROM menus WHERE username='$username' ");
 	$menuid = 0;
+	if ($menus_result){
 	while ($menu = mysql_fetch_row($menus_result)) {	
 			$recept_id = 0;
-			$recept_result = mysql_query("SELECT * FROM menus_recipes WHERE menuid='$menu[0]' ");
+			$recept_result = mysql_query("SELECT * FROM menus_recipes WHERE menuid='$menu[2]' ");
 			while ($rec = mysql_fetch_row($recept_result)) {
 				$r_result = mysql_query('SELECT * FROM recipes WHERE id IN ('.$rec[1].')');
 				while ($r = mysql_fetch_row($r_result)) {
 						if (isset($_POST['trinti'.$menuid.''.$recept_id])) {
 			
 				
-				mysql_query( 'DELETE FROM menus_recipes WHERE recipeid = '.$r[0].'');
+				mysql_query( 'DELETE FROM menus_recipes WHERE recipeid = '.$r[0].' and menuid='.$menu[2].'');
 				
 			
 		}
@@ -40,23 +41,33 @@ if (loggedIn($where)) {
 			if (isset($_POST['go'.$menuid])) {
 							$pun = $_POST['taskOption'.$menuid];
 							
-							$sql = "INSERT INTO menus_recipes (recipeid, menuid, date) VALUES ('$pun', '$menu[0]','$datedate')";
+							$sql = "INSERT INTO menus_recipes (recipeid, menuid, date) VALUES ('$pun', '$menu[2]','$datedate')";
 							if (mysql_query($sql)) {
 								echo "<center>Receptas priskirtas</center>";
 							}
 						
 					}
+					
+					
+			if (isset($_POST['del'.$menuid])) {
+							
+							
+							mysql_query( 'DELETE FROM menus WHERE id = '.$menu[2].'');
+						
+						
+					}
 	$menuid = $menuid +1;
-	}
+	}}
 	
 	$menus_result = mysql_query("SELECT * FROM menus WHERE username='$username' ");
 	$menuid = 0;
+	if ($menus_result){
 	while ($menu = mysql_fetch_row($menus_result)) {
 	
 		echo "<table class=\"table table-bordered table-striped\" style=\"width: 80%\">
 			<tr>
 				
-			  	<th style=\"height: 120px\" colspan=\"2\"><center><BR><BR>Valgiaraštis $menu[0] '$menu[1]'</center></th>
+			  	<th style=\"height: 120px\" colspan=\"2\"><center><BR><BR>Valgiaraštis $menu[2] '$menu[1]'</center></th>
 			   
 
 	  	  	</tr>
@@ -79,8 +90,8 @@ if (loggedIn($where)) {
 						
 						
 					$recept_id = 0;
-	
-					$recept_result = mysql_query("SELECT * FROM menus_recipes WHERE menuid='$menu[0]' ");
+
+					$recept_result = mysql_query("SELECT * FROM menus_recipes WHERE menuid='$menu[2]' ");
 					
 					while ($rec = mysql_fetch_row($recept_result)) {
 					
@@ -123,18 +134,44 @@ if (loggedIn($where)) {
 			$result_quantityInfo = mysql_query($queryQuantityInfo);
 			$quantityInfo = mysql_fetch_row($result_quantityInfo);		
 			if (isset($_POST['gaminti'.$menuid.''.$recept_id])) {
-					$pun = $_POST['taskOption'.$menuid.''];
-					
 					
 					if (mysql_query( 'update fridge set quantity=quantity-'.$product[3].' where product_id='.$productInfo[0].'')) {
-						//echo "<center>Receptas Pagamintas</center>";
-						mysql_query( 'DELETE FROM  fridge WHERE quantity < 0');
+					
+						mysql_query( 'DELETE FROM  fridge WHERE quantity < 1');
 						
 						
 					}
 				
 			}
-			
+				if (isset($_POST['turiu'.$menuid.''.$recept_id])) {
+			//	mysql_query('INSERT INTO fridge (username, name) SELECT * FROM (SELECT '.$username.', '.$product[3].') AS tmp WHERE NOT EXISTS (  SELECT name FROM fridge WHERE name = '.$product[3].' LIMIT 1');
+						
+			//		mysql_query('IF NOT EXISTS 
+			//		( SELECT 1
+			//			FROM SELECT quantity FROM fridge
+			//		   WHERE product_id='.$productInfo[2].'  AND  username = '.$username.'
+			//		)
+			//		BEGIN
+			//		   INSERT INTO fridge (username, product_id, quantity, shelf) 
+			//		   VALUES  ("'.$username.'", "'.$productInfo[0].'", "'.$product[3].'","1") 
+			//		END');
+						
+						
+						if (mysql_query('INSERT INTO fridge (username, product_id, quantity, shelf) VALUES  ("'.$username.'", "'.$productInfo[0].'", "'.$product[3].'","1") ')) {
+						//echo "<center>Receptas Pagamintas</center>";
+						//'echo "zzz";
+						
+				}
+					
+					if (mysql_query( 'update fridge set quantity=GREATEST('.$product[3].',quantity) where product_id='.$productInfo[0].'')) {
+						
+						
+						//echo "<center>Receptas Pagamintas</center>";
+						
+					}
+					mysql_query( 'DELETE FROM  fridge where product_id='.$productInfo[0].' AND username='.$username.'  LIMIT 1');
+				
+			}
 		
 			
  
@@ -177,9 +214,9 @@ if (loggedIn($where)) {
 
 						
 						
-						echo '<td><font color="green">'.$num.'</font>/'.$product[3].'</td>';
+						echo '<td><font color="green" href="valgiarastis.php" >'.$num.'</font>/'.$product[3].'</td>';
 					} else {
-						echo '<td><font color="red">'.$num.'</font>/'.$product[3].'</td>';
+						echo '<td><font color="red"  ><a  color="red"  href="fridge.php?action=add">'.$num.'</a></font><font color="red"  >/'.$product[3].'</font></td>';
 						
 					}
 		       		echo "</tr>";
@@ -198,8 +235,10 @@ if (loggedIn($where)) {
 								if ($galipagaminti == true)
 								{
 									
+								
+									
 						echo '<center><form method="post" action="valgiarastis.php">
-							
+								
 								<input href="valgiarastis.php" class="btn btn-default"  name="gaminti' . $menuid . ''.$recept_id.'" type="submit" value="gaminti" style=" width:100%;height:100%"  />
 								
 								</form></center>';
@@ -207,8 +246,13 @@ if (loggedIn($where)) {
 								else
 									
 									{
-										echo '<center><form method="post" >
-							
+									
+								echo '<form method="post" action="valgiarastis.php">
+								<input href="valgiarastis.php" class="btn btn-default"  name="turiu' . $menuid . ''.$recept_id.'" type="submit" value="turiu reikiamus produktus" style=" width:100%;height:100%"  />
+								</form><br>';
+										echo 
+								'<center><form method="post" >
+		
 								<font color="red"><input color = "red" name="neuztenka produktų' . $menuid . ''.$recept_id.'" type="submit" value="neužtenka produktų pagaminti" style=" width:100%;height:100%;border: none"  />
 								</font>
 								</form></center>';
@@ -248,8 +292,12 @@ if (loggedIn($where)) {
 						<input name="go' . $menuid . '" type="submit" value="patvirtinti" />
 						</center>
 						</form>
-					
-					
+							<form method="post" action="valgiarastis.php">
+							<center>
+							<br>
+							<input name="del' . $menuid . '" type="submit" value="trinti" />
+						</center>
+							</form>
 					</td>
 				
 	       	
@@ -257,7 +305,7 @@ if (loggedIn($where)) {
 				  echo "</table>";
 				  	$menuid = $menuid + 1;
    	}
-
+}
 	
 		
 }else {
