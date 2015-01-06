@@ -28,7 +28,7 @@ if (loggedIn($where)) {
 		// Pagination 
 		$adjacents = 3;
 			// Total number of rows in table
-				$query = "SELECT COUNT(*) as num FROM recipes";
+				$query = "SELECT COUNT(*) as num FROM recipes WHERE private!='1' OR username='$username'";
 				$total_pages = mysql_fetch_array(mysql_query($query));
 				$total_pages = $total_pages[num];
 		
@@ -70,7 +70,7 @@ if (loggedIn($where)) {
 				else
 					$start = 0;								//if no page var is given, set start to 0
 
-		$queryRecipes = "SELECT * FROM recipes LIMIT $start, $limit";
+		$queryRecipes = "SELECT * FROM recipes WHERE private!='1' OR username='$username' LIMIT $start, $limit";
 		
 		$recipes_result = mysql_query($queryRecipes);
 

@@ -49,7 +49,7 @@ if (loggedIn($where)) {
 							<input type="checkbox" name="private" value="yes" />
 						</div>						
 
-						<input class="form-control" type="submit" value="Baigta. Pereiti į Etapą 2">	
+						<input class="form-control" type="submit" value="Baigta. Pereiti į Etapą 2 (Produktų pridėjimas)">	
 				</form><br /><br /><br /><br /></div>';		
 	} else if (empty($_GET)) {
 		$name = $_POST["name"];

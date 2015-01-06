@@ -61,7 +61,7 @@ if (loggedIn($where)) {
 						<input type=\"checkbox\" name=\"private\" value=\"yes\" />
 					</div>	
 
-					<input class=\"form-control\" type=\"submit\" value=\"Baigta. Pereiti į Etapą 2\">
+					<input class=\"form-control\" type=\"submit\" value=\"Baigta. Pereiti į Etapą 2 (Produktų redagavimas)\">
 			</form>";		
 	} else {
 		$name = $_POST["name"];
