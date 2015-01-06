@@ -14,7 +14,9 @@ if (loggedIn($where)) {
 	  <li><span class="glyphicon glyphicon-home"></span><a href="/"> Pradinis</a></li>
 	  <li><a href="/vnt_klasifikatorius.php">Vienetai</a></li>
 	  <li class="active">Pridėti vienetą</li>
-	</ol>';
+	</ol>
+	
+	 <table  style="background: rgba(245,245,245,0.7);width: 50%" class="table table-bordered" align="center" >';
 
 	echo "<h2>Pridėti vienetą</h2>";
 
@@ -64,11 +66,17 @@ if (loggedIn($where)) {
 	} else {
 		echo 	'<form class="form-inline" action="prideti_vieneta.php" method="post">
 					<div class="form-group">
-					 <label class="control-label" for="quantity">Pavadinimas</label>
-					 <input class="form-control" placeholder="" type="text" name="quantity">
+					<tr> <td>
+				<center>	 <label class="control-label" for="quantity">Pavadinimas</label></center>
+					  </td></tr>
+					 <tr> <td>
+					<center> <input class="form-control" placeholder="" type="text" name="quantity"></center>
+					   </td></tr>
 					</div>
-					<button type="submit" class="btn btn-default">Pridėti</button>
-				 </form>';
+					<tr> <td>
+					<center><button type="submit" class="btn btn-default" style=";width: 50%">Pridėti</button></center>
+					 </td></tr>
+				 </form></table>';
 	}
 } else {
 	include('include_content/not_registered.php');

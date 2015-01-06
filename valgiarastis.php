@@ -190,7 +190,7 @@ if (loggedIn($where)) {
 	  echo "</table>";
 						echo '<center><form method="post" action="valgiarastis.php">
 							
-								<input href="valgiarastis.php"  name="trinti' . $menuid . ''.$recept_id.'" type="submit" value="trinti" style=" width:100%;height:100%"  />
+								<input href="valgiarastis.php" class="btn btn-default"  name="trinti' . $menuid . ''.$recept_id.'" type="submit" value="trinti" style=" width:100%;height:100%"  />
 								
 								</form></center>';
 								
@@ -200,7 +200,7 @@ if (loggedIn($where)) {
 									
 						echo '<center><form method="post" action="valgiarastis.php">
 							
-								<input href="valgiarastis.php"  name="gaminti' . $menuid . ''.$recept_id.'" type="submit" value="gaminti" style=" width:100%;height:100%"  />
+								<input href="valgiarastis.php" class="btn btn-default"  name="gaminti' . $menuid . ''.$recept_id.'" type="submit" value="gaminti" style=" width:100%;height:100%"  />
 								
 								</form></center>';
 								}

@@ -29,7 +29,7 @@ if (loggedIn($where)) {
 		</div>
 		 </td></tr>
 		 <tr> <td>
-		<center><input name="go" type="submit" value="Sukurti Valgiarasti" /></center>
+		<center><input name="go" class="btn btn-default"  type="submit" value="Sukurti Valgiarasti" /></center>
 		 </td></tr>
 		
 		</form></table>';;
